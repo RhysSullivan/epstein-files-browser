@@ -6,6 +6,9 @@ import * as fs from "fs";
 import * as path from "path";
 import { execSync } from "child_process";
 
+// Configurable concurrency - AWS Rekognition default limit is 5 TPS
+const CONCURRENCY = parseInt(process.env.CONCURRENCY || "10");
+
 // Initialize Rekognition client
 const rekognition = new RekognitionClient({
   region: process.env.AWS_REGION || "us-east-1",
@@ -30,9 +33,14 @@ interface ProcessingResults {
   totalImages: number;
   imagesWithCelebrities: number;
   uniqueCelebrities: string[];
-  // Map of celebrity name -> list of appearances
   celebrityAppearances: Record<string, { file: string; page: number; confidence: number }[]>;
   results: PageResult[];
+}
+
+interface PageTask {
+  pdfPath: string;
+  page: number;
+  totalPages: number;
 }
 
 function getPageCount(pdfPath: string): number {
@@ -46,7 +54,8 @@ function getPageCount(pdfPath: string): number {
 }
 
 async function recognizeCelebrities(
-  imageBuffer: Buffer
+  imageBuffer: Buffer,
+  retries = 3
 ): Promise<CelebrityMatch[]> {
   try {
     const command = new RecognizeCelebritiesCommand({
@@ -70,20 +79,17 @@ async function recognizeCelebrities(
 
     return celebrities;
   } catch (error) {
-    if ((error as Error).name === "ThrottlingException") {
-      console.log(" [rate limited, waiting...]");
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      return recognizeCelebrities(imageBuffer);
+    const errName = (error as Error).name;
+    if ((errName === "ThrottlingException" || errName === "ProvisionedThroughputExceededException") && retries > 0) {
+      await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 2000));
+      return recognizeCelebrities(imageBuffer, retries - 1);
     }
     throw error;
   }
 }
 
-async function processPage(
-  pdfPath: string,
-  page: number,
-  totalPages: number
-): Promise<PageResult> {
+async function processPage(task: PageTask): Promise<PageResult> {
+  const { pdfPath, page, totalPages } = task;
   const result: PageResult = {
     file: pdfPath,
     page,
@@ -91,10 +97,9 @@ async function processPage(
     celebrities: [],
   };
 
-  const tempFile = `/tmp/pdf-page-${Date.now()}-${page}.png`;
+  const tempFile = `/tmp/pdf-page-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}.png`;
 
   try {
-    // Convert single page at lower res to handle large files
     execSync(
       `pdftoppm -png -r 100 -f ${page} -l ${page} -singlefile "${pdfPath}" "${tempFile.replace(".png", "")}"`,
       { stdio: "pipe" }
@@ -133,11 +138,76 @@ async function findPdfFiles(dir: string): Promise<string[]> {
   return pdfFiles.sort();
 }
 
+// Process tasks with limited concurrency
+async function processWithConcurrency<T, R>(
+  items: T[],
+  concurrency: number,
+  processor: (item: T, index: number) => Promise<R>,
+  onProgress?: (completed: number, total: number, result: R) => void
+): Promise<R[]> {
+  const results: R[] = [];
+  let nextIndex = 0;
+  let completedCount = 0;
+
+  async function worker(): Promise<void> {
+    while (nextIndex < items.length) {
+      const index = nextIndex++;
+      const item = items[index];
+      const result = await processor(item, index);
+      results[index] = result;
+      completedCount++;
+      if (onProgress) {
+        onProgress(completedCount, items.length, result);
+      }
+    }
+  }
+
+  const workers = Array(Math.min(concurrency, items.length))
+    .fill(null)
+    .map(() => worker());
+
+  await Promise.all(workers);
+  return results;
+}
+
+function saveResults(outputPath: string, results: PageResult[]) {
+  const uniqueCelebrities = new Set<string>();
+  const celebrityAppearances: Record<string, { file: string; page: number; confidence: number }[]> = {};
+
+  for (const r of results) {
+    for (const c of r.celebrities) {
+      uniqueCelebrities.add(c.name);
+      if (!celebrityAppearances[c.name]) {
+        celebrityAppearances[c.name] = [];
+      }
+      celebrityAppearances[c.name].push({
+        file: r.file,
+        page: r.page,
+        confidence: c.confidence,
+      });
+    }
+  }
+
+  for (const name of Object.keys(celebrityAppearances)) {
+    celebrityAppearances[name].sort((a, b) => b.confidence - a.confidence);
+  }
+
+  const output: ProcessingResults = {
+    processedAt: new Date().toISOString(),
+    totalImages: results.length,
+    imagesWithCelebrities: results.filter((r) => r.celebrities.length > 0).length,
+    uniqueCelebrities: Array.from(uniqueCelebrities).sort(),
+    celebrityAppearances,
+    results,
+  };
+
+  fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
+}
+
 async function main() {
   const filesDir = path.join(process.cwd(), "files");
   const limit = parseInt(process.argv[2] || "0") || Infinity;
 
-  // Check for pdftoppm
   try {
     execSync("which pdftoppm", { stdio: "pipe" });
   } catch {
@@ -145,6 +215,7 @@ async function main() {
     process.exit(1);
   }
 
+  console.log(`Concurrency: ${CONCURRENCY} parallel tasks`);
   console.log("Finding PDF files...");
   const pdfFiles = await findPdfFiles(filesDir);
   console.log(`Found ${pdfFiles.length} PDF files\n`);
@@ -166,52 +237,71 @@ async function main() {
     }
   }
 
-  const results: PageResult[] = [...existingResults];
-  let filesProcessed = 0;
-  let imagesProcessed = existingResults.length;
+  // Build list of all page tasks that need processing
+  const tasks: PageTask[] = [];
+  let filesConsidered = 0;
 
   for (const pdfPath of pdfFiles) {
-    if (filesProcessed >= limit) break;
+    if (filesConsidered >= limit) break;
 
     const pageCount = getPageCount(pdfPath);
-    // Check if all pages of this file are already processed
-    let allPagesProcessed = true;
-    for (let page = 1; page <= pageCount; page++) {
-      if (!processedKeys.has(`${pdfPath}:${page}`)) {
-        allPagesProcessed = false;
-        break;
-      }
-    }
-
-    if (allPagesProcessed) continue;
-
-    filesProcessed++;
-    console.log(`[${filesProcessed}/${Math.min(limit, pdfFiles.length)}] ${path.basename(pdfPath)} (${pageCount} pages)`);
+    let hasUnprocessedPages = false;
 
     for (let page = 1; page <= pageCount; page++) {
       const key = `${pdfPath}:${page}`;
-      if (processedKeys.has(key)) continue;
-
-      process.stdout.write(`  Page ${page}/${pageCount}...`);
-
-      const pageResult = await processPage(pdfPath, page, pageCount);
-      results.push(pageResult);
-      processedKeys.add(key);
-      imagesProcessed++;
-
-      if (pageResult.celebrities.length > 0) {
-        console.log(` Found: ${pageResult.celebrities.map((c) => c.name).join(", ")}`);
-      } else {
-        console.log(" -");
+      if (!processedKeys.has(key)) {
+        tasks.push({ pdfPath, page, totalPages: pageCount });
+        hasUnprocessedPages = true;
       }
-
-      // Small delay
-      await new Promise((resolve) => setTimeout(resolve, 50));
     }
 
-    // Save after each file
-    saveResults(outputPath, results);
+    if (hasUnprocessedPages) {
+      filesConsidered++;
+    }
   }
+
+  console.log(`Tasks to process: ${tasks.length} pages from ${filesConsidered} files\n`);
+
+  if (tasks.length === 0) {
+    console.log("Nothing to process!");
+    return;
+  }
+
+  const results: PageResult[] = [...existingResults];
+  let celebsFound = 0;
+  let lastSaveTime = Date.now();
+  const startTime = Date.now();
+
+  await processWithConcurrency(
+    tasks,
+    CONCURRENCY,
+    async (task) => {
+      return await processPage(task);
+    },
+    (completed, total, result) => {
+      results.push(result);
+
+      if (result.celebrities.length > 0) {
+        celebsFound++;
+        console.log(
+          `[${completed}/${total}] ${path.basename(result.file)} p${result.page}: ${result.celebrities.map((c) => `${c.name} (${c.confidence.toFixed(1)}%)`).join(", ")}`
+        );
+      } else if (completed % 50 === 0 || completed === total) {
+        const elapsed = (Date.now() - startTime) / 1000;
+        const rate = completed / elapsed;
+        const remaining = (total - completed) / rate;
+        console.log(
+          `[${completed}/${total}] Progress: ${((completed / total) * 100).toFixed(1)}% | ${rate.toFixed(1)} pages/sec | ETA: ${Math.ceil(remaining / 60)} min`
+        );
+      }
+
+      // Save every 30 seconds
+      if (Date.now() - lastSaveTime > 30000) {
+        saveResults(outputPath, results);
+        lastSaveTime = Date.now();
+      }
+    }
+  );
 
   // Final save
   saveResults(outputPath, results);
@@ -224,47 +314,14 @@ async function main() {
     }
   }
 
+  const elapsed = (Date.now() - startTime) / 1000;
   console.log("\n========== SUMMARY ==========");
+  console.log(`Total time: ${(elapsed / 60).toFixed(1)} minutes`);
   console.log(`Total images processed: ${results.length}`);
   console.log(`Images with celebrities: ${results.filter((r) => r.celebrities.length > 0).length}`);
   console.log(`Unique celebrities: ${uniqueCelebs.size}`);
   console.log(`\nResults saved to: celebrity-results.json`);
   console.log(`Estimated cost: $${(results.length * 0.001).toFixed(2)}`);
-}
-
-function saveResults(outputPath: string, results: PageResult[]) {
-  const uniqueCelebrities = new Set<string>();
-  const celebrityAppearances: Record<string, { file: string; page: number; confidence: number }[]> = {};
-
-  for (const r of results) {
-    for (const c of r.celebrities) {
-      uniqueCelebrities.add(c.name);
-      if (!celebrityAppearances[c.name]) {
-        celebrityAppearances[c.name] = [];
-      }
-      celebrityAppearances[c.name].push({
-        file: r.file,
-        page: r.page,
-        confidence: c.confidence,
-      });
-    }
-  }
-
-  // Sort appearances by confidence
-  for (const name of Object.keys(celebrityAppearances)) {
-    celebrityAppearances[name].sort((a, b) => b.confidence - a.confidence);
-  }
-
-  const output: ProcessingResults = {
-    processedAt: new Date().toISOString(),
-    totalImages: results.length,
-    imagesWithCelebrities: results.filter((r) => r.celebrities.length > 0).length,
-    uniqueCelebrities: Array.from(uniqueCelebrities).sort(),
-    celebrityAppearances,
-    results,
-  };
-
-  fs.writeFileSync(outputPath, JSON.stringify(output, null, 2));
 }
 
 main().catch(console.error);

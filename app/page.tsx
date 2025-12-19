@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import Link from "next/link";
+
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useQueryState } from "nuqs";
 import {
@@ -13,6 +13,7 @@ import {
   getCelebritiesAboveConfidence,
   getFilesForCelebrity,
 } from "@/lib/celebrity-data";
+import { CelebrityCombobox } from "@/components/celebrity-combobox";
 
 const WORKER_URL =
   process.env.NODE_ENV === "development"
@@ -76,7 +77,7 @@ function PdfThumbnail({ fileKey }: { fileKey: string }) {
 // File card component
 function FileCard({ file }: { file: FileItem }) {
   return (
-    <Link
+    <a
       href={`/file/${encodeURIComponent(file.key)}`}
       className="group bg-zinc-900 border border-zinc-800 rounded-lg p-3 hover:border-zinc-600 hover:bg-zinc-800/50 transition-all"
     >
@@ -93,7 +94,7 @@ function FileCard({ file }: { file: FileItem }) {
         </h3>
         <p className="text-xs text-zinc-500">{formatFileSize(file.size)}</p>
       </div>
-    </Link>
+    </a>
   );
 }
 
@@ -127,7 +128,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [cursor, setCursor] = useState<string | null>(cachedData.cursor);
   const [hasMore, setHasMore] = useState(cachedData.hasMore);
-  const [searchQuery, setSearchQuery] = useState("");
+
   const [collectionFilter, setCollectionFilter] = useQueryState("collection", {
     defaultValue: "All",
   });
@@ -243,15 +244,7 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [collectionFilter, celebrityFilter]);
 
-  // Client-side search filter only
-  const filteredFiles = files.filter((file) => {
-    if (!searchQuery) return true;
-    const fileId = getFileId(file.key);
-    return (
-      fileId.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      file.key.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
+  const filteredFiles = files;
 
   // Group files into rows for virtualization
   const rows: FileItem[][] = [];
@@ -328,32 +321,15 @@ export default function Home() {
                 <option value="VOL00004">VOL00004</option>
               </select>
             </div>
-            <div>
-              <select
-                value={celebrityFilter}
-                onChange={(e) => setCelebrityFilter(e.target.value)}
-                className="px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="All">All People</option>
-                {celebrities.map((celeb) => (
-                  <option key={celeb.name} value={celeb.name}>
-                    {celeb.name} ({celeb.count})
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex-1 max-w-md">
-              <input
-                type="text"
-                placeholder="Search by file ID (e.g., EFTA00000001)..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
+            <CelebrityCombobox
+              celebrities={celebrities}
+              value={celebrityFilter}
+              onValueChange={(value) => setCelebrityFilter(value)}
+            />
+
             <div className="text-sm text-zinc-400">
               {files.length.toLocaleString()} files loaded
-              {(searchQuery || collectionFilter !== "All" || celebrityFilter !== "All") && ` (${filteredFiles.length} matching)`}
+              {(collectionFilter !== "All" || celebrityFilter !== "All") && ` (${filteredFiles.length} matching)`}
             </div>
           </div>
         </div>
@@ -364,6 +340,24 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="bg-red-900/50 border border-red-700 text-red-200 px-4 py-3 rounded-lg">
             {error}
+          </div>
+        </div>
+      )}
+
+      {/* Celebrity Detection Disclaimer */}
+      {celebrityFilter !== "All" && (
+        <div className="max-w-7xl mx-auto px-4 pt-4 shrink-0">
+          <div className="bg-amber-900/30 border border-amber-700/50 text-amber-200 px-4 py-3 rounded-lg text-sm">
+            Celebrity detection is done via{" "}
+            <a
+              href="https://aws.amazon.com/rekognition/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-amber-100"
+            >
+              AWS Rekognition
+            </a>
+            . It may not be accurate and I have not vetted them. These are limited to results that AWS Rekognition reported with {">"}99% confidence.
           </div>
         </div>
       )}
@@ -435,11 +429,7 @@ export default function Home() {
             </div>
           )}
 
-          {!loading && files.length > 0 && filteredFiles.length === 0 && (
-            <div className="text-center py-12">
-              <p className="text-zinc-500">No files match your search</p>
-            </div>
-          )}
+
         </div>
       </div>
     </div>

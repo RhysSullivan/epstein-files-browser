@@ -41,8 +41,14 @@ async function generateThumbnail(
       { stdio: "pipe" }
     );
 
-    // pdftoppm adds -1 suffix for page 1
-    const actualTempPng = `${tempPrefix}-1.png`;
+    // pdftoppm adds -1 or -01 suffix depending on total pages
+    let actualTempPng = `${tempPrefix}-1.png`;
+    if (!fs.existsSync(actualTempPng)) {
+      actualTempPng = `${tempPrefix}-01.png`;
+    }
+    if (!fs.existsSync(actualTempPng)) {
+      actualTempPng = `${tempPrefix}-001.png`;
+    }
 
     if (!fs.existsSync(actualTempPng)) {
       console.error(`No output generated for ${pdfPath}`);

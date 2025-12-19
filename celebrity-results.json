@@ -1,9 +1,208 @@
 {
-  "processedAt": "2025-12-19T22:54:18.969Z",
-  "totalImages": 5,
-  "imagesWithCelebrities": 0,
-  "uniqueCelebrities": [],
-  "celebrityAppearances": {},
+  "processedAt": "2025-12-19T23:56:58.151Z",
+  "totalImages": 318,
+  "imagesWithCelebrities": 23,
+  "uniqueCelebrities": [
+    "Albert Einstein",
+    "Bill Kenney",
+    "Billie Thomas",
+    "Brian Robertson",
+    "Caraun Reid",
+    "Charles II of Spain",
+    "Christian Jones",
+    "Del Kathryn Barton",
+    "Edgar Faure",
+    "Elisa Longo Borghini",
+    "Elly Tumwine",
+    "Filippo Lippi",
+    "Freddie Williams II",
+    "Fritz Haber",
+    "Gayatri Devi",
+    "Guy Mitchell",
+    "Jeffrey Epstein",
+    "Jonathan Cyprien",
+    "Manuela Sáenz",
+    "Mary Jepkosgei Keitany",
+    "Osceola",
+    "Richard III of England",
+    "Richard M. Cohen",
+    "Steve Bannon"
+  ],
+  "celebrityAppearances": {
+    "Edgar Faure": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000032.pdf",
+        "page": 1,
+        "confidence": 84.63536834716797
+      }
+    ],
+    "Fritz Haber": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000035.pdf",
+        "page": 1,
+        "confidence": 75.48844146728516
+      }
+    ],
+    "Richard M. Cohen": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000035.pdf",
+        "page": 1,
+        "confidence": 87.12858581542969
+      }
+    ],
+    "Caraun Reid": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000039.pdf",
+        "page": 1,
+        "confidence": 76.73905944824219
+      }
+    ],
+    "Jonathan Cyprien": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000186.pdf",
+        "page": 1,
+        "confidence": 85.07024383544922
+      },
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000041.pdf",
+        "page": 1,
+        "confidence": 77.14033508300781
+      }
+    ],
+    "Del Kathryn Barton": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000055.pdf",
+        "page": 1,
+        "confidence": 87.4739990234375
+      }
+    ],
+    "Billie Thomas": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000060.pdf",
+        "page": 1,
+        "confidence": 86.83168029785156
+      }
+    ],
+    "Elly Tumwine": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000063.pdf",
+        "page": 1,
+        "confidence": 86.34158325195312
+      }
+    ],
+    "Steve Bannon": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000078.pdf",
+        "page": 1,
+        "confidence": 84.02486419677734
+      }
+    ],
+    "Osceola": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000116.pdf",
+        "page": 1,
+        "confidence": 82.01262664794922
+      }
+    ],
+    "Brian Robertson": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000117.pdf",
+        "page": 1,
+        "confidence": 77.2260513305664
+      }
+    ],
+    "Christian Jones": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000119.pdf",
+        "page": 1,
+        "confidence": 94.52938842773438
+      }
+    ],
+    "Richard III of England": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000121.pdf",
+        "page": 1,
+        "confidence": 80.84886169433594
+      }
+    ],
+    "Freddie Williams II": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000137.pdf",
+        "page": 1,
+        "confidence": 91.0025405883789
+      }
+    ],
+    "Guy Mitchell": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000141.pdf",
+        "page": 1,
+        "confidence": 89.20665740966797
+      }
+    ],
+    "Albert Einstein": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000142.pdf",
+        "page": 1,
+        "confidence": 99.99280548095703
+      }
+    ],
+    "Bill Kenney": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000163.pdf",
+        "page": 1,
+        "confidence": 79.86778259277344
+      }
+    ],
+    "Mary Jepkosgei Keitany": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000183.pdf",
+        "page": 1,
+        "confidence": 77.75081634521484
+      }
+    ],
+    "Gayatri Devi": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000207.pdf",
+        "page": 1,
+        "confidence": 88.30023193359375
+      }
+    ],
+    "Jeffrey Epstein": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000216.pdf",
+        "page": 1,
+        "confidence": 99.94136047363281
+      }
+    ],
+    "Manuela Sáenz": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000234.pdf",
+        "page": 1,
+        "confidence": 79.32661437988281
+      }
+    ],
+    "Charles II of Spain": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000235.pdf",
+        "page": 1,
+        "confidence": 75.17676544189453
+      }
+    ],
+    "Filippo Lippi": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000235.pdf",
+        "page": 1,
+        "confidence": 88.58346557617188
+      }
+    ],
+    "Elisa Longo Borghini": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000263.pdf",
+        "page": 1,
+        "confidence": 79.0850830078125
+      }
+    ]
+  },
   "results": [
     {
       "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000001.pdf",
@@ -31,6 +230,2093 @@
     },
     {
       "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000005.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000006.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000007.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000008.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000021.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000010.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000016.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000017.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000013.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000009.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000022.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000023.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000019.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000011.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000015.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000020.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000012.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000018.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000014.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000024.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000025.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000026.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000027.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000028.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000029.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000030.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000031.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000032.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Edgar Faure",
+          "confidence": 84.63536834716797,
+          "urls": [
+            "www.wikidata.org/wiki/Q327013",
+            "www.imdb.com/name/nm1851340"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000033.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000034.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000035.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Fritz Haber",
+          "confidence": 75.48844146728516,
+          "urls": [
+            "www.wikidata.org/wiki/Q57075",
+            "www.imdb.com/name/nm11919029"
+          ]
+        },
+        {
+          "name": "Richard M. Cohen",
+          "confidence": 87.12858581542969,
+          "urls": [
+            "www.wikidata.org/wiki/Q7327535",
+            "www.imdb.com/name/nm1829627"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000036.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000037.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000038.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000039.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Caraun Reid",
+          "confidence": 76.73905944824219,
+          "urls": [
+            "www.wikidata.org/wiki/Q16848087"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000041.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Jonathan Cyprien",
+          "confidence": 77.14033508300781,
+          "urls": [
+            "www.wikidata.org/wiki/Q6272870",
+            "www.imdb.com/name/nm5527349"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000040.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000043.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000042.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000044.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000045.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000046.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000047.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000048.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000049.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000050.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000051.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000052.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000053.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000054.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000055.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Del Kathryn Barton",
+          "confidence": 87.4739990234375,
+          "urls": [
+            "www.wikidata.org/wiki/Q5252901"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000056.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000057.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000058.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000059.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000060.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Billie Thomas",
+          "confidence": 86.83168029785156,
+          "urls": [
+            "www.wikidata.org/wiki/Q3640017",
+            "www.imdb.com/name/nm0858537"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000061.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000062.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000063.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Elly Tumwine",
+          "confidence": 86.34158325195312,
+          "urls": [
+            "www.wikidata.org/wiki/Q5366225"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000064.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000065.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000066.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000067.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000068.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000069.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000070.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000071.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000072.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000073.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000074.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000075.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000076.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000077.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000078.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Steve Bannon",
+          "confidence": 84.02486419677734,
+          "urls": [
+            "www.wikidata.org/wiki/Q16146870",
+            "www.imdb.com/name/nm0052442"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000079.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000080.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000081.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000082.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000083.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000084.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000085.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000086.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000087.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000088.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000089.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000090.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000091.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000092.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000093.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000094.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000095.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000096.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000097.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000098.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000099.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000100.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000101.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000102.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000103.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000104.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000105.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000106.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000107.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000108.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000109.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000110.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000111.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000112.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000113.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000114.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000115.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000116.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Osceola",
+          "confidence": 82.01262664794922,
+          "urls": [
+            "www.wikidata.org/wiki/Q335165"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000117.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Brian Robertson",
+          "confidence": 77.2260513305664,
+          "urls": [
+            "www.wikidata.org/wiki/Q588175",
+            "www.imdb.com/name/nm3218419"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000118.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000119.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Christian Jones",
+          "confidence": 94.52938842773438,
+          "urls": [
+            "www.wikidata.org/wiki/Q16233894"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000120.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000121.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Richard III of England",
+          "confidence": 80.84886169433594,
+          "urls": [
+            "www.wikidata.org/wiki/Q133028"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000122.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000123.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000124.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000125.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000126.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000127.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000128.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000129.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000130.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000131.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000132.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000133.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000134.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000136.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000135.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000137.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Freddie Williams II",
+          "confidence": 91.0025405883789,
+          "urls": [
+            "www.wikidata.org/wiki/Q5496825"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000139.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000138.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000140.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000141.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Guy Mitchell",
+          "confidence": 89.20665740966797,
+          "urls": [
+            "www.wikidata.org/wiki/Q222921",
+            "www.imdb.com/name/nm0593378"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000142.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Albert Einstein",
+          "confidence": 99.99280548095703,
+          "urls": [
+            "www.wikidata.org/wiki/Q937",
+            "www.imdb.com/name/nm0251868"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000143.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000144.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000145.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000146.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000147.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000148.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000150.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000149.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000151.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000152.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000153.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000154.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000155.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000156.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000157.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000158.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000159.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000160.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000161.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000162.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000163.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Bill Kenney",
+          "confidence": 79.86778259277344,
+          "urls": [
+            "www.wikidata.org/wiki/Q4909710"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000164.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000165.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000166.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000167.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000168.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000169.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000170.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000174.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000172.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000173.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000175.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000176.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000171.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000177.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000178.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000179.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000180.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000181.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000182.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000183.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Mary Jepkosgei Keitany",
+          "confidence": 77.75081634521484,
+          "urls": [
+            "www.wikidata.org/wiki/Q271166"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000184.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000185.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000187.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000188.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000186.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Jonathan Cyprien",
+          "confidence": 85.07024383544922,
+          "urls": [
+            "www.wikidata.org/wiki/Q6272870",
+            "www.imdb.com/name/nm5527349"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000189.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000190.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000191.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000192.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000193.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000194.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000195.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000196.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000197.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000198.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000199.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000200.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000202.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000201.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000203.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000204.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000205.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000206.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000207.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Gayatri Devi",
+          "confidence": 88.30023193359375,
+          "urls": [
+            "www.wikidata.org/wiki/Q464914"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000208.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000209.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000210.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000211.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000212.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000213.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000214.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000215.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000216.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Jeffrey Epstein",
+          "confidence": 99.94136047363281,
+          "urls": [
+            "www.wikidata.org/wiki/Q2904131",
+            "www.imdb.com/name/nm10830113"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000217.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000218.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000219.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000220.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000221.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000222.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000223.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000224.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000225.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000226.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000227.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000228.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000229.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000230.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000231.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000232.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000233.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000234.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Manuela Sáenz",
+          "confidence": 79.32661437988281,
+          "urls": [
+            "www.wikidata.org/wiki/Q372074"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000235.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Charles II of Spain",
+          "confidence": 75.17676544189453,
+          "urls": [
+            "www.wikidata.org/wiki/Q36174"
+          ]
+        },
+        {
+          "name": "Filippo Lippi",
+          "confidence": 88.58346557617188,
+          "urls": [
+            "www.wikidata.org/wiki/Q205148"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000236.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000237.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000238.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000239.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000240.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000241.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000242.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000243.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000244.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000245.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000246.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000247.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000248.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000249.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000250.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000251.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000252.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000253.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000254.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000255.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000256.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000257.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000258.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000259.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000260.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000261.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000262.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000263.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": [
+        {
+          "name": "Elisa Longo Borghini",
+          "confidence": 79.0850830078125,
+          "urls": [
+            "www.wikidata.org/wiki/Q462480"
+          ]
+        }
+      ]
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000264.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000265.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000266.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000267.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000268.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000269.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000270.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000271.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000272.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000273.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000274.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000275.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000276.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000277.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000278.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000279.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000280.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000281.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000282.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000283.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000284.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000285.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000286.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000287.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000288.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000289.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000290.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000291.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000292.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000293.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000294.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000295.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000296.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000297.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000298.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000299.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000300.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000301.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000302.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000303.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000304.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000305.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000306.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000307.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000308.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000309.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000310.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000311.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000312.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000313.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000314.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000315.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000316.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000317.pdf",
+      "page": 1,
+      "totalPages": 1,
+      "celebrities": []
+    },
+    {
+      "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000318.pdf",
       "page": 1,
       "totalPages": 1,
       "celebrities": []
