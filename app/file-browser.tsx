@@ -40,7 +40,7 @@ function Thumbnail({ fileKey }: { fileKey: string }) {
     <img
       src={thumbnailUrl}
       alt="Document thumbnail"
-      className="aspect-[3/4] w-full object-cover object-top bg-secondary rounded-xl"
+      className="aspect-[3/4] w-full object-cover object-top bg-secondary"
       loading="lazy"
     />
   );
@@ -51,30 +51,28 @@ function FileCard({ file, onClick }: { file: FileItem; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="group relative bg-card border border-border rounded-2xl p-3 hover:border-primary/50 hover:bg-accent/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 text-left w-full"
+      className="group relative bg-card rounded-xl overflow-hidden text-left w-full transition-all duration-200 hover:scale-[1.02] hover:shadow-xl hover:shadow-black/20"
       style={{ contentVisibility: 'auto', containIntrinsicSize: '0 280px' }}
     >
-      <div className="mb-3 overflow-hidden rounded-xl group-hover:ring-2 group-hover:ring-primary/20">
+      {/* Thumbnail */}
+      <div className="relative">
         <Thumbnail fileKey={file.key} />
+        {/* Gradient overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+        {/* File ID overlay on hover */}
+        <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-200">
+          <p className="font-mono text-sm font-medium text-white drop-shadow-lg tabular-nums tracking-tight">
+            {getFileId(file.key)}
+          </p>
+          <p className="text-xs text-white/70 tabular-nums mt-0.5">{formatFileSize(file.size)}</p>
+        </div>
       </div>
 
-      <div className="space-y-1.5">
-        <h3
-          className="font-mono text-sm font-medium text-foreground truncate group-hover:text-primary"
-          title={getFileId(file.key)}
-        >
+      {/* Static label below thumbnail */}
+      <div className="px-3 py-2.5 bg-secondary/40">
+        <p className="font-mono text-xs text-muted-foreground truncate group-hover:text-foreground transition-colors tabular-nums tracking-tight">
           {getFileId(file.key)}
-        </h3>
-        <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
-      </div>
-      
-      {/* Hover indicator */}
-      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100">
-        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-          <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
+        </p>
       </div>
     </button>
   );
@@ -83,7 +81,7 @@ function FileCard({ file, onClick }: { file: FileItem; onClick: () => void }) {
 // Get celebrities for a specific file and page
 function getCelebritiesForPage(filePath: string, pageNumber: number): { name: string; confidence: number }[] {
   const celebrities: { name: string; confidence: number }[] = [];
-  
+
   for (const celebrity of CELEBRITY_DATA) {
     for (const appearance of celebrity.appearances) {
       if (appearance.file === filePath && appearance.page === pageNumber) {
@@ -94,14 +92,14 @@ function getCelebritiesForPage(filePath: string, pageNumber: number): { name: st
       }
     }
   }
-  
+
   return celebrities.sort((a, b) => b.confidence - a.confidence).filter(celeb => celeb.confidence > 99);
 }
 
 // Prefetch a PDF in the background
 async function prefetchPdf(filePath: string): Promise<void> {
   if (getPdfPages(filePath)) return;
-  
+
   try {
     const fileUrl = `${WORKER_URL}/${filePath}`;
     const pdfjsLib = await import("pdfjs-dist");
@@ -140,17 +138,17 @@ async function prefetchPdf(filePath: string): Promise<void> {
 }
 
 // Modal component for viewing files
-function FileModal({ 
-  file, 
-  onClose, 
-  onPrev, 
+function FileModal({
+  file,
+  onClose,
+  onPrev,
   onNext,
   hasPrev,
   hasNext,
   queryString,
   nextFile
-}: { 
-  file: FileItem; 
+}: {
+  file: FileItem;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
@@ -162,7 +160,7 @@ function FileModal({
   const [pages, setPages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
+
   const filePath = file.key;
   const fileId = getFileId(filePath);
   const fileUrl = `${WORKER_URL}/${filePath}`;
@@ -193,7 +191,7 @@ function FileModal({
   // Load PDF
   useEffect(() => {
     const cached = getPdfPages(filePath);
-    
+
     if (cached && cached.length > 0) {
       setPages(cached);
       setLoading(false);
@@ -262,7 +260,7 @@ function FileModal({
       cancelled = true;
     };
   }, [fileUrl, filePath]);
-  
+
   // Prefetch next PDF
   useEffect(() => {
     if (!loading && nextFile) {
@@ -273,11 +271,11 @@ function FileModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-background/95 backdrop-blur-sm"
         onClick={onClose}
       />
-      
+
       {/* Modal content */}
       <div className="relative w-full h-full flex flex-col">
         {/* Header */}
@@ -293,14 +291,14 @@ function FileModal({
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <h1 className="text-base sm:text-lg font-mono font-semibold text-foreground truncate">{fileId}</h1>
+              <h1 className="text-mono text-heading text-foreground truncate">{fileId}</h1>
             </div>
 
             {/* Actions */}
             <div className="flex items-center gap-2 flex-shrink-0">
               <Link
                 href={`/file/${encodeURIComponent(filePath)}${queryString}`}
-                className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2"
+                className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-body flex items-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -310,7 +308,7 @@ function FileModal({
               <a
                 href={fileUrl}
                 download
-                className="p-2 sm:px-4 sm:py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-primary/20"
+                className="p-2 sm:px-4 sm:py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-body font-medium flex items-center gap-2 shadow-lg shadow-primary/20"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -329,8 +327,8 @@ function FileModal({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <div>
-                <p className="font-medium">Error loading PDF</p>
-                <p className="text-sm text-destructive/80 mt-0.5">{error}</p>
+                <p className="text-subheading">Error loading PDF</p>
+                <p className="text-caption text-destructive/80 mt-1">{error}</p>
               </div>
             </div>
           )}
@@ -342,7 +340,7 @@ function FileModal({
                 <div key={index} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
                   <div className="relative">
                     {pages.length > 1 && (
-                      <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs font-medium text-muted-foreground border border-border">
+                      <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-label text-muted-foreground border border-border tabular-nums">
                         Page {index + 1}
                       </div>
                     )}
@@ -362,16 +360,16 @@ function FileModal({
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                           </svg>
                         </div>
-                        <p className="text-sm font-medium text-foreground">Detected in this image:</p>
+                        <p className="text-body font-medium text-foreground">Detected in this image</p>
                       </div>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {pageCelebrities.map((celeb, idx) => (
                           <span
                             key={idx}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-card border border-border text-foreground"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-caption bg-card border border-border text-foreground"
                           >
                             <span>{celeb.name}</span>
-                            <span className="text-xs text-muted-foreground">({Math.round(celeb.confidence)}%)</span>
+                            <span className="text-label text-muted-foreground tabular-nums">{Math.round(celeb.confidence)}%</span>
                           </span>
                         ))}
                       </div>
@@ -384,12 +382,12 @@ function FileModal({
           </div>
 
           {loading && (
-            <div className="flex flex-col items-center justify-center py-16 gap-5">
+            <div className="flex flex-col items-center justify-center py-16 gap-4">
               <div className="relative">
-                <div className="w-12 h-12 rounded-full border-2 border-secondary"></div>
-                <div className="absolute inset-0 w-12 h-12 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+                <div className="w-10 h-10 rounded-full border-2 border-secondary"></div>
+                <div className="absolute inset-0 w-10 h-10 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
               </div>
-              <p className="text-foreground font-medium">Loading PDF...</p>
+              <p className="text-body text-muted-foreground">Loading document...</p>
             </div>
           )}
         </div>
@@ -399,14 +397,14 @@ function FileModal({
           {hasPrev ? (
             <button
               onClick={onPrev}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-caption text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
             >
-              <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">←</kbd>
+              <kbd className="px-2 py-0.5 bg-secondary rounded-md text-mono text-micro text-foreground">←</kbd>
               <span>Prev</span>
             </button>
           ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
-              <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">←</kbd>
+            <div className="flex items-center gap-1.5 px-3 py-1.5 text-caption text-muted-foreground/40 cursor-not-allowed">
+              <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md text-mono text-micro text-muted-foreground/40">←</kbd>
               <span>Prev</span>
             </div>
           )}
@@ -414,15 +412,15 @@ function FileModal({
           {hasNext ? (
             <button
               onClick={onNext}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-caption text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
             >
               <span>Next</span>
-              <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">→</kbd>
+              <kbd className="px-2 py-0.5 bg-secondary rounded-md text-mono text-micro text-foreground">→</kbd>
             </button>
           ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
+            <div className="flex items-center gap-1.5 px-3 py-1.5 text-caption text-muted-foreground/40 cursor-not-allowed">
               <span>Next</span>
-              <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">→</kbd>
+              <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md text-mono text-micro text-muted-foreground/40">→</kbd>
             </div>
           )}
         </div>
@@ -471,30 +469,30 @@ export function FileBrowser() {
     const str = params.toString();
     return str ? `?${str}` : "";
   }, [collectionFilter, celebrityFilter]);
-  
+
   // Modal state - find index from file key
   const selectedFileIndex = useMemo(() => {
     if (!openFile) return null;
     const index = filteredFiles.findIndex(f => f.key === openFile);
     return index >= 0 ? index : null;
   }, [openFile, filteredFiles]);
-  
+
   const selectedFile = selectedFileIndex !== null ? filteredFiles[selectedFileIndex] : null;
   const hasPrev = selectedFileIndex !== null && selectedFileIndex > 0;
   const hasNext = selectedFileIndex !== null && selectedFileIndex < filteredFiles.length - 1;
-  
+
   const handlePrev = useCallback(() => {
     if (selectedFileIndex !== null && selectedFileIndex > 0) {
       setOpenFile(filteredFiles[selectedFileIndex - 1].key);
     }
   }, [selectedFileIndex, filteredFiles, setOpenFile]);
-  
+
   const handleNext = useCallback(() => {
     if (selectedFileIndex !== null && selectedFileIndex < filteredFiles.length - 1) {
       setOpenFile(filteredFiles[selectedFileIndex + 1].key);
     }
   }, [selectedFileIndex, filteredFiles, setOpenFile]);
-  
+
   const handleClose = useCallback(() => {
     setOpenFile(null);
   }, [setOpenFile]);
@@ -505,13 +503,9 @@ export function FileBrowser() {
       <header className="border-b border-border bg-card/80 backdrop-blur-xl sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-3">
-              <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
-                  Epstein Files Browser
-                </h1>
-              </div>
-            </div>
+            <h1 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+              Epstein Files Browser
+            </h1>
             <a
               href="https://github.com/RhysSullivan/epstein-files-browser"
               target="_blank"
@@ -539,7 +533,7 @@ export function FileBrowser() {
               <select
                 value={collectionFilter}
                 onChange={(e) => setCollectionFilter(e.target.value)}
-                className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
+                className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-body text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
               >
                 <option value="All">All Collections</option>
                 <option value="VOL00001">Volume 1</option>
@@ -559,13 +553,15 @@ export function FileBrowser() {
               onValueChange={(value) => setCelebrityFilter(value)}
             />
 
-            <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 rounded-xl">
-              <span className="text-sm font-medium text-muted-foreground">
-                {filteredFiles.length.toLocaleString()} files
-                {collectionFilter !== "All" || celebrityFilter !== "All"
-                  ? <span className="text-foreground/50"> / {initialFiles.length.toLocaleString()}</span>
-                  : ""}
-              </span>
+            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <span className="font-mono font-medium text-foreground tabular-nums">{filteredFiles.length.toLocaleString()}</span>
+              {collectionFilter !== "All" || celebrityFilter !== "All" ? (
+                <>
+                  <span>/</span>
+                  <span className="font-mono tabular-nums">{initialFiles.length.toLocaleString()}</span>
+                </>
+              ) : null}
+              <span className="ml-0.5">documents</span>
             </div>
           </div>
         </div>
@@ -574,20 +570,17 @@ export function FileBrowser() {
       {/* Celebrity Detection Disclaimer */}
       {celebrityFilter !== "All" && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
-          <div className="bg-amber-500/10 border border-amber-500/20 text-amber-200 px-5 py-4 rounded-2xl backdrop-blur-sm">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
-              </div>
-              <div>
-                <CelebrityDisclaimer className="text-amber-200/90 [&_a]:text-amber-300 [&_a]:hover:text-amber-100" />
-                <p className="text-sm mt-1.5 text-amber-200/70">
-                  Results limited to {">"}99% confidence matches from AWS Rekognition.
-                </p>
-              </div>
-            </div>
+          <div className="inline-flex items-center gap-2 px-4 py-2.5 bg-secondary/60 border border-border rounded-full text-sm text-muted-foreground">
+            <svg className="w-4 h-4 text-amber-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>
+              AI detection via{" "}
+              <a href="https://aws.amazon.com/rekognition/" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-primary transition-colors">
+                AWS Rekognition
+              </a>
+              {" "}&middot; <span className="font-mono tabular-nums">&gt;99%</span> confidence &middot; Results may be inaccurate
+            </span>
           </div>
         </div>
       )}
@@ -603,13 +596,13 @@ export function FileBrowser() {
         {/* Empty state */}
         {filteredFiles.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mb-4">
-              <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            <div className="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center mb-4">
+              <svg className="w-7 h-7 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-1">No files found</h3>
-            <p className="text-muted-foreground text-sm">Try adjusting your filters to find what you&apos;re looking for.</p>
+            <h3 className="text-subheading text-foreground mb-1">No documents found</h3>
+            <p className="text-caption text-muted-foreground max-w-xs">Try adjusting your filters to find what you&apos;re looking for.</p>
           </div>
         )}
       </main>
