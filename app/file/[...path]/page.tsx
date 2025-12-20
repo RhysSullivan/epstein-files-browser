@@ -79,17 +79,20 @@ function getFilePath(fileId: string): string {
   const match = fileId.match(/EFTA(\d+)/);
   if (!match) return fileId;
 
-  const num = parseInt(match[1], 10);
+  let num = parseInt(match[1], 10);
 
   let vol: string;
   if (num <= 3158) {
     vol = "VOL00001";
   } else if (num <= 3857) {
     vol = "VOL00002";
+    num -= 3158; 
   } else if (num <= 5704) {
     vol = "VOL00003";
+    num -= 3857
   } else {
     vol = "VOL00004";
+    num -= 5704;
   }
 
   const subfolder = Math.ceil(num / 1000)
