@@ -40,7 +40,7 @@ function getFilePath(fileId: string): string {
     vol = "VOL00004";
   }
 
-  const subfolder = Math.floor((num - 1) / 1000)
+  const subfolder = Math.ceil(num / 1000)
     .toString()
     .padStart(4, "0");
 
@@ -61,15 +61,16 @@ export default function FilePage({
 
   const fileUrl = `${WORKER_URL}/${filePath}`;
 
-  // Check cache for pre-rendered pages
-  const cachedPages = getPdfPages(filePath);
-  const [pages, setPages] = useState<string[]>(cachedPages || []);
-  const [loading, setLoading] = useState(!cachedPages);
+  const [pages, setPages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [totalPages, setTotalPages] = useState(cachedPages?.length || 0);
+  const [totalPages, setTotalPages] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Check cache for pre-rendered pages
+    const cachedPages = getPdfPages(filePath);
+    
     // Already have cached pages
     if (cachedPages && cachedPages.length > 0) {
       setPages(cachedPages);
@@ -78,12 +79,15 @@ export default function FilePage({
       return;
     }
 
+    // Reset state for new file
+    setPages([]);
+    setError(null);
+    setLoading(true);
+    setTotalPages(0);
+
     let cancelled = false;
 
     async function loadPdf() {
-      setLoading(true);
-      setError(null);
-      setPages([]);
 
       try {
         const pdfjsLib = await import("pdfjs-dist");
@@ -143,7 +147,7 @@ export default function FilePage({
     return () => {
       cancelled = true;
     };
-  }, [fileUrl, filePath, cachedPages]);
+  }, [fileUrl, filePath]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">

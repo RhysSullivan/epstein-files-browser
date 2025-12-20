@@ -57,7 +57,53 @@ export default {
       );
     }
 
-    // List files endpoint
+    // List all files endpoint (returns everything)
+    if (path === "api/all-files") {
+      const files: { key: string; size: number; uploaded: string }[] = [];
+      let hasMoreInBucket = true;
+      let bucketCursor: string | undefined = undefined;
+
+      while (hasMoreInBucket) {
+        const listOptions: R2ListOptions = {
+          limit: 1000,
+        };
+        
+        if (bucketCursor) {
+          listOptions.cursor = bucketCursor;
+        }
+
+        const listed = await env.R2_BUCKET.list(listOptions);
+
+        for (const obj of listed.objects) {
+          if (obj.key.toLowerCase().endsWith(".pdf")) {
+            files.push({
+              key: obj.key,
+              size: obj.size,
+              uploaded: obj.uploaded.toISOString(),
+            });
+          }
+        }
+
+        hasMoreInBucket = listed.truncated;
+        bucketCursor = listed.truncated ? listed.cursor : undefined;
+      }
+
+      return new Response(
+        JSON.stringify({
+          files,
+          totalReturned: files.length,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "public, max-age=3600",
+          },
+        }
+      );
+    }
+
+    // List files endpoint (paginated)
     if (path === "api/files" || path === "files") {
       const startAfter = url.searchParams.get("cursor") || undefined;
       const limit = Math.min(parseInt(url.searchParams.get("limit") || "100"), 1000);
@@ -128,7 +174,12 @@ export default {
     const object = await env.R2_BUCKET.get(path);
 
     if (!object) {
-      return new Response("Not Found", { status: 404 });
+      return new Response("Not Found", { 
+        status: 404,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      });
     }
 
     const headers = new Headers();
