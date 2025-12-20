@@ -5,102 +5,27 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getPdfPages, setPdfPages } from "@/lib/cache";
 import { useFiles } from "@/lib/files-context";
-import { CELEBRITY_DATA } from "@/lib/celebrity-data";
+import { getFileId, WORKER_URL, PDF_RENDER_SCALE } from "@/lib/constants";
+import { prefetchPdf, getFileUrl } from "@/lib/pdf-utils";
+import { getCelebritiesForPage } from "@/lib/celebrity-utils";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
 
-const WORKER_URL = process.env.NODE_ENV === "development" 
-  ? "http://localhost:8787" 
-  : "https://epstein-files.rhys-669.workers.dev";
-
-// Track in-progress prefetch operations to avoid duplicates
-const prefetchingSet = new Set<string>();
-
-async function prefetchPdf(filePath: string): Promise<void> {
-  // Skip if already cached or already prefetching
-  if (getPdfPages(filePath) || prefetchingSet.has(filePath)) {
-    return;
-  }
-
-  prefetchingSet.add(filePath);
-
-  try {
-    const fileUrl = `${WORKER_URL}/${filePath}`;
-    const pdfjsLib = await import("pdfjs-dist");
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
-
-    const loadingTask = pdfjsLib.getDocument(fileUrl);
-    const pdf = await loadingTask.promise;
-
-    const renderedPages: string[] = [];
-
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const scale = 2;
-      const viewport = page.getViewport({ scale });
-
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d")!;
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-
-      await page.render({
-        canvasContext: context,
-        viewport,
-        canvas,
-      }).promise;
-
-      const dataUrl = canvas.toDataURL("image/png");
-      renderedPages.push(dataUrl);
-    }
-
-    if (renderedPages.length > 0) {
-      setPdfPages(filePath, renderedPages);
-    }
-  } catch {
-    // Silently fail prefetch - it's just an optimization
-  } finally {
-    prefetchingSet.delete(filePath);
-  }
-}
-
-function getFileId(key: string): string {
-  const match = key.match(/EFTA\d+/);
-  return match ? match[0] : key;
-}
-
-// Get celebrities for a specific file and page
-function getCelebritiesForPage(filePath: string, pageNumber: number): { name: string; confidence: number }[] {
-  const celebrities: { name: string; confidence: number }[] = [];
-  
-  for (const celebrity of CELEBRITY_DATA) {
-    for (const appearance of celebrity.appearances) {
-      // The appearance.file contains paths like "VOL00002/IMAGES/0001/EFTA00003324.pdf"
-      // filePath also should be in similar format
-      if (appearance.file === filePath && appearance.page === pageNumber) {
-        celebrities.push({
-          name: celebrity.name,
-          confidence: appearance.confidence
-        });
-      }
-    }
-  }
-  
-  // Sort by confidence (highest first)
-  return celebrities.sort((a, b) => b.confidence - a.confidence).filter(celeb => celeb.confidence > 99);
-}
-
 // Component to display a page with its celebrity info
-function PageWithCelebrities({ 
-  dataUrl, 
-  pageNumber, 
-  filePath 
-}: { 
-  dataUrl: string; 
-  pageNumber: number; 
+function PageWithCelebrities({
+  dataUrl,
+  pageNumber,
+  filePath,
+}: {
+  dataUrl: string;
+  pageNumber: number;
   filePath: string;
 }) {
-  const celebrities = useMemo(() => getCelebritiesForPage(filePath, pageNumber), [filePath, pageNumber]);
-  
+  const celebrities = useMemo(
+    () => getCelebritiesForPage(filePath, pageNumber),
+    [filePath, pageNumber]
+  );
+  const fileId = getFileId(filePath);
+
   return (
     <div className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
       <div className="relative">
@@ -111,7 +36,7 @@ function PageWithCelebrities({
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={dataUrl}
-          alt={`Page ${pageNumber}`}
+          alt={`Page ${pageNumber} of ${fileId}`}
           className="w-full h-auto md:max-h-[75vh] md:w-auto md:mx-auto"
           style={{ maxWidth: "100%" }}
         />
@@ -119,16 +44,30 @@ function PageWithCelebrities({
       {celebrities.length > 0 && (
         <div className="bg-secondary/50 border-t border-border px-5 py-4">
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-              <svg className="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            <div
+              className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center"
+              aria-hidden="true"
+            >
+              <svg
+                className="w-3.5 h-3.5 text-primary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
               </svg>
             </div>
-            <p className="text-sm font-medium text-foreground">Detected in this image:</p>
+            <p className="text-sm font-medium text-foreground">
+              Detected in this image:
+            </p>
           </div>
           <div className="flex flex-wrap gap-2 mb-4">
-            {celebrities
-            .map((celeb, idx) => (
+            {celebrities.map((celeb, idx) => (
               <Link
                 key={idx}
                 prefetch={false}
@@ -136,7 +75,9 @@ function PageWithCelebrities({
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-card border border-border text-foreground hover:bg-accent hover:border-primary/30 transition-all duration-200"
               >
                 <span>{celeb.name}</span>
-                <span className="text-xs text-muted-foreground">({Math.round(celeb.confidence)}%)</span>
+                <span className="text-xs text-muted-foreground">
+                  ({Math.round(celeb.confidence)}%)
+                </span>
               </Link>
             ))}
           </div>
@@ -159,19 +100,22 @@ export default function FilePage({
   const router = useRouter();
   const searchParams = useSearchParams();
   const { getAdjacentFile } = useFiles();
-  
+
   // Get filter params for navigation
   const collectionFilter = searchParams.get("collection") ?? "All";
   const celebrityFilter = searchParams.get("celebrity") ?? "All";
-  const filters = useMemo(() => ({ 
-    collection: collectionFilter, 
-    celebrity: celebrityFilter 
-  }), [collectionFilter, celebrityFilter]);
-  
+  const filters = useMemo(
+    () => ({
+      collection: collectionFilter,
+      celebrity: celebrityFilter,
+    }),
+    [collectionFilter, celebrityFilter]
+  );
+
   // Get adjacent file paths from context, respecting filters
   const prevPath = getAdjacentFile(filePath, -1, filters);
   const nextPath = getAdjacentFile(filePath, 1, filters);
-  
+
   // Build query string to preserve filters in navigation
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
@@ -181,7 +125,7 @@ export default function FilePage({
     return str ? `?${str}` : "";
   }, [collectionFilter, celebrityFilter]);
 
-  const fileUrl = `${WORKER_URL}/${filePath}`;
+  const fileUrl = getFileUrl(filePath);
 
   // Keyboard navigation
   const handleKeyDown = useCallback(
@@ -189,7 +133,8 @@ export default function FilePage({
       // Don't navigate if user is typing in an input
       if (
         e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement
+        e.target instanceof HTMLTextAreaElement ||
+        (e.target instanceof HTMLElement && e.target.isContentEditable)
       ) {
         return;
       }
@@ -219,7 +164,7 @@ export default function FilePage({
   useEffect(() => {
     // Check cache for pre-rendered pages
     const cached = getPdfPages(filePath);
-    
+
     // Already have cached pages
     if (cached && cached.length > 0) {
       setPages(cached);
@@ -237,7 +182,6 @@ export default function FilePage({
     let cancelled = false;
 
     async function loadPdf() {
-
       try {
         const pdfjsLib = await import("pdfjs-dist");
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
@@ -255,8 +199,7 @@ export default function FilePage({
           if (cancelled) return;
 
           const page = await pdf.getPage(pageNum);
-          const scale = 2;
-          const viewport = page.getViewport({ scale });
+          const viewport = page.getViewport({ scale: PDF_RENDER_SCALE });
 
           const canvas = document.createElement("canvas");
           const context = canvas.getContext("2d")!;
@@ -352,11 +295,20 @@ export default function FilePage({
               </svg>
             </Link>
             <div className="min-w-0">
-              <h1 className="text-base sm:text-lg font-mono font-semibold text-foreground truncate">{fileId}</h1>
+              <h1 className="text-base sm:text-lg font-mono font-semibold text-foreground truncate">
+                {fileId}
+              </h1>
               {totalPages > 0 && (
                 <div className="flex items-center gap-2 mt-0.5">
-                  <div className="h-1.5 flex-1 max-w-[120px] bg-secondary rounded-full overflow-hidden">
-                    <div 
+                  <div
+                    className="h-1.5 flex-1 max-w-[120px] bg-secondary rounded-full overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={pages.length}
+                    aria-valuemin={0}
+                    aria-valuemax={totalPages}
+                    aria-label="PDF loading progress"
+                  >
+                    <div
                       className="h-full bg-primary rounded-full transition-all duration-500"
                       style={{ width: `${(pages.length / totalPages) * 100}%` }}
                     />
@@ -370,7 +322,7 @@ export default function FilePage({
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <nav className="flex items-center gap-2 flex-shrink-0" aria-label="File navigation">
             {prevPath && (
               <Link
                 prefetch={false}
@@ -438,16 +390,30 @@ export default function FilePage({
               </svg>
               <span className="hidden sm:inline">Download</span>
             </a>
-          </div>
+          </nav>
         </div>
       </header>
 
       {/* PDF Pages */}
       <main ref={containerRef} className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24">
         {error && (
-          <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
-            <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div
+            className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3"
+            role="alert"
+          >
+            <svg
+              className="w-5 h-5 flex-shrink-0 mt-0.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             <div>
               <p className="font-medium">Error loading PDF</p>
@@ -470,11 +436,11 @@ export default function FilePage({
         {/* Loading State */}
         {loading && (
           <div className="flex flex-col items-center justify-center py-16 gap-5">
-            <div className="relative">
+            <div className="relative" aria-hidden="true">
               <div className="w-12 h-12 rounded-full border-2 border-secondary"></div>
               <div className="absolute inset-0 w-12 h-12 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
             </div>
-            <p className="text-foreground font-medium">
+            <p className="text-foreground font-medium" role="status" aria-live="polite">
               {pages.length > 0
                 ? `Rendering page ${pages.length + 1} of ${totalPages}`
                 : "Loading PDF..."}
@@ -484,23 +450,33 @@ export default function FilePage({
       </main>
 
       {/* Navigation bar */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-2 bg-card/90 backdrop-blur-sm border border-border rounded-full shadow-lg">
+      <nav
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-2 bg-card/90 backdrop-blur-sm border border-border rounded-full shadow-lg"
+        aria-label="File navigation"
+      >
         {prevPath ? (
           <Link
             prefetch={false}
             href={`/file/${encodeURIComponent(prevPath)}${queryString}`}
             className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
           >
-            <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">←</kbd>
+            <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">
+              ←
+            </kbd>
             <span>Prev</span>
           </Link>
         ) : (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
-            <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">←</kbd>
+          <div
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed"
+            aria-disabled="true"
+          >
+            <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">
+              ←
+            </kbd>
             <span>Prev</span>
           </div>
         )}
-        <div className="w-px h-4 bg-border"></div>
+        <div className="w-px h-4 bg-border" aria-hidden="true"></div>
         {nextPath ? (
           <Link
             prefetch={false}
@@ -508,15 +484,22 @@ export default function FilePage({
             className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
           >
             <span>Next</span>
-            <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">→</kbd>
+            <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">
+              →
+            </kbd>
           </Link>
         ) : (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
+          <div
+            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed"
+            aria-disabled="true"
+          >
             <span>Next</span>
-            <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">→</kbd>
+            <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">
+              →
+            </kbd>
           </div>
         )}
-      </div>
+      </nav>
     </div>
   );
 }

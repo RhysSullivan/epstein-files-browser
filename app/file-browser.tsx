@@ -1,435 +1,13 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import { useQueryState } from "nuqs";
-import Link from "next/link";
-import { FileItem, getPdfPages, setPdfPages } from "@/lib/cache";
-import {
-  getCelebritiesAboveConfidence,
-  getFilesForCelebrity,
-  CELEBRITY_DATA,
-} from "@/lib/celebrity-data";
+import { useFiles } from "@/lib/files-context";
+import { getCelebritiesAboveConfidence, getFilesForCelebrity } from "@/lib/celebrity-utils";
 import { CelebrityCombobox } from "@/components/celebrity-combobox";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
-import { useFiles } from "@/lib/files-context";
-
-const WORKER_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8787"
-    : "https://epstein-files.rhys-669.workers.dev";
-
-function formatFileSize(bytes: number): string {
-  if (bytes === 0) return "0 B";
-  const k = 1024;
-  const sizes = ["B", "KB", "MB", "GB"];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
-}
-
-function getFileId(key: string): string {
-  const match = key.match(/EFTA\d+/);
-  return match ? match[0] : key;
-}
-
-// Thumbnail component - loads thumbnail from R2
-function Thumbnail({ fileKey }: { fileKey: string }) {
-  const thumbnailUrl = `${WORKER_URL}/thumbnails/${fileKey.replace(".pdf", ".jpg")}`;
-
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={thumbnailUrl}
-      alt="Document thumbnail"
-      className="aspect-[3/4] w-full object-cover object-top bg-secondary rounded-xl"
-      loading="lazy"
-    />
-  );
-}
-
-// File card component
-function FileCard({ file, onClick }: { file: FileItem; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="group relative bg-card border border-border rounded-2xl p-3 hover:border-primary/50 hover:bg-accent/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 text-left w-full"
-      style={{ contentVisibility: 'auto', containIntrinsicSize: '0 280px' }}
-    >
-      <div className="mb-3 overflow-hidden rounded-xl group-hover:ring-2 group-hover:ring-primary/20">
-        <Thumbnail fileKey={file.key} />
-      </div>
-
-      <div className="space-y-1.5">
-        <h3
-          className="font-mono text-sm font-medium text-foreground truncate group-hover:text-primary"
-          title={getFileId(file.key)}
-        >
-          {getFileId(file.key)}
-        </h3>
-        <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
-      </div>
-      
-      {/* Hover indicator */}
-      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100">
-        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-          <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
-      </div>
-    </button>
-  );
-}
-
-// Get celebrities for a specific file and page
-function getCelebritiesForPage(filePath: string, pageNumber: number): { name: string; confidence: number }[] {
-  const celebrities: { name: string; confidence: number }[] = [];
-  
-  for (const celebrity of CELEBRITY_DATA) {
-    for (const appearance of celebrity.appearances) {
-      if (appearance.file === filePath && appearance.page === pageNumber) {
-        celebrities.push({
-          name: celebrity.name,
-          confidence: appearance.confidence
-        });
-      }
-    }
-  }
-  
-  return celebrities.sort((a, b) => b.confidence - a.confidence).filter(celeb => celeb.confidence > 99);
-}
-
-// Prefetch a PDF in the background
-async function prefetchPdf(filePath: string): Promise<void> {
-  if (getPdfPages(filePath)) return;
-  
-  try {
-    const fileUrl = `${WORKER_URL}/${filePath}`;
-    const pdfjsLib = await import("pdfjs-dist");
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
-
-    const loadingTask = pdfjsLib.getDocument(fileUrl);
-    const pdf = await loadingTask.promise;
-
-    const renderedPages: string[] = [];
-
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const scale = 2;
-      const viewport = page.getViewport({ scale });
-
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d")!;
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-
-      await page.render({
-        canvasContext: context,
-        viewport,
-        canvas,
-      }).promise;
-
-      renderedPages.push(canvas.toDataURL("image/png"));
-    }
-
-    if (renderedPages.length > 0) {
-      setPdfPages(filePath, renderedPages);
-    }
-  } catch {
-    // Silently fail prefetch
-  }
-}
-
-// Modal component for viewing files
-function FileModal({ 
-  file, 
-  onClose, 
-  onPrev, 
-  onNext,
-  hasPrev,
-  hasNext,
-  queryString,
-  nextFile
-}: { 
-  file: FileItem; 
-  onClose: () => void;
-  onPrev: () => void;
-  onNext: () => void;
-  hasPrev: boolean;
-  hasNext: boolean;
-  queryString: string;
-  nextFile: FileItem | null;
-}) {
-  const [pages, setPages] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  
-  const filePath = file.key;
-  const fileId = getFileId(filePath);
-  const fileUrl = `${WORKER_URL}/${filePath}`;
-
-  // Keyboard navigation
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        onClose();
-      } else if (e.key === "ArrowLeft" && hasPrev) {
-        onPrev();
-      } else if (e.key === "ArrowRight" && hasNext) {
-        onNext();
-      }
-    },
-    [onClose, onPrev, onNext, hasPrev, hasNext]
-  );
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "";
-    };
-  }, [handleKeyDown]);
-
-  // Load PDF
-  useEffect(() => {
-    const cached = getPdfPages(filePath);
-    
-    if (cached && cached.length > 0) {
-      setPages(cached);
-      setLoading(false);
-      return;
-    }
-
-    setPages([]);
-    setError(null);
-    setLoading(true);
-
-    let cancelled = false;
-
-    async function loadPdf() {
-      try {
-        const pdfjsLib = await import("pdfjs-dist");
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
-
-        const loadingTask = pdfjsLib.getDocument(fileUrl);
-        const pdf = await loadingTask.promise;
-
-        if (cancelled) return;
-
-        const renderedPages: string[] = [];
-
-        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          if (cancelled) return;
-
-          const page = await pdf.getPage(pageNum);
-          const scale = 2;
-          const viewport = page.getViewport({ scale });
-
-          const canvas = document.createElement("canvas");
-          const context = canvas.getContext("2d")!;
-          canvas.width = viewport.width;
-          canvas.height = viewport.height;
-
-          await page.render({
-            canvasContext: context,
-            viewport,
-            canvas,
-          }).promise;
-
-          const dataUrl = canvas.toDataURL("image/png");
-          renderedPages.push(dataUrl);
-
-          setPages([...renderedPages]);
-        }
-
-        if (!cancelled && renderedPages.length > 0) {
-          setPdfPages(filePath, renderedPages);
-        }
-      } catch (err) {
-        if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to load PDF");
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    }
-
-    loadPdf();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [fileUrl, filePath]);
-  
-  // Prefetch next PDF
-  useEffect(() => {
-    if (!loading && nextFile) {
-      prefetchPdf(nextFile.key);
-    }
-  }, [loading, nextFile]);
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-background/95 backdrop-blur-sm"
-        onClick={onClose}
-      />
-      
-      {/* Modal content */}
-      <div className="relative w-full h-full flex flex-col">
-        {/* Header */}
-        <header className="flex-shrink-0 border-b border-border bg-card/80 backdrop-blur-xl z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-              <button
-                onClick={onClose}
-                className="p-2 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground flex-shrink-0"
-                aria-label="Close"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              <h1 className="text-base sm:text-lg font-mono font-semibold text-foreground truncate">{fileId}</h1>
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-2 flex-shrink-0">
-              <Link
-                href={`/file/${encodeURIComponent(filePath)}${queryString}`}
-                className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                <span className="hidden sm:inline">Open</span>
-              </Link>
-              <a
-                href={fileUrl}
-                download
-                className="p-2 sm:px-4 sm:py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-sm font-medium flex items-center gap-2 shadow-lg shadow-primary/20"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                <span className="hidden sm:inline">Download</span>
-              </a>
-            </div>
-          </div>
-        </header>
-
-        {/* Content */}
-        <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24">
-          {error && (
-            <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
-              <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <div>
-                <p className="font-medium">Error loading PDF</p>
-                <p className="text-sm text-destructive/80 mt-0.5">{error}</p>
-              </div>
-            </div>
-          )}
-
-          <div className="max-w-4xl mx-auto space-y-6">
-            {pages.map((dataUrl, index) => {
-              const pageCelebrities = getCelebritiesForPage(filePath, index + 1);
-              return (
-                <div key={index} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
-                  <div className="relative">
-                    {pages.length > 1 && (
-                      <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs font-medium text-muted-foreground border border-border">
-                        Page {index + 1}
-                      </div>
-                    )}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={dataUrl}
-                      alt={`Page ${index + 1}`}
-                      className="w-full h-auto md:max-h-[75vh] md:w-auto md:mx-auto"
-                      style={{ maxWidth: "100%" }}
-                    />
-                  </div>
-                  {pageCelebrities.length > 0 && (
-                    <div className="bg-secondary/50 border-t border-border px-5 py-4">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                          <svg className="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                        </div>
-                        <p className="text-sm font-medium text-foreground">Detected in this image:</p>
-                      </div>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {pageCelebrities.map((celeb, idx) => (
-                          <span
-                            key={idx}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-card border border-border text-foreground"
-                          >
-                            <span>{celeb.name}</span>
-                            <span className="text-xs text-muted-foreground">({Math.round(celeb.confidence)}%)</span>
-                          </span>
-                        ))}
-                      </div>
-                      <CelebrityDisclaimer />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {loading && (
-            <div className="flex flex-col items-center justify-center py-16 gap-5">
-              <div className="relative">
-                <div className="w-12 h-12 rounded-full border-2 border-secondary"></div>
-                <div className="absolute inset-0 w-12 h-12 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
-              </div>
-              <p className="text-foreground font-medium">Loading PDF...</p>
-            </div>
-          )}
-        </div>
-
-        {/* Navigation bar */}
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-2 bg-card/90 backdrop-blur-sm border border-border rounded-full shadow-lg z-20">
-          {hasPrev ? (
-            <button
-              onClick={onPrev}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
-            >
-              <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">←</kbd>
-              <span>Prev</span>
-            </button>
-          ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
-              <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">←</kbd>
-              <span>Prev</span>
-            </div>
-          )}
-          <div className="w-px h-4 bg-border"></div>
-          {hasNext ? (
-            <button
-              onClick={onNext}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
-            >
-              <span>Next</span>
-              <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">→</kbd>
-            </button>
-          ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
-              <span>Next</span>
-              <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">→</kbd>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
+import { FileCard } from "@/components/file-card";
+import { FileModal } from "@/components/file-modal";
 
 export function FileBrowser() {
   const { files: initialFiles } = useFiles();
@@ -471,30 +49,30 @@ export function FileBrowser() {
     const str = params.toString();
     return str ? `?${str}` : "";
   }, [collectionFilter, celebrityFilter]);
-  
+
   // Modal state - find index from file key
   const selectedFileIndex = useMemo(() => {
     if (!openFile) return null;
-    const index = filteredFiles.findIndex(f => f.key === openFile);
+    const index = filteredFiles.findIndex((f) => f.key === openFile);
     return index >= 0 ? index : null;
   }, [openFile, filteredFiles]);
-  
+
   const selectedFile = selectedFileIndex !== null ? filteredFiles[selectedFileIndex] : null;
   const hasPrev = selectedFileIndex !== null && selectedFileIndex > 0;
   const hasNext = selectedFileIndex !== null && selectedFileIndex < filteredFiles.length - 1;
-  
+
   const handlePrev = useCallback(() => {
     if (selectedFileIndex !== null && selectedFileIndex > 0) {
       setOpenFile(filteredFiles[selectedFileIndex - 1].key);
     }
   }, [selectedFileIndex, filteredFiles, setOpenFile]);
-  
+
   const handleNext = useCallback(() => {
     if (selectedFileIndex !== null && selectedFileIndex < filteredFiles.length - 1) {
       setOpenFile(filteredFiles[selectedFileIndex + 1].key);
     }
   }, [selectedFileIndex, filteredFiles, setOpenFile]);
-  
+
   const handleClose = useCallback(() => {
     setOpenFile(null);
   }, [setOpenFile]);
@@ -540,6 +118,7 @@ export function FileBrowser() {
                 value={collectionFilter}
                 onChange={(e) => setCollectionFilter(e.target.value)}
                 className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
+                aria-label="Filter by collection"
               >
                 <option value="All">All Collections</option>
                 <option value="VOL00001">Volume 1</option>
@@ -548,7 +127,13 @@ export function FileBrowser() {
                 <option value="VOL00004">Volume 4</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-4 h-4 text-muted-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </div>
@@ -562,9 +147,11 @@ export function FileBrowser() {
             <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 rounded-xl">
               <span className="text-sm font-medium text-muted-foreground">
                 {filteredFiles.length.toLocaleString()} files
-                {collectionFilter !== "All" || celebrityFilter !== "All"
-                  ? <span className="text-foreground/50"> / {initialFiles.length.toLocaleString()}</span>
-                  : ""}
+                {collectionFilter !== "All" || celebrityFilter !== "All" ? (
+                  <span className="text-foreground/50"> / {initialFiles.length.toLocaleString()}</span>
+                ) : (
+                  ""
+                )}
               </span>
             </div>
           </div>
@@ -576,9 +163,17 @@ export function FileBrowser() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
           <div className="bg-amber-500/10 border border-amber-500/20 text-amber-200 px-5 py-4 rounded-2xl backdrop-blur-sm">
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <div
+                className="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5"
+                aria-hidden="true"
+              >
                 <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
                 </svg>
               </div>
               <div>
@@ -603,13 +198,23 @@ export function FileBrowser() {
         {/* Empty state */}
         {filteredFiles.length === 0 && (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mb-4">
+            <div
+              className="w-16 h-16 rounded-2xl bg-secondary flex items-center justify-center mb-4"
+              aria-hidden="true"
+            >
               <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-1">No files found</h3>
-            <p className="text-muted-foreground text-sm">Try adjusting your filters to find what you&apos;re looking for.</p>
+            <p className="text-muted-foreground text-sm">
+              Try adjusting your filters to find what you&apos;re looking for.
+            </p>
           </div>
         )}
       </main>

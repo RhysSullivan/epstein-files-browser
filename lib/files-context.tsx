@@ -2,7 +2,8 @@
 
 import { createContext, useContext, ReactNode, useMemo } from "react";
 import { FileItem } from "./cache";
-import { getFilesForCelebrity } from "./celebrity-data";
+import { getFilesForCelebrity } from "./celebrity-utils";
+import { getFileId } from "./constants";
 
 interface FilesContextValue {
   files: FileItem[];
@@ -11,11 +12,6 @@ interface FilesContextValue {
 }
 
 const FilesContext = createContext<FilesContextValue | null>(null);
-
-function getFileId(key: string): string {
-  const match = key.match(/EFTA\d+/);
-  return match ? match[0] : key;
-}
 
 // Helper to get filtered file keys based on filters
 function getFilteredFileKeys(
