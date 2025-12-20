@@ -1,6 +1,6 @@
 export function CelebrityDisclaimer({ className = "" }: { className?: string }) {
   return (
-    <div className={`text-xs text-muted-foreground leading-relaxed ${className}`}>
+    <div className={`text-caption text-muted-foreground ${className}`}>
       <p>
         Detection powered by{" "}
         <a
