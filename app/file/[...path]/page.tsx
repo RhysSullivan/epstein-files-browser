@@ -4,7 +4,6 @@ import { use, useEffect, useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getPdfPages, setPdfPages } from "@/lib/cache";
-import { FadeInImage } from "@/components/progressive-image";
 import { useFiles } from "@/lib/files-context";
 import { CELEBRITY_DATA } from "@/lib/celebrity-data";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
@@ -109,7 +108,8 @@ function PageWithCelebrities({
         <div className="absolute top-2 left-2 px-2 py-0.5 bg-background/90 backdrop-blur-sm rounded text-[11px] font-mono text-muted-foreground border border-border/40">
           {pageNumber}
         </div>
-        <FadeInImage
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={dataUrl}
           alt={`Page ${pageNumber}`}
           className="w-full h-auto md:max-h-[75vh] md:w-auto md:mx-auto"

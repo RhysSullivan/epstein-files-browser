@@ -11,12 +11,11 @@ import {
 } from "@/lib/celebrity-data";
 import { CelebrityCombobox } from "@/components/celebrity-combobox";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
-import { ProgressiveImage, FadeInImage } from "@/components/progressive-image";
 import { useFiles } from "@/lib/files-context";
 
 const WORKER_URL =
   process.env.NODE_ENV === "development"
-    ? "https://epstein-files.rhys-669.workers.dev"
+    ? "http://localhost:8787"
     : "https://epstein-files.rhys-669.workers.dev";
 
 function formatFileSize(bytes: number): string {
@@ -32,18 +31,16 @@ function getFileId(key: string): string {
   return match ? match[0] : key;
 }
 
-// Thumbnail component - loads thumbnail from R2 with progressive loading
+// Thumbnail component - loads thumbnail from R2
 function Thumbnail({ fileKey }: { fileKey: string }) {
   const thumbnailUrl = `${WORKER_URL}/thumbnails/${fileKey.replace(".pdf", ".jpg")}`;
 
   return (
-    <ProgressiveImage
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       src={thumbnailUrl}
       alt="Document thumbnail"
-      className="w-full rounded-xl"
-      aspectRatio="3/4"
-      objectFit="cover"
-      objectPosition="top"
+      className="aspect-[3/4] w-full object-cover object-top bg-secondary"
       loading="lazy"
     />
   );
@@ -347,7 +344,8 @@ function FileModal({
                         Page {index + 1}
                       </div>
                     )}
-                    <FadeInImage
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                       src={dataUrl}
                       alt={`Page ${index + 1}`}
                       className="w-full h-auto md:max-h-[75vh] md:w-auto md:mx-auto"
