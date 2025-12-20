@@ -45,6 +45,9 @@ rclone.conf
 /files
 /thumbnails
 
+# generated files (regenerated during build)
+# lib/static-files.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

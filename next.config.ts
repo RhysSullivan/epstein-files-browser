@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Standard Next.js config for Vercel
+  // Enable static export for SSG
+  output: "export",
+  
+  // Disable image optimization for static export
+  images: {
+    unoptimized: true,
+  },
+  
+  // Trailing slash for better static hosting compatibility
+  trailingSlash: true,
 };
 
 export default nextConfig;
