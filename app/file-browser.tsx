@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useQueryState } from "nuqs";
 import { FileItem } from "@/lib/cache";
 import {
@@ -88,9 +88,6 @@ function FileCard({ file, queryString }: { file: FileItem; queryString: string }
 
 export function FileBrowser() {
   const { files: initialFiles } = useFiles();
-  const [files, setFiles] = useState<FileItem[]>(initialFiles);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const [collectionFilter, setCollectionFilter] = useQueryState("collection", {
     defaultValue: "All",
@@ -102,65 +99,23 @@ export function FileBrowser() {
   // Get celebrities with >99% confidence for the dropdown
   const celebrities = getCelebritiesAboveConfidence(99);
 
-  // Fetch files by specific keys (for celebrity filter)
-  const fetchFilesByKeys = useCallback(async (keys: string[], signal?: AbortSignal) => {
-    try {
-      setLoading(true);
-      setError(null);
+  // Derive filtered files from initialFiles + filters
+  const filteredFiles = useMemo(() => {
+    let files = initialFiles;
 
-      const response = await fetch(`${WORKER_URL}/api/files-by-keys`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ keys }),
-        signal,
-      });
-      if (!response.ok) throw new Error("Failed to fetch files");
-
-      const data: { files: FileItem[]; totalReturned: number } =
-        await response.json();
-      setFiles(data.files);
-      setLoading(false);
-    } catch (err) {
-      // Don't update state if the request was aborted
-      if (err instanceof Error && err.name === "AbortError") {
-        return;
-      }
-      setError(err instanceof Error ? err.message : "Unknown error");
-      setLoading(false);
+    // Apply collection filter
+    if (collectionFilter !== "All") {
+      files = files.filter((f) => f.key.startsWith(collectionFilter));
     }
-  }, []);
 
-  // Handle filter changes
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    // Celebrity filter takes precedence
+    // Apply celebrity filter
     if (celebrityFilter !== "All") {
-      const celebrityFileKeys = getFilesForCelebrity(celebrityFilter, 99);
-      // Optionally filter by collection too
-      const filteredKeys =
-        collectionFilter === "All"
-          ? celebrityFileKeys
-          : celebrityFileKeys.filter((key) => key.startsWith(collectionFilter));
-      fetchFilesByKeys(filteredKeys, abortController.signal);
-      return () => {
-        abortController.abort();
-      };
+      const celebrityFileKeys = new Set(getFilesForCelebrity(celebrityFilter, 99));
+      files = files.filter((f) => celebrityFileKeys.has(f.key));
     }
 
-    // No celebrity filter - filter from initial files
-    if (collectionFilter === "All") {
-      setFiles(initialFiles);
-    } else {
-      setFiles(initialFiles.filter((f) => f.key.startsWith(collectionFilter)));
-    }
-
-    return () => {
-      abortController.abort();
-    };
-  }, [collectionFilter, celebrityFilter, initialFiles, fetchFilesByKeys]);
-
-  const filteredFiles = files;
+    return files;
+  }, [initialFiles, collectionFilter, celebrityFilter]);
 
   // Build query string to preserve filters in file links
   const queryString = useMemo(() => {
@@ -232,15 +187,6 @@ export function FileBrowser() {
         </div>
       </header>
 
-      {/* Error */}
-      {error && (
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="bg-red-900/50 border border-red-700 text-red-200 px-4 py-3 rounded-lg">
-            {error}
-          </div>
-        </div>
-      )}
-
       {/* Celebrity Detection Disclaimer */}
       {celebrityFilter !== "All" && (
         <div className="max-w-7xl mx-auto px-4 pt-4">
@@ -254,13 +200,6 @@ export function FileBrowser() {
         </div>
       )}
 
-      {/* Loading */}
-      {loading && (
-        <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-zinc-600 border-t-white"></div>
-        </div>
-      )}
-
       {/* File Grid */}
       <div className="max-w-7xl mx-auto px-4 py-6 w-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -270,7 +209,7 @@ export function FileBrowser() {
         </div>
 
         {/* Empty state */}
-        {!loading && filteredFiles.length === 0 && (
+        {filteredFiles.length === 0 && (
           <div className="text-center py-12">
             <p className="text-zinc-500">No files found</p>
           </div>
