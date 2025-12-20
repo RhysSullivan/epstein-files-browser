@@ -56,13 +56,38 @@ export function setThumbnail(key: string, dataUrl: string): void {
   thumbnailCache.set(key, dataUrl);
 }
 
-// Global cache for full PDF page renders
+// Global cache for full PDF page renders with LRU eviction
+// Limit to 10 PDFs to allow prefetching while preventing memory bloat
+const PDF_CACHE_MAX_SIZE = 10;
 const pdfPagesCache = new Map<string, string[]>();
 
 export function getPdfPages(key: string): string[] | undefined {
-  return pdfPagesCache.get(key);
+  const value = pdfPagesCache.get(key);
+  if (value !== undefined) {
+    // Move to end (most recently used) by re-inserting
+    pdfPagesCache.delete(key);
+    pdfPagesCache.set(key, value);
+  }
+  return value;
 }
 
 export function setPdfPages(key: string, pages: string[]): void {
+  // If key exists, delete first to update insertion order
+  if (pdfPagesCache.has(key)) {
+    pdfPagesCache.delete(key);
+  }
+  
+  // Evict oldest entries if at capacity
+  while (pdfPagesCache.size >= PDF_CACHE_MAX_SIZE) {
+    const oldestKey = pdfPagesCache.keys().next().value;
+    if (oldestKey) {
+      pdfPagesCache.delete(oldestKey);
+    }
+  }
+  
   pdfPagesCache.set(key, pages);
+}
+
+export function clearPdfCache(): void {
+  pdfPagesCache.clear();
 }

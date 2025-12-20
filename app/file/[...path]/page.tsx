@@ -49,7 +49,7 @@ async function prefetchPdf(filePath: string): Promise<void> {
         canvas,
       }).promise;
 
-      const dataUrl = canvas.toDataURL("image/png");
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
       renderedPages.push(dataUrl);
     }
 
@@ -172,6 +172,16 @@ export default function FilePage({
   const prevPath = getAdjacentFile(filePath, -1, filters);
   const nextPath = getAdjacentFile(filePath, 1, filters);
   
+  // Get next 5 files for prefetching
+  const nextPaths = useMemo(() => {
+    const paths: string[] = [];
+    for (let i = 1; i <= 5; i++) {
+      const path = getAdjacentFile(filePath, i, filters);
+      if (path) paths.push(path);
+    }
+    return paths;
+  }, [filePath, filters, getAdjacentFile]);
+  
   // Build query string to preserve filters in navigation
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
@@ -263,6 +273,9 @@ export default function FilePage({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Always reset error state immediately when file changes
+    setError(null);
+    
     // Check cache for pre-rendered pages
     const cached = getPdfPages(filePath);
     
@@ -274,9 +287,8 @@ export default function FilePage({
       return;
     }
 
-    // Reset state for new file (only if not cached)
+    // Reset state for new file - clear immediately to avoid showing stale content
     setPages([]);
-    setError(null);
     setLoading(true);
     setTotalPages(0);
 
@@ -315,7 +327,7 @@ export default function FilePage({
             canvas,
           }).promise;
 
-          const dataUrl = canvas.toDataURL("image/png");
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
           renderedPages.push(dataUrl);
 
           // Update state progressively
@@ -344,32 +356,32 @@ export default function FilePage({
     };
   }, [fileUrl, filePath]);
 
-  // Prefetch adjacent PDFs after current one is loaded
+  // Prefetch next PDFs after current one is loaded
+  const nextPathsKey = nextPaths.join(',');
   useEffect(() => {
-    if (loading) return;
+    if (loading || !nextPathsKey) return;
 
+    const paths = nextPathsKey.split(',').filter(Boolean);
     const timeoutIds: ReturnType<typeof setTimeout>[] = [];
 
-    // Small delay to let the UI settle, then start prefetching
-    const prefetchTimeout = setTimeout(() => {
-      // Prefetch next first (more likely to be navigated to)
-      if (nextPath) {
-        prefetchPdf(nextPath);
-      }
+    // Prefetch next files with staggered delays
+    paths.forEach((path, index) => {
+      const timeoutId = setTimeout(() => {
+        prefetchPdf(path);
+      }, index * 100);
+      timeoutIds.push(timeoutId);
+    });
 
-      // Then prefetch previous
-      if (prevPath) {
-        // Slight delay so next gets priority
-        timeoutIds.push(setTimeout(() => prefetchPdf(prevPath), 500));
-      }
-    }, 100);
-
-    timeoutIds.push(prefetchTimeout);
+    // Also prefetch previous with lower priority
+    if (prevPath) {
+      const prevTimeoutId = setTimeout(() => prefetchPdf(prevPath), 600);
+      timeoutIds.push(prevTimeoutId);
+    }
 
     return () => {
       timeoutIds.forEach(clearTimeout);
     };
-  }, [loading, nextPath, prevPath]);
+  }, [loading, nextPathsKey, prevPath]);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
