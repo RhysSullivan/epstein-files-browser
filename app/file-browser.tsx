@@ -322,7 +322,7 @@ function FileModal({
         </header>
 
         {/* Content */}
-        <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24">
+        <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24" onClick={onClose}>
           {error && (
             <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -339,7 +339,7 @@ function FileModal({
             {pages.map((dataUrl, index) => {
               const pageCelebrities = getCelebritiesForPage(filePath, index + 1);
               return (
-                <div key={index} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+                <div key={index} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border" onClick={(e) => e.stopPropagation()}>
                   <div className="relative">
                     {pages.length > 1 && (
                       <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs font-medium text-muted-foreground border border-border">
