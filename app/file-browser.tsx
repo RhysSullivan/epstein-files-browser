@@ -16,7 +16,7 @@ import { useFiles } from "@/lib/files-context";
 
 const WORKER_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:8787"
+    ? "https://epstein-files.rhys-669.workers.dev"
     : "https://epstein-files.rhys-669.workers.dev";
 
 function formatFileSize(bytes: number): string {
