@@ -13,10 +13,11 @@ import { CelebrityCombobox } from "@/components/celebrity-combobox";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
 import { useFiles } from "@/lib/files-context";
 
+// Always use production worker for static assets (thumbnails, PDFs)
+// In dev, you can override with NEXT_PUBLIC_WORKER_URL env var
 const WORKER_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8787"
-    : "https://epstein-files.rhys-669.workers.dev";
+  process.env.NEXT_PUBLIC_WORKER_URL ||
+  "https://epstein-files.rhys-669.workers.dev";
 
 function formatFileSize(bytes: number): string {
   if (bytes === 0) return "0 B";
