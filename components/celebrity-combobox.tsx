@@ -50,11 +50,11 @@ export function CelebrityCombobox({
           <div className="flex items-center gap-2 min-w-0">
             <User className="h-4 w-4 text-muted-foreground flex-shrink-0" />
             {value === "All" ? (
-              <span className="text-sm font-medium">All People</span>
+              <span className="text-sm">All People</span>
             ) : selectedCelebrity ? (
-              <span className="truncate text-sm font-medium">
+              <span className="truncate text-sm">
                 {selectedCelebrity.name}
-                <span className="text-muted-foreground ml-1">({selectedCelebrity.count})</span>
+                <span className="text-muted-foreground text-xs font-mono ml-1.5 tabular-nums">({selectedCelebrity.count})</span>
               </span>
             ) : (
               <span className="text-sm text-muted-foreground">Select person...</span>
@@ -67,10 +67,10 @@ export function CelebrityCombobox({
         <Command className="bg-transparent">
           <CommandInput
             placeholder="Search people..."
-            className="text-foreground placeholder:text-muted-foreground border-b border-border"
+            className="text-sm text-foreground placeholder:text-muted-foreground border-b border-border"
           />
           <CommandList className="max-h-[300px]">
-            <CommandEmpty className="text-muted-foreground py-6 text-center text-sm">
+            <CommandEmpty className="text-sm text-muted-foreground py-6 text-center">
               No person found.
             </CommandEmpty>
             <CommandGroup className="p-1.5">
@@ -80,7 +80,7 @@ export function CelebrityCombobox({
                   onValueChange("All");
                   setOpen(false);
                 }}
-                className="text-foreground hover:bg-accent data-[selected=true]:bg-accent rounded-lg px-3 py-2.5 cursor-pointer"
+                className="text-sm text-foreground hover:bg-accent data-[selected=true]:bg-accent rounded-lg px-3 py-2.5 cursor-pointer"
               >
                 <Check
                   className={cn(
@@ -88,7 +88,7 @@ export function CelebrityCombobox({
                     value === "All" ? "opacity-100" : "opacity-0"
                   )}
                 />
-                <span className="font-medium">All People</span>
+                <span>All People</span>
               </CommandItem>
               {celebrities.map((celebrity) => (
                 <CommandItem
@@ -98,7 +98,7 @@ export function CelebrityCombobox({
                     onValueChange(celebrity.name);
                     setOpen(false);
                   }}
-                  className="text-foreground hover:bg-accent data-[selected=true]:bg-accent rounded-lg px-3 py-2.5 cursor-pointer"
+                  className="text-sm text-foreground hover:bg-accent data-[selected=true]:bg-accent rounded-lg px-3 py-2.5 cursor-pointer"
                 >
                   <Check
                     className={cn(
@@ -107,7 +107,7 @@ export function CelebrityCombobox({
                     )}
                   />
                   <span className="truncate flex-1">{celebrity.name}</span>
-                  <span className="text-muted-foreground text-xs ml-2 bg-secondary px-2 py-0.5 rounded-md">
+                  <span className="text-xs font-mono text-muted-foreground ml-2 bg-secondary px-2 py-0.5 rounded-md tabular-nums">
                     {celebrity.count}
                   </span>
                 </CommandItem>

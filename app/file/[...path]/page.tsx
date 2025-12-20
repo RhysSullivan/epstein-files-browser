@@ -4,6 +4,7 @@ import { use, useEffect, useState, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getPdfPages, setPdfPages } from "@/lib/cache";
+import { FadeInImage } from "@/components/progressive-image";
 import { useFiles } from "@/lib/files-context";
 import { CELEBRITY_DATA } from "@/lib/celebrity-data";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
@@ -90,26 +91,25 @@ function getCelebritiesForPage(filePath: string, pageNumber: number): { name: st
 }
 
 // Component to display a page with its celebrity info
-function PageWithCelebrities({ 
-  dataUrl, 
-  pageNumber, 
-  filePath 
-}: { 
-  dataUrl: string; 
-  pageNumber: number; 
+function PageWithCelebrities({
+  dataUrl,
+  pageNumber,
+  filePath
+}: {
+  dataUrl: string;
+  pageNumber: number;
   filePath: string;
 }) {
   const celebrities = useMemo(() => getCelebritiesForPage(filePath, pageNumber), [filePath, pageNumber]);
-  
+
   return (
-    <div className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+    <div className="bg-card rounded-lg overflow-hidden border border-border/60">
       <div className="relative">
         {/* Page number badge */}
-        <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs font-medium text-muted-foreground border border-border">
-          Page {pageNumber}
+        <div className="absolute top-2 left-2 px-2 py-0.5 bg-background/90 backdrop-blur-sm rounded text-[11px] font-mono text-muted-foreground border border-border/40">
+          {pageNumber}
         </div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <FadeInImage
           src={dataUrl}
           alt={`Page ${pageNumber}`}
           className="w-full h-auto md:max-h-[75vh] md:w-auto md:mx-auto"
@@ -117,26 +117,18 @@ function PageWithCelebrities({
         />
       </div>
       {celebrities.length > 0 && (
-        <div className="bg-secondary/50 border-t border-border px-5 py-4">
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-              <svg className="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </div>
-            <p className="text-sm font-medium text-foreground">Detected in this image:</p>
-          </div>
-          <div className="flex flex-wrap gap-2 mb-4">
-            {celebrities
-            .map((celeb, idx) => (
+        <div className="bg-secondary/30 border-t border-border/40 px-4 py-3">
+          <p className="text-xs text-muted-foreground mb-2">Detected:</p>
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {celebrities.map((celeb, idx) => (
               <Link
                 key={idx}
                 prefetch={false}
                 href={`/?celebrity=${encodeURIComponent(celeb.name)}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm bg-card border border-border text-foreground hover:bg-accent hover:border-primary/30 transition-all duration-200"
+                className="inline-flex items-center gap-1 px-2 py-1 rounded text-xs bg-card border border-border/60 text-foreground/90 hover:border-primary/40 transition-colors"
               >
                 <span>{celeb.name}</span>
-                <span className="text-xs text-muted-foreground">({Math.round(celeb.confidence)}%)</span>
+                <span className="text-muted-foreground tabular-nums">{Math.round(celeb.confidence)}%</span>
               </Link>
             ))}
           </div>
@@ -328,13 +320,13 @@ export default function FilePage({
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       {/* Header */}
-      <header className="border-b border-border bg-card/80 backdrop-blur-xl sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+      <header className="border-b border-border/60 bg-background/95 backdrop-blur-md sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             <Link
               prefetch={false}
               href={`/${queryString}`}
-              className="p-2 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 flex-shrink-0"
+              className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary/80 transition-colors flex-shrink-0"
               aria-label="Back to file list"
             >
               <svg
@@ -346,22 +338,22 @@ export default function FilePage({
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                   d="M10 19l-7-7m0 0l7-7m-7 7h18"
                 />
               </svg>
             </Link>
             <div className="min-w-0">
-              <h1 className="text-base sm:text-lg font-mono font-semibold text-foreground truncate">{fileId}</h1>
+              <h1 className="text-sm sm:text-base font-mono font-medium text-foreground/90 truncate tracking-tight">{fileId}</h1>
               {totalPages > 0 && (
-                <div className="flex items-center gap-2 mt-0.5">
-                  <div className="h-1.5 flex-1 max-w-[120px] bg-secondary rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-primary rounded-full transition-all duration-500"
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="h-1 flex-1 max-w-[100px] bg-secondary/60 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-primary/80 rounded-full transition-all duration-500"
                       style={{ width: `${(pages.length / totalPages) * 100}%` }}
                     />
                   </div>
-                  <span className="text-xs text-muted-foreground flex-shrink-0">
+                  <span className="text-[11px] text-muted-foreground tabular-nums flex-shrink-0">
                     {pages.length}/{totalPages}
                   </span>
                 </div>
@@ -375,7 +367,7 @@ export default function FilePage({
               <Link
                 prefetch={false}
                 href={`/file/${encodeURIComponent(prevPath)}${queryString}`}
-                className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2"
+                className="p-2 sm:px-3 sm:py-1.5 bg-secondary/80 hover:bg-secondary rounded-md text-sm transition-colors flex items-center gap-2"
                 aria-label="Previous file"
               >
                 <svg
@@ -387,7 +379,7 @@ export default function FilePage({
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={1.5}
                     d="M15 19l-7-7 7-7"
                   />
                 </svg>
@@ -398,7 +390,7 @@ export default function FilePage({
               <Link
                 prefetch={false}
                 href={`/file/${encodeURIComponent(nextPath)}${queryString}`}
-                className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2"
+                className="p-2 sm:px-3 sm:py-1.5 bg-secondary/80 hover:bg-secondary rounded-md text-sm transition-colors flex items-center gap-2"
                 aria-label="Next file"
               >
                 <span className="hidden sm:inline">Next</span>
@@ -411,7 +403,7 @@ export default function FilePage({
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    strokeWidth={2}
+                    strokeWidth={1.5}
                     d="M9 5l7 7-7 7"
                   />
                 </svg>
@@ -420,7 +412,7 @@ export default function FilePage({
             <a
               href={fileUrl}
               download
-              className="p-2 sm:px-4 sm:py-2 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2 shadow-lg shadow-primary/20"
+              className="p-2 sm:px-3 sm:py-1.5 bg-primary hover:bg-primary/90 text-primary-foreground rounded-md text-sm font-medium transition-colors flex items-center gap-2"
               aria-label="Download PDF"
             >
               <svg
@@ -432,7 +424,7 @@ export default function FilePage({
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                   d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
                 />
               </svg>
@@ -445,18 +437,18 @@ export default function FilePage({
       {/* PDF Pages */}
       <main ref={containerRef} className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24">
         {error && (
-          <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
-            <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-md mb-6 flex items-start gap-3">
+            <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <div>
+            <div className="text-sm">
               <p className="font-medium">Error loading PDF</p>
-              <p className="text-sm text-destructive/80 mt-0.5">{error}</p>
+              <p className="text-destructive/80 mt-0.5">{error}</p>
             </div>
           </div>
         )}
 
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-4xl mx-auto space-y-4">
           {pages.map((dataUrl, index) => (
             <PageWithCelebrities
               key={index}
@@ -469,51 +461,51 @@ export default function FilePage({
 
         {/* Loading State */}
         {loading && (
-          <div className="flex flex-col items-center justify-center py-16 gap-5">
+          <div className="flex flex-col items-center justify-center py-16 gap-4">
             <div className="relative">
-              <div className="w-12 h-12 rounded-full border-2 border-secondary"></div>
-              <div className="absolute inset-0 w-12 h-12 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+              <div className="w-8 h-8 rounded-full border border-border"></div>
+              <div className="absolute inset-0 w-8 h-8 rounded-full border border-primary border-t-transparent animate-spin"></div>
             </div>
-            <p className="text-foreground font-medium">
+            <p className="text-sm text-muted-foreground">
               {pages.length > 0
                 ? `Rendering page ${pages.length + 1} of ${totalPages}`
-                : "Loading PDF..."}
+                : "Loading document..."}
             </p>
           </div>
         )}
       </main>
 
       {/* Navigation bar */}
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-2 bg-card/90 backdrop-blur-sm border border-border rounded-full shadow-lg">
+      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1 px-1 py-1 bg-card/95 backdrop-blur-md border border-border/60 rounded-lg shadow-lg">
         {prevPath ? (
           <Link
             prefetch={false}
             href={`/file/${encodeURIComponent(prevPath)}${queryString}`}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/80 rounded-md transition-colors"
           >
-            <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">←</kbd>
+            <kbd className="px-1.5 py-0.5 bg-secondary/80 rounded font-mono text-[10px]">←</kbd>
             <span>Prev</span>
           </Link>
         ) : (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
-            <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">←</kbd>
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-muted-foreground/40 cursor-not-allowed">
+            <kbd className="px-1.5 py-0.5 bg-secondary/40 rounded font-mono text-[10px]">←</kbd>
             <span>Prev</span>
           </div>
         )}
-        <div className="w-px h-4 bg-border"></div>
+        <div className="w-px h-4 bg-border/60"></div>
         {nextPath ? (
           <Link
             prefetch={false}
             href={`/file/${encodeURIComponent(nextPath)}${queryString}`}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-secondary/80 rounded-md transition-colors"
           >
             <span>Next</span>
-            <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">→</kbd>
+            <kbd className="px-1.5 py-0.5 bg-secondary/80 rounded font-mono text-[10px]">→</kbd>
           </Link>
         ) : (
-          <div className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground/50 cursor-not-allowed">
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-muted-foreground/40 cursor-not-allowed">
             <span>Next</span>
-            <kbd className="px-2 py-0.5 bg-secondary/50 rounded-md font-mono text-xs text-muted-foreground/50">→</kbd>
+            <kbd className="px-1.5 py-0.5 bg-secondary/40 rounded font-mono text-[10px]">→</kbd>
           </div>
         )}
       </div>
