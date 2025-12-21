@@ -23,11 +23,20 @@ import ThemeToggle from "@/components/theme-toggle";
 import GlobalSearch, { GlobalSearchHandle } from "@/components/global-search";
 import { StatisticsDashboard } from "@/components/statistics-dashboard";
 import { HelpCircle, BarChart3 } from "lucide-react";
+import { fuzzyMatch } from "@/lib/fuzzy-search";
 
-const WORKER_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8787"
-    : "https://epstein-files.rhys-669.workers.dev";
+const WORKER_URL = "https://epstein-files.rhys-669.workers.dev";
+
+// Client-only number formatter to avoid hydration mismatch
+function FormattedNumber({ value }: { value: number }) {
+  const [formatted, setFormatted] = useState(value.toString());
+  
+  useEffect(() => {
+    setFormatted(value.toLocaleString());
+  }, [value]);
+  
+  return <>{formatted}</>;
+}
 
 function formatFileSize(bytes: number): string {
   if (bytes === 0) return "0 B";
@@ -412,11 +421,13 @@ function FileModal({
 
     async function loadPages() {
       try {
+        console.log('[FileModal] Loading PDF:', filePath);
         const manifest = getPdfManifest();
         const manifestEntry = manifest?.[filePath];
         
         // If we have pre-rendered images in the manifest, use those
         if (manifestEntry && manifestEntry.pages > 0) {
+          console.log('[FileModal] Using pre-rendered images, pages:', manifestEntry.pages);
           const imageUrls = await loadPagesFromImages(filePath, manifestEntry.pages);
           
           if (cancelled) return;
@@ -425,15 +436,18 @@ function FileModal({
           setPages(imageUrls);
           setPdfPages(filePath, imageUrls);
           setLoading(false);
+          console.log('[FileModal] Pre-rendered images loaded successfully');
           return;
         }
         
+        console.log('[FileModal] No pre-rendered images, using client-side PDF rendering');
         // Fallback to client-side PDF rendering
         const pdfjsLib = await import("pdfjs-dist");
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
         const loadingTask = pdfjsLib.getDocument(fileUrl);
         const pdf = await loadingTask.promise;
+        console.log('[FileModal] PDF loaded, pages:', pdf.numPages);
 
         if (cancelled) return;
 
@@ -468,6 +482,7 @@ function FileModal({
         }
       } catch (err) {
         if (!cancelled) {
+          console.error('[FileModal] Error loading PDF:', err);
           setError(err instanceof Error ? err.message : "Failed to load PDF");
         }
       } finally {
@@ -660,6 +675,14 @@ function FileModal({
 
 export function FileBrowser() {
   const { files: initialFiles } = useFiles();
+  
+  // Debug: Log files on mount
+  useEffect(() => {
+    console.log('[FileBrowser] Files loaded:', initialFiles.length);
+    if (initialFiles.length > 0) {
+      console.log('[FileBrowser] First file:', initialFiles[0]);
+    }
+  }, [initialFiles]);
 
   const [collectionFilter, setCollectionFilter] = useQueryState("collection", {
     defaultValue: "All",
@@ -732,26 +755,42 @@ export function FileBrowser() {
       files = files.filter((f) => celebrityFileKeys.has(f.key));
     }
 
-    // Apply search query (matches file id/key, celebrity name, or collection prefix)
-    const q = (searchQuery || "").trim().toLowerCase();
+    // Apply search query with fuzzy matching
+    const q = (searchQuery || "").trim();
     if (q) {
-      // Precompute keys for celebrities matching the query
+      // Precompute keys for celebrities matching the query using fuzzy search
       const matchedCelebKeys = new Set<string>();
       for (const c of celebrities) {
-        if (c.name.toLowerCase().includes(q)) {
+        const celebMatch = fuzzyMatch(q, c.name);
+        if (celebMatch.matches) {
           for (const fk of getFilesForCelebrity(c.name, 99)) matchedCelebKeys.add(fk);
         }
       }
 
-      files = files.filter((f) => {
-        const id = getFileId(f.key).toLowerCase();
-        const keyLc = f.key.toLowerCase();
-        const prefix = f.key.split("/")[0]?.toLowerCase() || "";
-        const fileMatch = id.includes(q) || keyLc.includes(q);
+      // Score and filter files using fuzzy matching
+      const scoredFiles = files.map((f) => {
+        const id = getFileId(f.key);
+        const prefix = f.key.split("/")[0] || "";
+        
+        // Calculate fuzzy match scores for different fields
+        const idMatch = fuzzyMatch(q, id);
+        const keyMatch = fuzzyMatch(q, f.key);
+        const volumeMatch = fuzzyMatch(q, prefix);
         const celebMatch = matchedCelebKeys.has(f.key);
-        const volumeMatch = prefix.includes(q);
-        return fileMatch || celebMatch || volumeMatch;
-      });
+        
+        // Best score wins
+        let bestScore = 0;
+        if (idMatch.matches) bestScore = Math.max(bestScore, idMatch.score);
+        if (keyMatch.matches) bestScore = Math.max(bestScore, keyMatch.score);
+        if (volumeMatch.matches) bestScore = Math.max(bestScore, volumeMatch.score);
+        if (celebMatch) bestScore = Math.max(bestScore, 500); // Celebrity match gets medium-high score
+        
+        return { file: f, score: bestScore };
+      })
+      .filter((result) => result.score > 0)
+      .sort((a, b) => b.score - a.score);
+      
+      files = scoredFiles.map((r) => r.file);
     }
 
     // Apply sorting
@@ -1005,9 +1044,9 @@ export function FileBrowser() {
               <div className="col-span-2 sm:col-span-1 sm:w-auto">
                 <div className="flex items-center justify-center sm:justify-start gap-2 px-3 py-2 bg-secondary/50 rounded-xl w-full">
                   <span className="text-sm font-medium text-muted-foreground">
-                    {filteredFiles.length.toLocaleString()} files
+                    <FormattedNumber value={filteredFiles.length} /> files
                     {collectionFilter !== "All" || celebrityFilter !== "All" || (searchQuery && searchQuery.trim())
-                      ? <span className="text-foreground/50"> / {initialFiles.length.toLocaleString()}</span>
+                      ? <span className="text-foreground/50"> / <FormattedNumber value={initialFiles.length} /></span>
                       : ""}
                   </span>
                 </div>

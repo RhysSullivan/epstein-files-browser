@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Search, X, Clock, FileText, User, FolderOpen } from "lucide-react";
 import { useFiles } from "@/lib/files-context";
 import { getCelebritiesAboveConfidence } from "@/lib/celebrity-data";
+import { fuzzySearch } from "@/lib/fuzzy-search";
 
 export type GlobalSearchHandle = {
   focus: () => void;
@@ -77,19 +78,30 @@ const GlobalSearch = React.forwardRef<GlobalSearchHandle, GlobalSearchProps>(
   }, [focused, q]);
 
   const suggestions = useMemo(() => {
-    const term = value.trim().toLowerCase();
+    const term = value.trim();
     if (!term) return { files: [] as { id: string; key: string }[], people: [] as { name: string }[], volumes: [] as string[] };
 
-    const fileMatches = fileIndex
-      .filter((f) => f.id.toLowerCase().includes(term) || f.key.toLowerCase().includes(term))
-      .slice(0, 6);
+    // Use fuzzy search for better matching
+    const fileMatches = fuzzySearch(
+      term,
+      fileIndex,
+      (f) => [f.id, f.key],
+      6
+    );
 
-    const peopleMatches = celebrities
-      .filter((c) => c.name.toLowerCase().includes(term))
-      .map((c) => ({ name: c.name }))
-      .slice(0, 6);
+    const peopleMatches = fuzzySearch(
+      term,
+      celebrities,
+      (c) => c.name,
+      6
+    ).map((c) => ({ name: c.name }));
 
-    const volumeMatches = volumeList.filter((v) => v.toLowerCase().includes(term)).slice(0, 6);
+    const volumeMatches = fuzzySearch(
+      term,
+      volumeList,
+      (v) => v,
+      6
+    );
 
     return { files: fileMatches, people: peopleMatches, volumes: volumeMatches };
   }, [value, fileIndex, celebrities, volumeList]);

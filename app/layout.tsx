@@ -49,20 +49,29 @@ interface AllFilesResponse {
 }
 
 async function fetchAllFiles(): Promise<FileItem[]> {
-  const response = await fetch(`${WORKER_URL}/api/all-files`, {
-    next: { revalidate: 3600 }, // Revalidate every hour
-  });
+  try {
+    console.log('Fetching files from:', `${WORKER_URL}/api/all-files`);
+    const response = await fetch(`${WORKER_URL}/api/all-files`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch files");
+    if (!response.ok) {
+      console.error('Failed to fetch files:', response.status, response.statusText);
+      throw new Error("Failed to fetch files");
+    }
+
+    const data: AllFilesResponse = await response.json();
+    console.log('Files loaded:', data.totalReturned);
+    return data.files;
+  } catch (error) {
+    console.error('Error fetching files:', error);
+    throw error;
   }
-
-  const data: AllFilesResponse = await response.json();
-  return data.files;
 }
 
 async function fetchPdfManifest(): Promise<PdfManifest> {
   try {
+    console.log('Fetching PDF manifest from:', `${WORKER_URL}/api/pdf-manifest`);
     const response = await fetch(`${WORKER_URL}/api/pdf-manifest`, {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
@@ -72,9 +81,11 @@ async function fetchPdfManifest(): Promise<PdfManifest> {
       return {};
     }
 
-    return await response.json();
-  } catch {
-    console.warn("Failed to fetch PDF manifest, falling back to PDF rendering");
+    const manifest = await response.json();
+    console.log('PDF manifest loaded, entries:', Object.keys(manifest).length);
+    return manifest;
+  } catch (error) {
+    console.warn("Failed to fetch PDF manifest:", error);
     return {};
   }
 }
