@@ -15,6 +15,8 @@ import {
   CELEBRITY_DATA,
 } from "@/lib/celebrity-data";
 import { CelebrityCombobox } from "@/components/celebrity-combobox";
+import { CollectionCombobox } from "@/components/collection-combobox";
+import { SortCombobox } from "@/components/sort-combobox";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
 import { useFiles } from "@/lib/files-context";
 
@@ -77,7 +79,7 @@ function FileCard({ file, onClick, onMouseEnter }: { file: FileItem; onClick: ()
     <button
       onClick={onClick}
       onMouseEnter={onMouseEnter}
-      className="group relative hover:-translate-y-1 text-left w-full transition-all duration-200"
+      className="group relative hover:-translate-y-1 text-left w-full transition-all duration-200 cursor-pointer"
     >
       <div className="relative mb-2 overflow-hidden rounded-xl">
         <Thumbnail fileKey={file.key} />
@@ -248,7 +250,7 @@ function SharePopover({ filePath, queryString }: { filePath: string; queryString
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <button className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2">
+        <button className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2 cursor-pointer">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
           </svg>
@@ -274,7 +276,7 @@ function SharePopover({ filePath, queryString }: { filePath: string; queryString
             <button
               onClick={handleCopy}
               className={cn(
-                "px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors",
+                "px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors cursor-pointer",
                 copied 
                   ? "bg-green-500/20 text-green-400 border border-green-500/30" 
                   : "bg-primary hover:bg-primary/90 text-primary-foreground"
@@ -515,7 +517,7 @@ function FileModal({
             <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground flex-shrink-0"
+                className="p-2 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground flex-shrink-0 cursor-pointer"
                 aria-label="Close"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -620,7 +622,7 @@ function FileModal({
           {hasPrev ? (
             <button
               onClick={onPrev}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full cursor-pointer"
             >
               <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">←</kbd>
               <span>Prev</span>
@@ -635,7 +637,7 @@ function FileModal({
           {hasNext ? (
             <button
               onClick={onNext}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full cursor-pointer"
             >
               <span>Next</span>
               <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">→</kbd>
@@ -776,49 +778,19 @@ export function FileBrowser() {
           </div>
 
           <div className="flex gap-3 items-center flex-wrap">
-            <div className="relative">
-              <select
-                value={collectionFilter}
-                onChange={(e) => setCollectionFilter(e.target.value)}
-                className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
-              >
-                <option value="All">All Collections</option>
-                <option value="VOL00001">Volume 1</option>
-                <option value="VOL00002">Volume 2</option>
-                <option value="VOL00003">Volume 3</option>
-                <option value="VOL00004">Volume 4</option>
-                <option value="VOL00005">Volume 5</option>
-                <option value="VOL00006">Volume 6</option>
-                <option value="VOL00007">Volume 7</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
+            <CollectionCombobox
+              value={collectionFilter}
+              onValueChange={(value) => setCollectionFilter(value)}
+            />
             <CelebrityCombobox
               celebrities={celebrities}
               value={celebrityFilter}
               onValueChange={(value) => setCelebrityFilter(value)}
             />
-
-            <div className="relative">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
-              >
-                <option value="name">Sort by Name</option>
-                <option value="size-desc">Largest First</option>
-                <option value="size-asc">Smallest First</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
+            <SortCombobox
+              value={sortBy}
+              onValueChange={(value) => setSortBy(value)}
+            />
 
             <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 rounded-xl">
               <span className="text-sm font-medium text-muted-foreground">
