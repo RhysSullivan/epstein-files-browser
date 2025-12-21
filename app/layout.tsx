@@ -107,7 +107,7 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Files Browser" />
-        <meta name="theme-color" content="#1f2937" />
+        <meta name="theme-color" content="#ffffff" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
@@ -117,7 +117,37 @@ export default async function RootLayout({
       >
         <div id="theme-transition-overlay" />
         <Script id="theme-init" strategy="beforeInteractive">
-          {`(() => {try {var s = localStorage.getItem('theme'); var m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; var r = document.documentElement; if (s === 'dark' || ((s === 'system' || !s) && m)) { r.classList.add('dark'); } else { r.classList.remove('dark'); }} catch (e) { /* noop */ }})();`}
+          {`(() => {try {var s = localStorage.getItem('theme'); var m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; var r = document.documentElement; var isDark = s === 'dark' || ((s === 'system' || !s) && m); if (isDark) { r.classList.add('dark'); } else { r.classList.remove('dark'); } var themeColor = document.querySelector('meta[name="theme-color"]'); if (themeColor) { themeColor.setAttribute('content', isDark ? '#000000' : '#ffffff'); }} catch (e) { /* noop */ }})();`}
+        </Script>
+        <Script id="theme-color-sync" strategy="afterInteractive">
+          {`
+            function updateThemeColor() {
+              const isDark = document.documentElement.classList.contains('dark');
+              const themeColor = document.querySelector('meta[name="theme-color"]');
+              if (themeColor) {
+                themeColor.setAttribute('content', isDark ? '#000000' : '#ffffff');
+              }
+            }
+            
+            // Update on load
+            updateThemeColor();
+            
+            // Watch for theme changes
+            const observer = new MutationObserver((mutations) => {
+              mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                  updateThemeColor();
+                }
+              });
+            });
+            
+            observer.observe(document.documentElement, { attributes: true });
+            
+            // Also sync with system preference changes
+            if (window.matchMedia) {
+              window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeColor);
+            }
+          `}
         </Script>
         <Script id="sw-register" strategy="afterInteractive">
           {`
