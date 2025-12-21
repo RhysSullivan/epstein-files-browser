@@ -76,13 +76,15 @@ function Thumbnail({ fileKey }: { fileKey: string }) {
   const thumbnailUrl = `${WORKER_URL}/thumbnails/${fileKey.replace(".pdf", ".jpg")}`;
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={thumbnailUrl}
-      alt="Document thumbnail"
-      className="aspect-[3/4] w-full object-cover object-top bg-secondary rounded-xl"
-      loading="lazy"
-    />
+    <div className="relative w-full aspect-[3/4] bg-secondary rounded-xl overflow-hidden">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={thumbnailUrl}
+        alt="Document thumbnail"
+        className="absolute inset-0 w-full h-full object-cover object-top"
+        loading="lazy"
+      />
+    </div>
   );
 }
 
@@ -342,6 +344,30 @@ function FileModal({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [showMiniMap, setShowMiniMap] = useState(true);
+  const [miniMapCollapsed, setMiniMapCollapsed] = useState(false);
+  const [miniMapJump, setMiniMapJump] = useState(1);
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [thumbnails, setThumbnails] = useState<string[]>([]);
+  const [miniPages, setMiniPages] = useState<string[]>([]);
+
+  // Persist mini-map collapsed/expanded state across sessions
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("minimap_collapsed");
+      if (raw !== null) {
+        setMiniMapCollapsed(raw === "true");
+      }
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("minimap_collapsed", miniMapCollapsed ? "true" : "false");
+    } catch {}
+  }, [miniMapCollapsed]);
   
   const filePath = file.key;
   const fileId = getFileId(filePath);
@@ -386,6 +412,131 @@ function FileModal({
     
     touchStartRef.current = null;
   }, [hasPrev, hasNext, onPrev, onNext]);
+
+  // Scroll to a specific page inside the modal content
+  const scrollToPage = useCallback((pageIndex: number) => {
+    const container = contentRef.current;
+    const target = pageRefs.current[pageIndex];
+    if (!container || !target) return;
+
+    const top = target.offsetTop - 96; // larger offset to account for header and spacing
+    container.scrollTo({ top, behavior: "smooth" });
+  }, []);
+
+  // Reset scroll/jump state when file changes
+  useEffect(() => {
+    pageRefs.current = [];
+    if (contentRef.current) {
+      contentRef.current.scrollTo({ top: 0 });
+    }
+    setMiniMapJump(1);
+  }, [filePath]);
+
+  // Generate small thumbnails for mini-map to ensure proper previews
+  useEffect(() => {
+    let cancelled = false;
+    async function buildThumbs() {
+      if (pages.length === 0) {
+        setThumbnails([]);
+        return;
+      }
+      const targetW = 120;
+      const targetH = 160; // 3/4 aspect ratio
+      const results: string[] = new Array(pages.length);
+
+      for (let i = 0; i < pages.length; i++) {
+        const src = pages[i];
+        try {
+          const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+            const im = new Image();
+            im.crossOrigin = "anonymous"; // allow drawing if same-origin
+            im.onload = () => resolve(im);
+            im.onerror = reject;
+            im.src = src;
+          });
+          if (cancelled) return;
+          const canvas = document.createElement("canvas");
+          canvas.width = targetW;
+          canvas.height = targetH;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) continue;
+          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--color-secondary").trim() || "#111";
+          ctx.fillRect(0, 0, targetW, targetH);
+          const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
+          const drawW = Math.max(1, Math.floor(img.naturalWidth * scale));
+          const drawH = Math.max(1, Math.floor(img.naturalHeight * scale));
+          const dx = Math.floor((targetW - drawW) / 2);
+          const dy = Math.floor((targetH - drawH) / 2);
+          ctx.drawImage(img, dx, dy, drawW, drawH);
+          results[i] = canvas.toDataURL("image/jpeg", 0.7);
+        } catch {
+          // Fallback to original src if thumbnail generation fails
+          results[i] = src;
+        }
+        // Progressive update for responsiveness
+        setThumbnails((prev) => {
+          const next = prev.slice();
+          next[i] = results[i];
+          return next.length === pages.length ? next : [...results];
+        });
+      }
+      if (!cancelled) {
+        setThumbnails(results);
+      }
+    }
+    buildThumbs();
+    return () => { cancelled = true; };
+  }, [pages, filePath]);
+
+  // Build mini-map pages using pre-rendered images from manifest when available
+  // Initialize with expected count immediately to prevent layout shifts
+  const [expectedPageCount, setExpectedPageCount] = useState(0);
+  
+  useEffect(() => {
+    const manifest = getPdfManifest();
+    const manifestEntry = manifest?.[filePath];
+    if (manifestEntry && manifestEntry.pages > 0) {
+      setExpectedPageCount(manifestEntry.pages);
+      const urls: string[] = [];
+      for (let i = 1; i <= manifestEntry.pages; i++) {
+        urls.push(getPageImageUrl(filePath, i));
+      }
+      setMiniPages(urls);
+    } else {
+      // Fallback: use pages count when available
+      if (pages.length > 0) {
+        setExpectedPageCount(pages.length);
+        setMiniPages(pages);
+      }
+    }
+  }, [filePath, pages]);
+
+  // Track current page index based on scroll position to highlight in mini-map
+  useEffect(() => {
+    const container = contentRef.current;
+    if (!container) return;
+
+    const handler = () => {
+      const scrollTop = container.scrollTop;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < pageRefs.current.length; i++) {
+        const el = pageRefs.current[i];
+        if (!el) continue;
+        const dist = Math.abs(el.offsetTop - scrollTop);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
+        }
+      }
+      setCurrentPageIndex(bestIdx);
+    };
+
+    container.addEventListener("scroll", handler, { passive: true });
+    // Initialize once
+    handler();
+    return () => container.removeEventListener("scroll", handler as EventListener);
+  }, [pages.length]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -520,6 +671,10 @@ function FileModal({
     };
   }, [loading, nextFileKeys]);
 
+  const contentClasses = cn(
+    "flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-48 xl:pl-56"
+  );
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
@@ -529,7 +684,7 @@ function FileModal({
       />
       
       {/* Modal content */}
-      <div className="relative w-full h-full flex flex-col">
+      <div className="relative w-full h-full flex flex-col min-w-0">
         {/* Header */}
         <header className="flex-shrink-0 border-b border-border bg-card/80 backdrop-blur-xl z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-3">
@@ -565,7 +720,12 @@ function FileModal({
 
         {/* Content - key forces remount on file change for clean transition */}
         {/* Add extra bottom padding so the bottom nav doesn't overlap the detected metadata */}
-        <div key={filePath} className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-48" onClick={onClose}>
+        <div
+          key={filePath}
+          ref={contentRef}
+          className={contentClasses}
+          onClick={onClose}
+        >
           {error && (
             <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -582,7 +742,14 @@ function FileModal({
             {pages.map((dataUrl, index) => {
               const pageCelebrities = getCelebritiesForPage(filePath, index + 1);
               return (
-                <div key={`${filePath}-${index}`} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border" onClick={(e) => e.stopPropagation()}>
+                <div
+                  key={`${filePath}-${index}`}
+                  ref={(el) => {
+                    pageRefs.current[index] = el;
+                  }}
+                  className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="relative">
                     {pages.length > 1 && (
                       <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs font-medium text-muted-foreground border border-border">
@@ -593,8 +760,7 @@ function FileModal({
                     <img
                       src={dataUrl}
                       alt={`Page ${index + 1}`}
-                      className="w-full h-auto md:max-h-[75vh] md:w-auto md:mx-auto"
-                      style={{ maxWidth: "100%" }}
+                      className="max-w-full h-auto max-h-[75vh] mx-auto block"
                     />
                   </div>
                   {pageCelebrities.length > 0 && (
@@ -639,6 +805,145 @@ function FileModal({
           {/* Spacer to ensure content can scroll past the fixed bottom nav */}
           <div className="h-16" aria-hidden="true" />
         </div>
+
+        {/* Mini-map for quick page jumps (desktop only, left sidebar) */}
+        {showMiniMap && (expectedPageCount > 0 || pages.length > 0) && !miniMapCollapsed && (
+          <div 
+            className="hidden xl:flex fixed left-6 top-28 z-30 w-40 flex-col overflow-hidden rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-2xl" 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              animation: 'expandMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              transformOrigin: 'top left',
+              height: 'calc(100vh - 14rem)'
+            }}
+          >
+            {/* Header */}
+            <div className="sticky top-0 z-10 bg-gradient-to-b from-card to-card/95 backdrop-blur-md border-b border-border/50 shadow-sm">
+              <div className="px-4 py-3">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold text-foreground tracking-wide">Navigation</span>
+                  </div>
+                  <button
+                    onClick={() => setMiniMapCollapsed(true)}
+                    className="p-1.5 rounded-lg bg-secondary/50 hover:bg-secondary border border-border/50 transition-colors cursor-pointer group"
+                    aria-label="Collapse mini-map"
+                  >
+                    <svg className="w-3 h-3 text-muted-foreground group-hover:text-foreground transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <div className="flex items-center gap-1.5 mb-2">
+                  <div className="flex-1 relative">
+                    <input
+                      type="number"
+                      min={1}
+                      max={expectedPageCount || pages.length}
+                      value={miniMapJump}
+                      onChange={(e) => {
+                        const val = Math.min(Math.max(1, Number(e.target.value) || 1), expectedPageCount || pages.length);
+                        setMiniMapJump(val);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          scrollToPage(miniMapJump - 1);
+                        }
+                      }}
+                      placeholder="Page"
+                      className="w-full px-2.5 py-1.5 text-xs bg-secondary/50 border border-border/50 rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                    />
+                  </div>
+                  <button
+                    onClick={() => scrollToPage(miniMapJump - 1)}
+                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-primary/90 text-primary-foreground hover:bg-primary shadow-sm hover:shadow transition-all cursor-pointer flex items-center gap-1"
+                    aria-label="Go to page"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <div className="text-[10px] text-muted-foreground">
+                  <span>{expectedPageCount || pages.length} pages</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Thumbnails */}
+            <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2"
+              style={{ 
+                scrollbarWidth: 'thin',
+                scrollbarColor: 'rgb(var(--border)) transparent'
+              }}
+            >
+              {Array.from({ length: expectedPageCount || pages.length }).map((_, idx) => {
+              const src = miniPages[idx] || pages[idx];
+              const isLoaded = !!src;
+              
+              return (
+                <button
+                  key={`mini-${filePath}-${idx}`}
+                  onClick={() => {
+                    if (isLoaded) scrollToPage(idx);
+                  }}
+                  className={cn(
+                    "w-full rounded-lg border overflow-hidden transition-all flex-shrink-0",
+                    isLoaded ? "bg-secondary/50 hover:border-primary hover:shadow-sm cursor-pointer" : "bg-secondary/30 cursor-wait",
+                    currentPageIndex === idx && isLoaded ? "ring-2 ring-primary border-primary" : "border-border"
+                  )}
+                  aria-label={`Jump to page ${idx + 1}`}
+                  disabled={!isLoaded}
+                >
+                  <div className="relative aspect-[3/4] w-full bg-secondary rounded-md overflow-hidden">
+                    {isLoaded ? (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={src}
+                          crossOrigin="anonymous"
+                          alt={`Page ${idx + 1} thumbnail`}
+                          className="absolute inset-0 w-full h-full object-contain"
+                          loading="lazy"
+                        />
+                        <div className="absolute top-1 right-1 px-1.5 py-0.5 text-[10px] rounded bg-background/80 border border-border text-foreground/80">
+                          {idx + 1}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-full border-2 border-muted-foreground/20 border-t-muted-foreground/60 animate-spin" />
+                      </div>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+            </div>
+          </div>
+        )}
+        {showMiniMap && (expectedPageCount > 0 || pages.length > 0) && miniMapCollapsed && (
+          <div 
+            className="hidden xl:flex fixed left-6 top-28 z-30" 
+            style={{
+              animation: 'collapseMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          >
+            <button
+              onClick={(e) => { e.stopPropagation(); setMiniMapCollapsed(false); }}
+              className="px-3 py-1.5 rounded-full border border-border bg-card/90 backdrop-blur-sm text-xs text-muted-foreground hover:bg-secondary cursor-pointer shadow transition-all hover:scale-105 flex items-center gap-1.5"
+              aria-label="Expand mini-map"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+              Show mini-map
+            </button>
+          </div>
+        )}
 
         {/* Navigation bar */}
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-2 bg-card/90 backdrop-blur-sm border border-border rounded-full shadow-lg z-20">
