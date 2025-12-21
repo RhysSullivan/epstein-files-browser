@@ -1,11 +1,12 @@
 "use client";
 
-import { createContext, useContext, ReactNode, useMemo } from "react";
-import { FileItem } from "./cache";
+import { createContext, useContext, ReactNode, useMemo, useEffect } from "react";
+import { FileItem, PdfManifest, setPdfManifest } from "./cache";
 import { getFilesForCelebrity } from "./celebrity-data";
 
 interface FilesContextValue {
   files: FileItem[];
+  pdfManifest: PdfManifest;
   getFilePath: (fileId: string) => string | null;
   getAdjacentFile: (currentPath: string, offset: number, filters?: { collection?: string; celebrity?: string }) => string | null;
 }
@@ -46,10 +47,16 @@ function getFilteredFileKeys(
 export function FilesProvider({
   children,
   files,
+  pdfManifest,
 }: {
   children: ReactNode;
   files: FileItem[];
+  pdfManifest: PdfManifest;
 }) {
+  // Store manifest in global cache for access outside React context
+  useEffect(() => {
+    setPdfManifest(pdfManifest);
+  }, [pdfManifest]);
   // Create a sorted list of file paths for navigation
   const sortedFiles = useMemo(() => 
     [...files].sort((a, b) => {
@@ -105,7 +112,7 @@ export function FilesProvider({
   };
 
   return (
-    <FilesContext.Provider value={{ files: sortedFiles, getFilePath, getAdjacentFile }}>
+    <FilesContext.Provider value={{ files: sortedFiles, pdfManifest, getFilePath, getAdjacentFile }}>
       {children}
     </FilesContext.Provider>
   );

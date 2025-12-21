@@ -48,3 +48,4 @@ rclone.conf
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+pdfs-as-jpegs/

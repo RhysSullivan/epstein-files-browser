@@ -2,6 +2,53 @@ interface Env {
   R2_BUCKET: R2Bucket;
 }
 
+function getFileId(key: string): string {
+  const match = key.match(/EFTA\d+/);
+  return match ? match[0] : key.split('/').pop() || key;
+}
+
+function generateOgHtml(filePath: string, thumbnailUrl: string, siteUrl: string): string {
+  const fileId = getFileId(filePath);
+  const title = `Epstein Files - ${fileId}`;
+  const description = `View document ${fileId} from the Epstein Files archive`;
+  const pageUrl = `${siteUrl}?file=${encodeURIComponent(filePath)}`;
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title}</title>
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${description}">
+  <meta property="og:image" content="${thumbnailUrl}">
+  <meta property="og:image:width" content="300">
+  <meta property="og:image:height" content="400">
+  <meta property="og:site_name" content="Epstein Files Browser">
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="${pageUrl}">
+  <meta name="twitter:title" content="${title}">
+  <meta name="twitter:description" content="${description}">
+  <meta name="twitter:image" content="${thumbnailUrl}">
+  
+  <!-- Redirect for non-bots that somehow end up here -->
+  <meta http-equiv="refresh" content="0;url=${pageUrl}">
+</head>
+<body>
+  <h1>${title}</h1>
+  <p>${description}</p>
+  <p><a href="${pageUrl}">View Document</a></p>
+  <img src="${thumbnailUrl}" alt="${fileId}">
+</body>
+</html>`;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -19,6 +66,53 @@ export default {
           ...cacheHeaders,
           "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type",
+        },
+      });
+    }
+
+    // Serve PDF images manifest
+    if (path === "api/pdf-manifest") {
+      const manifestObject = await env.R2_BUCKET.get("pdfs-as-jpegs/manifest.json");
+      
+      if (!manifestObject) {
+        return new Response(JSON.stringify({ error: "Manifest not found" }), {
+          status: 404,
+          headers: {
+            ...cacheHeaders,
+            "Content-Type": "application/json",
+          },
+        });
+      }
+
+      return new Response(manifestObject.body, {
+        headers: {
+          ...cacheHeaders,
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
+    // Handle OG metadata endpoint for social media bots
+    if (path === "og" || path === "api/og") {
+      const filePath = url.searchParams.get("file");
+      
+      if (!filePath) {
+        return new Response("Missing file parameter", { status: 400 });
+      }
+
+      // Construct thumbnail URL - thumbnails are stored as .jpg versions of the PDF
+      const thumbnailKey = `thumbnails/${filePath.replace(".pdf", ".jpg")}`;
+      const thumbnailUrl = `${url.origin}/${thumbnailKey}`;
+      
+      // Use the main site URL for the page link
+      const siteUrl = "https://epstein-files-browser.vercel.app";
+      
+      const html = generateOgHtml(filePath, thumbnailUrl, siteUrl);
+      
+      return new Response(html, {
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=86400", // Cache for 1 day
         },
       });
     }

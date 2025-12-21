@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Analytics } from "@vercel/analytics/next";
 import { FilesProvider } from "@/lib/files-context";
-import { FileItem } from "@/lib/cache";
+import { FileItem, PdfManifest } from "@/lib/cache";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,19 +41,40 @@ async function fetchAllFiles(): Promise<FileItem[]> {
   return data.files;
 }
 
+async function fetchPdfManifest(): Promise<PdfManifest> {
+  try {
+    const response = await fetch(`${WORKER_URL}/api/pdf-manifest`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
+
+    if (!response.ok) {
+      console.warn("PDF manifest not available, falling back to PDF rendering");
+      return {};
+    }
+
+    return await response.json();
+  } catch {
+    console.warn("Failed to fetch PDF manifest, falling back to PDF rendering");
+    return {};
+  }
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const files = await fetchAllFiles();
+  const [files, pdfManifest] = await Promise.all([
+    fetchAllFiles(),
+    fetchPdfManifest(),
+  ]);
 
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <FilesProvider files={files}>
+        <FilesProvider files={files} pdfManifest={pdfManifest}>
           <NuqsAdapter>{children}</NuqsAdapter>
         </FilesProvider>
         <Analytics />
