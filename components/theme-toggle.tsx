@@ -10,49 +10,42 @@ const THEME_STORAGE_KEY = "theme"
 
 function applyTheme(mode: ThemeMode, showTransition: boolean = true) {
   const root = document.documentElement
-  
-  // Apply theme directly without transition on initial load
-  if (!showTransition) {
-    if (mode === "dark") {
-      root.classList.add("dark")
-    } else if (mode === "light") {
-      root.classList.remove("dark")
-    } else {
-      // system: mirror current media query
-      const prefersDark = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-      if (prefersDark) root.classList.add("dark")
-      else root.classList.remove("dark")
-    }
+
+  // Resolve target theme (willDark) for any mode
+  const prefersDark = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+  const willDark = mode === "dark" ? true : mode === "light" ? false : prefersDark
+  const wasDark = root.classList.contains("dark")
+
+  // If no visual change, apply without animation and exit
+  if (wasDark === willDark || !showTransition) {
+    if (willDark) root.classList.add("dark")
+    else root.classList.remove("dark")
     return
   }
-  
-  // Show transition effect when user changes theme
+
+  // Only show transition when switching between light/dark visually
   const overlay = document.getElementById("theme-transition-overlay")
-  
-  if (!overlay) return
-  
+  if (!overlay) {
+    // Fallback: apply without animation if overlay missing
+    if (willDark) root.classList.add("dark")
+    else root.classList.remove("dark")
+    return
+  }
+
   // Fade in
   overlay.classList.remove("fade-out")
   overlay.classList.add("fade-in")
-  
+
   // Wait for fade-in to complete
   setTimeout(() => {
-    // Change theme
-    if (mode === "dark") {
-      root.classList.add("dark")
-    } else if (mode === "light") {
-      root.classList.remove("dark")
-    } else {
-      // system: mirror current media query
-      const prefersDark = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-      if (prefersDark) root.classList.add("dark")
-      else root.classList.remove("dark")
-    }
-    
+    // Apply target theme
+    if (willDark) root.classList.add("dark")
+    else root.classList.remove("dark")
+
     // Fade out
     overlay.classList.remove("fade-in")
     overlay.classList.add("fade-out")
-    
+
     // Clean up classes
     setTimeout(() => {
       overlay.classList.remove("fade-in", "fade-out")
@@ -104,7 +97,7 @@ export default function ThemeToggle({ variant = "header" }: { variant?: "header"
   const triggerClassesHeader = "p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
   const triggerButton = (
     <button
-      aria-label="Theme wechseln"
+      aria-label="Change theme"
       title="Theme"
       className={triggerClassesHeader}
     >
@@ -114,7 +107,7 @@ export default function ThemeToggle({ variant = "header" }: { variant?: "header"
 
   const floatingTrigger = (
     <button
-      aria-label="Theme wechseln"
+      aria-label="Change theme"
       title="Theme"
       className="rounded-full bg-background/80 dark:bg-input/40 backdrop-blur-sm shadow-sm size-10 flex items-center justify-center border border-border cursor-pointer"
     >
@@ -130,21 +123,21 @@ export default function ThemeToggle({ variant = "header" }: { variant?: "header"
           onClick={() => setTheme("system")}
         >
           <Laptop className="size-4" />
-          Systemstandard
+          System
         </button>
         <button
           className={`flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-accent hover:text-accent-foreground cursor-pointer ${mode === "light" ? "bg-accent/60" : ""}`}
           onClick={() => setTheme("light")}
         >
           <Sun className="size-4" />
-          Hell
+          Light
         </button>
         <button
           className={`flex items-center gap-2 rounded-md px-2 py-2 text-sm hover:bg-accent hover:text-accent-foreground cursor-pointer ${mode === "dark" ? "bg-accent/60" : ""}`}
           onClick={() => setTheme("dark")}
         >
           <Moon className="size-4" />
-          Dunkel
+          Dark
         </button>
       </div>
     </PopoverContent>

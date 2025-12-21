@@ -233,7 +233,7 @@ export function StatisticsDashboard({
           <div className="flex items-center gap-2">
             <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-              Statistiken
+              Statistics
             </h2>
           </div>
           {hasActiveFilter && globalStats && (
@@ -258,7 +258,7 @@ export function StatisticsDashboard({
           )}
         </div>
         <p className="text-sm sm:text-base text-muted-foreground">
-          {showFiltered ? "Analyse der gefilterten Dateien" : "Umfassende Analyse der Dateisammlung"}
+          {showFiltered ? "Analysis of filtered files" : "Comprehensive analysis of the file collection"}
         </p>
       </div>
 
@@ -279,18 +279,18 @@ function renderStatistics(stats: Stats, filesCount: number, isFiltered: boolean 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <StatCard
           icon={FileText}
-          label="Gesamtzahl Dateien"
+          label="Total files"
           value={stats.totalFiles.toLocaleString()}
         />
         <StatCard
           icon={HardDrive}
-          label="Gesamtgröße"
+          label="Total size"
           value={formatBytes(stats.totalSize)}
-          subtext={`Ø ${formatBytes(stats.averageFileSize)}`}
+          subtext={`Avg ${formatBytes(stats.averageFileSize)}`}
         />
         <StatCard
           icon={Calendar}
-          label="Letzte Aktualisierung"
+          label="Last update"
           value={stats.mostRecentUpload ? formatDate(stats.mostRecentUpload) : "N/A"}
         />
       </div>
@@ -299,11 +299,11 @@ function renderStatistics(stats: Stats, filesCount: number, isFiltered: boolean 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         <div className="rounded-lg border border-border bg-card p-4 sm:p-6">
           <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-4">
-            Größenmediane
+            File size metrics
           </h3>
           <div className="space-y-3">
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Durchschnitt</p>
+              <p className="text-sm text-muted-foreground mb-1">Average</p>
               <p className="text-xl font-bold text-foreground">
                 {formatBytes(stats.averageFileSize)}
               </p>
@@ -315,7 +315,7 @@ function renderStatistics(stats: Stats, filesCount: number, isFiltered: boolean 
               </p>
             </div>
             <div className="pt-3 border-t border-border">
-              <p className="text-sm text-muted-foreground mb-1">Größte Datei</p>
+              <p className="text-sm text-muted-foreground mb-1">Largest file</p>
               <p className="text-sm font-mono text-foreground truncate">
                 {stats.largestFile.name}
               </p>
@@ -324,7 +324,7 @@ function renderStatistics(stats: Stats, filesCount: number, isFiltered: boolean 
               </p>
             </div>
             <div>
-              <p className="text-sm text-muted-foreground mb-1">Kleinste Datei</p>
+              <p className="text-sm text-muted-foreground mb-1">Smallest file</p>
               <p className="text-sm font-mono text-foreground truncate">
                 {stats.smallestFile.name}
               </p>
@@ -340,7 +340,7 @@ function renderStatistics(stats: Stats, filesCount: number, isFiltered: boolean 
           <div className="flex items-center gap-2 mb-4">
             <Zap className="w-5 h-5 text-primary" />
             <h3 className="text-lg sm:text-xl font-semibold text-foreground">
-              Größenverteilung
+              Size distribution
             </h3>
           </div>
           <div className="space-y-4">
@@ -360,7 +360,7 @@ function renderStatistics(stats: Stats, filesCount: number, isFiltered: boolean 
               ))
             ) : (
               <p className="text-sm text-muted-foreground">
-                Keine Daten verfügbar
+                No data available
               </p>
             )}
           </div>
@@ -370,8 +370,8 @@ function renderStatistics(stats: Stats, filesCount: number, isFiltered: boolean 
       {/* Footer Info */}
       <div className="rounded-lg bg-accent/10 border border-accent/20 p-4 sm:p-6">
         <p className="text-sm text-muted-foreground">
-          <span className="font-medium text-accent-foreground">Hinweis:</span>{" "}
-          Diese Statistiken basieren auf {stats.totalFiles.toLocaleString()} {filesCount === 1 ? "Datei" : "Dateien"} und werden in Echtzeit aktualisiert.
+          <span className="font-medium text-accent-foreground">Note:</span>{" "}
+          These statistics are based on {stats.totalFiles.toLocaleString()} {filesCount === 1 ? "file" : "files"} and update in real time.
         </p>
       </div>
     </div>

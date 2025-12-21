@@ -1036,6 +1036,20 @@ export function FileBrowser() {
   const searchRef = useRef<GlobalSearchHandle | null>(null);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showStats, setShowStats] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  // Detect desktop devices (fine pointer + hover usually indicates non-touch desktop)
+  useEffect(() => {
+    try {
+      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const update = () => setIsDesktop(mq.matches);
+      update();
+      mq.addEventListener('change', update);
+      return () => mq.removeEventListener('change', update);
+    } catch {
+      setIsDesktop(true);
+    }
+  }, []);
 
   const resetFilters = useCallback(() => {
     setCollectionFilter("All");
@@ -1227,6 +1241,7 @@ export function FileBrowser() {
 
   // Global keyboard shortcuts
   useEffect(() => {
+    if (!isDesktop) return; // Only enable keyboard shortcuts on desktop
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       const isTyping = target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
@@ -1255,7 +1270,7 @@ export function FileBrowser() {
 
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [resetFilters, showShortcuts]);
+  }, [resetFilters, showShortcuts, isDesktop]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -1274,35 +1289,37 @@ export function FileBrowser() {
               <div className="relative group">
                 <ThemeToggle variant="header" />
                 <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
-                  Theme wechseln
+                  Change theme
                 </span>
               </div>
               <div className="relative group">
                 <button
                   onClick={() => setShowStats(true)}
                   className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
-                  aria-label="Statistiken"
-                  title="Statistiken"
+                  aria-label="Statistics"
+                  title="Statistics"
                 >
                   <BarChart3 className="w-5 h-5" />
                 </button>
                 <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
-                  Statistiken
+                  Statistics
                 </span>
               </div>
-              <div className="relative group">
-                <button
-                  onClick={() => setShowShortcuts(true)}
-                  className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
-                  aria-label="Keyboard shortcuts"
-                  title="Keyboard shortcuts (?)"
-                >
-                  <HelpCircle className="w-5 h-5" />
-                </button>
-                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
-                  Tastenkürzel
-                </span>
-              </div>
+              {isDesktop && (
+                <div className="relative group">
+                  <button
+                    onClick={() => setShowShortcuts(true)}
+                    className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
+                    aria-label="Keyboard shortcuts"
+                    title="Keyboard shortcuts (?)"
+                  >
+                    <HelpCircle className="w-5 h-5" />
+                  </button>
+                  <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                    Keyboard shortcuts
+                  </span>
+                </div>
+              )}
               <div className="relative inline-flex group">
                 <a
                   href="https://github.com/RhysSullivan/epstein-files-browser"
@@ -1326,7 +1343,7 @@ export function FileBrowser() {
                   </svg>
                 </a>
                 <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
-                  GitHub öffnen
+                  Open GitHub
                 </span>
               </div>
             </div>
@@ -1393,8 +1410,8 @@ export function FileBrowser() {
         </div>
       </header>
 
-      {/* Shortcuts Popup */}
-      {showShortcuts && (
+      {/* Shortcuts Popup (desktop only) */}
+      {isDesktop && showShortcuts && (
         <div className="fixed inset-0 z-30 flex items-center justify-center px-4 sm:px-6" role="dialog" aria-modal="true">
           <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setShowShortcuts(false)} />
           <div className="relative w-full max-w-md rounded-2xl border border-border bg-card shadow-2xl">
@@ -1532,7 +1549,7 @@ export function FileBrowser() {
             <div className="sticky top-0 bg-card border-b border-border p-4 sm:p-6 flex items-center justify-between">
               <h2 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
                 <BarChart3 className="w-6 h-6" />
-                Statistiken
+                Statistics
               </h2>
               <button
                 onClick={() => setShowStats(false)}
