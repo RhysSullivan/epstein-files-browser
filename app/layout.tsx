@@ -81,7 +81,7 @@ async function fetchPdfManifest(): Promise<PdfManifest> {
       return {};
     }
 
-    const manifest = await response.json();
+    const manifest: PdfManifest = await response.json();
     console.log('PDF manifest loaded, entries:', Object.keys(manifest).length);
     return manifest;
   } catch (error) {
