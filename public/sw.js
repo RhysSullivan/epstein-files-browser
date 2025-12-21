@@ -3,12 +3,11 @@ const CACHE_NAME = 'epstein-files-v1';
 const RUNTIME_CACHE = 'epstein-runtime-v1';
 const THUMBNAIL_CACHE = 'epstein-thumbnails-v1';
 
-// Assets to cache on install
+// Assets to cache on install - only cache files that actually exist
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
-  '/icon-192x192.png',
-  '/icon-512x512.png'
+  '/favicon.ico'
 ];
 
 // Install event - cache static assets

@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   description: "Browse and view the released Epstein files",
   manifest: "/manifest.json",
   icons: {
-    icon: "/icon-192x192.png",
-    shortcut: "/icon-192x192.png",
-    apple: "/icon-192x192.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
   appleWebApp: {
     capable: true,
@@ -107,9 +107,10 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Files Browser" />
+        <meta name="theme-color" content="#a78bfa" />
         <link rel="manifest" href="/manifest.json" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
-        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -119,7 +120,22 @@ export default async function RootLayout({
           {`(() => {try {var s = localStorage.getItem('theme'); var m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; var r = document.documentElement; if (s === 'dark' || ((s === 'system' || !s) && m)) { r.classList.add('dark'); } else { r.classList.remove('dark'); }} catch (e) { /* noop */ }})();`}
         </Script>
         <Script id="sw-register" strategy="afterInteractive">
-          {`if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch((error) => { console.log('Service Worker registration failed:', error); }); }`}
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                  .then(function(registration) {
+                    console.log('Service Worker registered successfully:', registration);
+                  })
+                  .catch(function(error) {
+                    console.error('Service Worker registration failed:', error);
+                    console.error('Error details:', error.message);
+                  });
+              });
+            } else {
+              console.warn('Service Workers are not supported in this browser');
+            }
+          `}
         </Script>
         <FilesProvider files={files} pdfManifest={pdfManifest}>
           <NuqsAdapter>{children}</NuqsAdapter>

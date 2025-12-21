@@ -364,6 +364,7 @@ function FileModal({
   const [miniPages, setMiniPages] = useState<string[]>([]);
   const [showMiniMapAnimation, setShowMiniMapAnimation] = useState(false);
   const skipNextAnimationRef = useRef(true);
+  const animationRunningRef = useRef(false);
 
   useEffect(() => {
     // On mount, skip the first animation trigger
@@ -379,9 +380,13 @@ function FileModal({
     if (typeof window !== "undefined") {
       try {
         localStorage.setItem("minimap_collapsed", miniMapCollapsed ? "true" : "false");
-        if (!skipNextAnimationRef.current) {
+        if (!skipNextAnimationRef.current && !animationRunningRef.current) {
+          animationRunningRef.current = true;
           setShowMiniMapAnimation(true);
-          const timer = setTimeout(() => setShowMiniMapAnimation(false), 250);
+          const timer = setTimeout(() => {
+            setShowMiniMapAnimation(false);
+            animationRunningRef.current = false;
+          }, 250);
           return () => clearTimeout(timer);
         }
       } catch (e) {
@@ -949,7 +954,7 @@ function FileModal({
             </div>
           </div>
             )}
-            {miniMapCollapsed && (
+            {miniMapCollapsed && !showMiniMapAnimation && (
               <div 
                 className="hidden xl:flex fixed left-6 top-28 z-30 items-center"
               >
