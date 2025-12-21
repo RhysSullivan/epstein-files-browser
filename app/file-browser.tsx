@@ -347,26 +347,47 @@ function FileModal({
   const contentRef = useRef<HTMLDivElement | null>(null);
   const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [showMiniMap, setShowMiniMap] = useState(true);
-  const [miniMapCollapsed, setMiniMapCollapsed] = useState(false);
+  const [miniMapCollapsed, setMiniMapCollapsed] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const raw = localStorage.getItem("minimap_collapsed");
+        return raw === "true";
+      } catch (e) {
+        console.error("Failed to load minimap state:", e);
+      }
+    }
+    return false;
+  });
   const [miniMapJump, setMiniMapJump] = useState(1);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
   const [thumbnails, setThumbnails] = useState<string[]>([]);
   const [miniPages, setMiniPages] = useState<string[]>([]);
+  const [showMiniMapAnimation, setShowMiniMapAnimation] = useState(false);
+  const skipNextAnimationRef = useRef(true);
 
-  // Persist mini-map collapsed/expanded state across sessions
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("minimap_collapsed");
-      if (raw !== null) {
-        setMiniMapCollapsed(raw === "true");
-      }
-    } catch {}
+    // On mount, skip the first animation trigger
+    skipNextAnimationRef.current = true;
+    // After first render, allow animations
+    const timer = setTimeout(() => {
+      skipNextAnimationRef.current = false;
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    try {
-      localStorage.setItem("minimap_collapsed", miniMapCollapsed ? "true" : "false");
-    } catch {}
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("minimap_collapsed", miniMapCollapsed ? "true" : "false");
+        if (!skipNextAnimationRef.current) {
+          setShowMiniMapAnimation(true);
+          const timer = setTimeout(() => setShowMiniMapAnimation(false), 250);
+          return () => clearTimeout(timer);
+        }
+      } catch (e) {
+        console.error("Failed to save minimap state:", e);
+      }
+    }
   }, [miniMapCollapsed]);
   
   const filePath = file.key;
@@ -807,16 +828,19 @@ function FileModal({
         </div>
 
         {/* Mini-map for quick page jumps (desktop only, left sidebar) */}
-        {showMiniMap && (expectedPageCount > 0 || pages.length > 0) && !miniMapCollapsed && (
-          <div 
-            className="hidden xl:flex fixed left-6 top-28 z-30 w-40 flex-col overflow-hidden rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-2xl" 
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              animation: 'expandMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
-              transformOrigin: 'top left',
-              height: 'calc(100vh - 14rem)'
-            }}
-          >
+        {showMiniMap && (expectedPageCount > 0 || pages.length > 0) && (
+          <>
+            {(!miniMapCollapsed || showMiniMapAnimation) && (
+              <div 
+                className="hidden xl:flex fixed left-6 top-28 z-30 w-40 flex-col overflow-hidden rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-2xl" 
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  animation: (showMiniMapAnimation) ? (miniMapCollapsed ? 'collapseMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)' : 'expandMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)') : 'none',
+                  transformOrigin: 'top',
+                  height: 'calc(100vh - 14rem)',
+                  pointerEvents: miniMapCollapsed ? 'none' : 'auto'
+                }}
+              >
             {/* Header */}
             <div className="sticky top-0 z-10 bg-gradient-to-b from-card to-card/95 backdrop-blur-md border-b border-border/50 shadow-sm">
               <div className="px-4 py-3">
@@ -924,25 +948,24 @@ function FileModal({
             })}
             </div>
           </div>
-        )}
-        {showMiniMap && (expectedPageCount > 0 || pages.length > 0) && miniMapCollapsed && (
-          <div 
-            className="hidden xl:flex fixed left-6 top-28 z-30" 
-            style={{
-              animation: 'collapseMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)'
-            }}
-          >
-            <button
-              onClick={(e) => { e.stopPropagation(); setMiniMapCollapsed(false); }}
-              className="px-3 py-1.5 rounded-full border border-border bg-card/90 backdrop-blur-sm text-xs text-muted-foreground hover:bg-secondary cursor-pointer shadow transition-all hover:scale-105 flex items-center gap-1.5"
-              aria-label="Expand mini-map"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-              Show mini-map
-            </button>
-          </div>
+            )}
+            {miniMapCollapsed && (
+              <div 
+                className="hidden xl:flex fixed left-6 top-28 z-30 items-center"
+              >
+                <button
+                  onClick={(e) => { e.stopPropagation(); setMiniMapCollapsed(false); }}
+                  className="px-3 py-1.5 rounded-full border border-border bg-card/90 backdrop-blur-sm text-xs text-muted-foreground hover:bg-secondary cursor-pointer shadow transition-all flex items-center gap-1.5"
+                  aria-label="Expand mini-map"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  Show mini-map
+                </button>
+              </div>
+            )}
+          </>
         )}
 
         {/* Navigation bar */}
