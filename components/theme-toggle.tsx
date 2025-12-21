@@ -94,7 +94,7 @@ export default function ThemeToggle({ variant = "header" }: { variant?: "header"
 
   const CurrentIcon = mode === "system" ? (systemDark ? Moon : Sun) : mode === "dark" ? Moon : Sun
 
-  const triggerClassesHeader = "p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
+  const triggerClassesHeader = "p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
   const triggerButton = (
     <button
       aria-label="Change theme"
