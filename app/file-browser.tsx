@@ -19,6 +19,10 @@ import { CollectionCombobox } from "@/components/collection-combobox";
 import { SortCombobox } from "@/components/sort-combobox";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
 import { useFiles } from "@/lib/files-context";
+import ThemeToggle from "@/components/theme-toggle";
+import GlobalSearch, { GlobalSearchHandle } from "@/components/global-search";
+import { StatisticsDashboard } from "@/components/statistics-dashboard";
+import { HelpCircle, BarChart3 } from "lucide-react";
 
 const WORKER_URL =
   process.env.NODE_ENV === "development"
@@ -667,11 +671,53 @@ export function FileBrowser() {
     defaultValue: "name",
   });
   const [openFile, setOpenFile] = useQueryState("file");
+  const [searchQuery, setSearchQuery] = useQueryState("q", { defaultValue: "" });
+  const hasActiveFilters = (collectionFilter !== "All") || (celebrityFilter !== "All") || !!(searchQuery && searchQuery.trim());
+  const searchRef = useRef<GlobalSearchHandle | null>(null);
+  const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+
+  const resetFilters = useCallback(() => {
+    setCollectionFilter("All");
+    setCelebrityFilter("All");
+    setSearchQuery(null);
+  }, [setCollectionFilter, setCelebrityFilter, setSearchQuery]);
+
+  // Recent searches for inline history display
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("recent_searches");
+      const list: string[] = raw ? JSON.parse(raw) : [];
+      setRecentSearches(list);
+    } catch {
+      setRecentSearches([]);
+    }
+  }, [searchQuery]);
 
   // Get celebrities with >99% confidence for the dropdown
   const celebrities = getCelebritiesAboveConfidence(99);
 
-  // Derive filtered and sorted files from initialFiles + filters
+  // Calculate celebrity counts based on current collection filter
+  const celebrityCounts = useMemo(() => {
+    let baseFiles = initialFiles;
+    
+    // Apply collection filter to base files
+    if (collectionFilter !== "All") {
+      baseFiles = baseFiles.filter((f) => f.key.startsWith(collectionFilter));
+    }
+    
+    // Count how many files each celebrity appears in (within the filtered collection)
+    const counts: { [name: string]: number } = {};
+    for (const celeb of celebrities) {
+      const celebFiles = new Set(getFilesForCelebrity(celeb.name, 99));
+      counts[celeb.name] = baseFiles.filter(f => celebFiles.has(f.key)).length;
+    }
+    
+    return counts;
+  }, [initialFiles, collectionFilter, celebrities]);
+
+  // Derive filtered and sorted files from initialFiles + filters + search
   const filteredFiles = useMemo(() => {
     let files = initialFiles;
 
@@ -684,6 +730,28 @@ export function FileBrowser() {
     if (celebrityFilter !== "All") {
       const celebrityFileKeys = new Set(getFilesForCelebrity(celebrityFilter, 99));
       files = files.filter((f) => celebrityFileKeys.has(f.key));
+    }
+
+    // Apply search query (matches file id/key, celebrity name, or collection prefix)
+    const q = (searchQuery || "").trim().toLowerCase();
+    if (q) {
+      // Precompute keys for celebrities matching the query
+      const matchedCelebKeys = new Set<string>();
+      for (const c of celebrities) {
+        if (c.name.toLowerCase().includes(q)) {
+          for (const fk of getFilesForCelebrity(c.name, 99)) matchedCelebKeys.add(fk);
+        }
+      }
+
+      files = files.filter((f) => {
+        const id = getFileId(f.key).toLowerCase();
+        const keyLc = f.key.toLowerCase();
+        const prefix = f.key.split("/")[0]?.toLowerCase() || "";
+        const fileMatch = id.includes(q) || keyLc.includes(q);
+        const celebMatch = matchedCelebKeys.has(f.key);
+        const volumeMatch = prefix.includes(q);
+        return fileMatch || celebMatch || volumeMatch;
+      });
     }
 
     // Apply sorting
@@ -704,16 +772,17 @@ export function FileBrowser() {
     });
 
     return files;
-  }, [initialFiles, collectionFilter, celebrityFilter, sortBy]);
+  }, [initialFiles, collectionFilter, celebrityFilter, sortBy, searchQuery, celebrities]);
 
   // Build query string to preserve filters in file links
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
     if (collectionFilter !== "All") params.set("collection", collectionFilter);
     if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter);
+    if (searchQuery) params.set("q", searchQuery);
     const str = params.toString();
     return str ? `?${str}` : "";
-  }, [collectionFilter, celebrityFilter]);
+  }, [collectionFilter, celebrityFilter, searchQuery]);
   
   // Modal state - find index from file key
   const selectedFileIndex = useMemo(() => {
@@ -742,67 +811,246 @@ export function FileBrowser() {
     setOpenFile(null);
   }, [setOpenFile]);
 
+  // Incremental rendering: reveal files progressively as user scrolls
+  const INITIAL_BATCH = 60;
+  const LOAD_STEP = 60;
+  const [visibleCount, setVisibleCount] = useState<number>(INITIAL_BATCH);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const [isAutoLoading, setIsAutoLoading] = useState(false);
+
+  // Reset visible count when filters or sorting change
+  useEffect(() => {
+    setVisibleCount(INITIAL_BATCH);
+  }, [collectionFilter, celebrityFilter, sortBy, searchQuery]);
+
+  // IntersectionObserver to load more when sentinel enters viewport
+  useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el) return;
+    const onIntersect: IntersectionObserverCallback = (entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting && visibleCount < filteredFiles.length) {
+        setIsAutoLoading(true);
+        // Batch more items
+        setVisibleCount((c) => Math.min(c + LOAD_STEP, filteredFiles.length));
+      }
+    };
+    const io = new IntersectionObserver(onIntersect, {
+      root: null,
+      rootMargin: "600px 0px 600px 0px",
+      threshold: 0,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [filteredFiles.length, visibleCount]);
+
+  useEffect(() => {
+    // Stop the loading indicator when we've revealed more items
+    setIsAutoLoading(false);
+  }, [visibleCount]);
+
+  // Global keyboard shortcuts
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isTyping = target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
+
+      // Always allow opening the help with Shift+?
+      if (e.key === "?" && e.shiftKey) {
+        e.preventDefault();
+        setShowShortcuts(true);
+        return;
+      }
+
+      if (isTyping) return;
+      const hasModifier = e.metaKey || e.ctrlKey || e.altKey;
+
+      if (!hasModifier && e.key === "/") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      } else if (!hasModifier && e.key.toLowerCase() === "r") {
+        e.preventDefault();
+        resetFilters();
+      } else if (e.key === "Escape" && showShortcuts) {
+        e.preventDefault();
+        setShowShortcuts(false);
+      }
+    };
+
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [resetFilters, showShortcuts]);
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-xl sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-3">
-              <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center min-w-0">
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-2xl font-bold text-foreground tracking-tight truncate">
                   Epstein Files Browser
                 </h1>
               </div>
             </div>
-            <a
-              href="https://github.com/RhysSullivan/epstein-files-browser"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105"
-              aria-label="View source on GitHub"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="relative group">
+                <ThemeToggle variant="header" />
+                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                  Theme wechseln
+                </span>
+              </div>
+              <div className="relative group">
+                <button
+                  onClick={() => setShowStats(true)}
+                  className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
+                  aria-label="Statistiken"
+                  title="Statistiken"
+                >
+                  <BarChart3 className="w-5 h-5" />
+                </button>
+                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                  Statistiken
+                </span>
+              </div>
+              <div className="relative group">
+                <button
+                  onClick={() => setShowShortcuts(true)}
+                  className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
+                  aria-label="Keyboard shortcuts"
+                  title="Keyboard shortcuts (?)"
+                >
+                  <HelpCircle className="w-5 h-5" />
+                </button>
+                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                  Tastenkürzel
+                </span>
+              </div>
+              <div className="relative inline-flex group">
+                <a
+                  href="https://github.com/RhysSullivan/epstein-files-browser"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105"
+                  aria-label="View source on GitHub"
+                  title="View source on GitHub"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                  GitHub öffnen
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex gap-3 items-center flex-wrap">
-            <CollectionCombobox
-              value={collectionFilter}
-              onValueChange={(value) => setCollectionFilter(value)}
-            />
-            <CelebrityCombobox
-              celebrities={celebrities}
-              value={celebrityFilter}
-              onValueChange={(value) => setCelebrityFilter(value)}
-            />
-            <SortCombobox
-              value={sortBy}
-              onValueChange={(value) => setSortBy(value)}
-            />
+          {/* Filters row inside sticky header */}
+          <div className="mt-2 sm:mt-3 space-y-2 sm:space-y-3">
+            {/* Search on its own row above filters */}
+            <div className="w-full">
+              <GlobalSearch ref={searchRef} />
+            </div>
 
-            <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 rounded-xl">
-              <span className="text-sm font-medium text-muted-foreground">
-                {filteredFiles.length.toLocaleString()} files
-                {collectionFilter !== "All" || celebrityFilter !== "All"
-                  ? <span className="text-foreground/50"> / {initialFiles.length.toLocaleString()}</span>
-                  : ""}
-              </span>
+            {/* Filter controls */}
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
+              <div className="col-span-1">
+                <CollectionCombobox
+                  value={collectionFilter}
+                  onValueChange={(value) => setCollectionFilter(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <CelebrityCombobox
+                  celebrities={celebrities.map(c => ({ ...c, count: celebrityCounts[c.name] || 0 }))}
+                  value={celebrityFilter}
+                  onValueChange={(value) => setCelebrityFilter(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <SortCombobox
+                  value={sortBy}
+                  onValueChange={(value) => setSortBy(value)}
+                />
+              </div>
+              {/* Separate Reset button tile - next to Sort on mobile */}
+              <div className="col-span-1 sm:col-span-1 sm:w-auto">
+                <button
+                  onClick={resetFilters}
+                  disabled={!hasActiveFilters}
+                  className="w-full inline-flex items-center justify-center gap-1.5 text-sm px-4 py-2.5 rounded-xl bg-secondary border border-border text-foreground hover:bg-accent hover:text-foreground transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  aria-disabled={!hasActiveFilters}
+                  aria-label="Reset filters"
+                  title="Reset filters"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="font-medium">Reset Filters</span>
+                </button>
+              </div>
+
+              {/* File count tile - full width on mobile, after controls */}
+              <div className="col-span-2 sm:col-span-1 sm:w-auto">
+                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 py-2 bg-secondary/50 rounded-xl w-full">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    {filteredFiles.length.toLocaleString()} files
+                    {collectionFilter !== "All" || celebrityFilter !== "All" || (searchQuery && searchQuery.trim())
+                      ? <span className="text-foreground/50"> / {initialFiles.length.toLocaleString()}</span>
+                      : ""}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </header>
+
+      {/* Shortcuts Popup */}
+      {showShortcuts && (
+        <div className="fixed inset-0 z-30 flex items-center justify-center px-4 sm:px-6" role="dialog" aria-modal="true">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setShowShortcuts(false)} />
+          <div className="relative w-full max-w-md rounded-2xl border border-border bg-card shadow-2xl">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+              <h2 className="text-lg font-semibold text-foreground">Keyboard shortcuts</h2>
+              <button
+                onClick={() => setShowShortcuts(false)}
+                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
+                aria-label="Close shortcuts"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="px-4 py-3 space-y-3">
+              {[{label:"Focus search", combo:["/"]},{label:"Reset filters", combo:["R"]},{label:"Open shortcuts", combo:["Shift","?"]},{label:"Close (Esc)", combo:["Esc"]}].map((item) => (
+                <div key={item.label} className="flex items-center justify-between gap-3">
+                  <span className="text-sm text-foreground">{item.label}</span>
+                  <div className="flex items-center gap-1">
+                    {item.combo.map((key) => (
+                      <kbd key={key} className="px-2 py-1 rounded-md bg-secondary border border-border text-xs font-mono text-foreground">
+                        {key}
+                      </kbd>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Celebrity Detection Disclaimer */}
       {celebrityFilter !== "All" && (
@@ -825,10 +1073,11 @@ export function FileBrowser() {
         </div>
       )}
 
-      {/* File Grid */}
+      {/* File Grid */
+      }
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-          {filteredFiles.map((file) => (
+          {filteredFiles.slice(0, visibleCount).map((file) => (
             <FileCard 
               key={file.key} 
               file={file} 
@@ -837,6 +1086,26 @@ export function FileBrowser() {
             />
           ))}
         </div>
+
+        {/* Load more sentinel + status */}
+        {filteredFiles.length > visibleCount && (
+          <div className="flex items-center justify-center py-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              {isAutoLoading && (
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4A4 4 0 008 12H4z"></path>
+                </svg>
+              )}
+              <span>
+                Showing {visibleCount.toLocaleString()} of {filteredFiles.length.toLocaleString()} files
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Intersection sentinel */}
+        <div ref={loadMoreRef} className="h-1 w-full" />
 
         {/* Empty state */}
         {filteredFiles.length === 0 && (
@@ -847,7 +1116,20 @@ export function FileBrowser() {
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-1">No files found</h3>
-            <p className="text-muted-foreground text-sm">Try adjusting your filters to find what you&apos;re looking for.</p>
+            <p className="text-muted-foreground text-sm mb-4">Try changing your search or adjusting filters.</p>
+            {recentSearches.length > 0 && (
+              <div className="flex flex-wrap gap-2 justify-center">
+                {recentSearches.map((s) => (
+                  <button
+                    key={`empty-${s}`}
+                    onClick={() => setSearchQuery(s)}
+                    className="px-2.5 py-1 rounded-full bg-secondary hover:bg-accent text-xs text-foreground border border-border cursor-pointer"
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>
@@ -864,6 +1146,37 @@ export function FileBrowser() {
           queryString={queryString}
           nextFiles={selectedFileIndex !== null ? filteredFiles.slice(selectedFileIndex + 1, selectedFileIndex + 6) : []}
         />
+      )}
+
+      {/* Statistics Modal */}
+      {showStats && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setShowStats(false)} />
+          <div className="relative bg-card border border-border rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-card border-b border-border p-4 sm:p-6 flex items-center justify-between">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
+                <BarChart3 className="w-6 h-6" />
+                Statistiken
+              </h2>
+              <button
+                onClick={() => setShowStats(false)}
+                className="p-2 rounded-lg hover:bg-accent text-muted-foreground hover:text-foreground cursor-pointer"
+                aria-label="Close statistics"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-4 sm:p-6">
+              <StatisticsDashboard 
+                files={filteredFiles} 
+                allFiles={initialFiles}
+                hasActiveFilter={hasActiveFilters}
+              />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

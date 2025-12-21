@@ -47,7 +47,7 @@ export function CollectionCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[220px] sm:w-[260px] justify-between bg-secondary border-border text-foreground hover:bg-accent hover:text-foreground rounded-xl h-auto py-2.5 px-4 transition-all duration-200 cursor-pointer"
+          className="w-full sm:w-[260px] justify-between bg-secondary border-border text-foreground hover:bg-accent hover:text-foreground rounded-xl h-auto py-2.5 px-4 transition-all duration-200 cursor-pointer"
         >
           <div className="flex items-center gap-2 min-w-0">
             <Folder className="h-4 w-4 text-muted-foreground flex-shrink-0" />

@@ -1,0 +1,19 @@
+{
+  "name": "Epstein Files Browser",
+  "short_name": "Files Browser",
+  "description": "Browse and view the released Epstein files with advanced search and filtering",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#a78bfa",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}

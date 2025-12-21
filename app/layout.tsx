@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Analytics } from "@vercel/analytics/next";
 import { FilesProvider } from "@/lib/files-context";
 import { FileItem, PdfManifest } from "@/lib/cache";
 import "./globals.css";
+import ScrollToTopButton from "@/components/scroll-to-top-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +21,24 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Epstein Files Browser",
   description: "Browse and view the released Epstein files",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/icon-192x192.png",
+    shortcut: "/icon-192x192.png",
+    apple: "/icon-192x192.png",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Files Browser",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#a78bfa",
 };
 
 const WORKER_URL = "https://epstein-files.rhys-669.workers.dev";
@@ -71,12 +91,29 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Files Browser" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png" />
+        <link rel="apple-touch-icon" href="/icon-192x192.png" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div id="theme-transition-overlay" />
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(() => {try {var s = localStorage.getItem('theme'); var m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; var r = document.documentElement; if (s === 'dark' || ((s === 'system' || !s) && m)) { r.classList.add('dark'); } else { r.classList.remove('dark'); }} catch (e) { /* noop */ }})();`}
+        </Script>
+        <Script id="sw-register" strategy="afterInteractive">
+          {`if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js').catch((error) => { console.log('Service Worker registration failed:', error); }); }`}
+        </Script>
         <FilesProvider files={files} pdfManifest={pdfManifest}>
           <NuqsAdapter>{children}</NuqsAdapter>
         </FilesProvider>
+        <ScrollToTopButton />
         <Analytics />
       </body>
     </html>
