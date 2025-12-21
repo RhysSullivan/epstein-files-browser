@@ -38,7 +38,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
-  themeColor: "#a78bfa",
+  themeColor: "#1f2937",
 };
 
 const WORKER_URL = "https://epstein-files.rhys-669.workers.dev";
@@ -107,7 +107,7 @@ export default async function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="Files Browser" />
-        <meta name="theme-color" content="#a78bfa" />
+        <meta name="theme-color" content="#1f2937" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
