@@ -17,6 +17,7 @@ import {
 import { CelebrityCombobox } from "@/components/celebrity-combobox";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
 import { useFiles } from "@/lib/files-context";
+import Link from 'next/link'
 
 const WORKER_URL =
   process.env.NODE_ENV === "development"
@@ -748,9 +749,11 @@ export function FileBrowser() {
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-3">
               <div>
+                <Link href="/">
                 <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
                   Epstein Files Browser
                 </h1>
+                </Link>
               </div>
             </div>
             <a
