@@ -564,7 +564,8 @@ function FileModal({
         </header>
 
         {/* Content - key forces remount on file change for clean transition */}
-        <div key={filePath} className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24" onClick={onClose}>
+        {/* Add extra bottom padding so the bottom nav doesn't overlap the detected metadata */}
+        <div key={filePath} className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-48" onClick={onClose}>
           {error && (
             <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -634,6 +635,9 @@ function FileModal({
               <p className="text-foreground font-medium">Loading PDF...</p>
             </div>
           )}
+
+          {/* Spacer to ensure content can scroll past the fixed bottom nav */}
+          <div className="h-16" aria-hidden="true" />
         </div>
 
         {/* Navigation bar */}
