@@ -22,7 +22,7 @@ import { useFiles } from "@/lib/files-context";
 import ThemeToggle from "@/components/theme-toggle";
 import GlobalSearch, { GlobalSearchHandle } from "@/components/global-search";
 import { StatisticsDashboard } from "@/components/statistics-dashboard";
-import { HelpCircle, BarChart3 } from "lucide-react";
+import { HelpCircle, BarChart3, Download } from "lucide-react";
 import { fuzzyMatch } from "@/lib/fuzzy-search";
 
 const WORKER_URL = "https://epstein-files.rhys-669.workers.dev";
@@ -1010,6 +1010,115 @@ function FileModal({
   );
 }
 
+// Toast interface
+interface Toast {
+  id: string;
+  message: string;
+  type: "success" | "error" | "info";
+}
+
+// Download all filtered files as a ZIP with progress tracking
+async function downloadFilteredFilesAsZip(
+  files: FileItem[],
+  filterDesc: string,
+  onProgress: (current: number, total: number, status: string) => void,
+  onCancel: () => boolean,
+  onToast: (message: string, type: "success" | "error" | "info") => void,
+  requestConfirmation: (message: string) => Promise<boolean>
+): Promise<void> {
+  if (files.length === 0) {
+    onToast("No files to download", "info");
+    return;
+  }
+
+  // Warn if too many files
+  if (files.length > 500) {
+    const proceed = await requestConfirmation(
+      `You are about to download ${files.length} files. This may take a while. Continue?`
+    );
+    if (!proceed) return;
+  }
+
+  try {
+    const JSZipLib = (await import("jszip")).default;
+    const zip = new JSZipLib();
+    let downloaded = 0;
+    let failed = 0;
+
+    // Download in batches of 5 concurrent requests to avoid overwhelming the server/browser
+    const batchSize = 5;
+    for (let i = 0; i < files.length; i += batchSize) {
+      // Check if user cancelled
+      if (onCancel()) {
+        onToast("Download cancelled", "info");
+        return;
+      }
+
+      const batch = files.slice(i, Math.min(i + batchSize, files.length));
+      
+      const batchPromises = batch.map(async (file) => {
+        try {
+          onProgress(downloaded + 1, files.length, `Downloading: ${file.key.split("/").pop()}`);
+          const fileUrl = `https://epstein-files.rhys-669.workers.dev/${file.key}`;
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout per file
+          
+          const response = await fetch(fileUrl, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          
+          if (!response.ok) {
+            return { success: false };
+          }
+          
+          const blob = await response.blob();
+          const fileName = file.key.split("/").pop() || file.key;
+          zip.file(fileName, blob);
+          return { success: true };
+        } catch (err) {
+          console.error(`Failed to download ${file.key}:`, err);
+          return { success: false };
+        }
+      });
+
+      const results = await Promise.all(batchPromises);
+      results.forEach((result) => {
+        if (result.success) {
+          downloaded++;
+        } else {
+          failed++;
+        }
+      });
+    }
+
+    if (downloaded === 0) {
+      onToast("Failed to download any files", "error");
+      return;
+    }
+
+    onProgress(downloaded, files.length, "Generating ZIP file...");
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    
+    onProgress(downloaded, files.length, "Creating download...");
+    const url = URL.createObjectURL(zipBlob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `epstein-files-${filterDesc || "all"}-${new Date().toISOString().split("T")[0]}.zip`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    if (failed > 0) {
+      onToast(`Downloaded ${downloaded} of ${files.length} files (${failed} failed)`, "info");
+    } else {
+      onToast(`Successfully downloaded ${downloaded} files`, "success");
+    }
+  } catch (err) {
+    console.error("Error creating ZIP:", err);
+    onToast(`Error: ${err instanceof Error ? err.message : "Failed to create download package"}`, "error");
+  }
+}
+
 export function FileBrowser() {
   const { files: initialFiles } = useFiles();
   
@@ -1037,6 +1146,33 @@ export function FileBrowser() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [isDesktop, setIsDesktop] = useState(true);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const [downloadTotal, setDownloadTotal] = useState(0);
+  const [downloadStatus, setDownloadStatus] = useState("");
+  const [isDownloading, setIsDownloading] = useState(false);
+  const cancelDownloadRef = useRef(false);
+  const [toasts, setToasts] = useState<Toast[]>([]);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    message: string;
+    resolve: (value: boolean) => void;
+  } | null>(null);
+
+  // Add toast notification
+  const addToast = useCallback((message: string, type: "success" | "error" | "info" = "info") => {
+    const id = Math.random().toString(36).substr(2, 9);
+    setToasts((prev) => [...prev, { id, message, type }]);
+    // Auto-dismiss after 4 seconds
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  }, []);
+
+  // Request confirmation via modal
+  const requestConfirmation = useCallback((message: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+      setConfirmDialog({ message, resolve });
+    });
+  }, []);
 
   // Detect desktop devices (fine pointer + hover usually indicates non-touch desktop)
   useEffect(() => {
@@ -1394,6 +1530,47 @@ export function FileBrowser() {
                 </button>
               </div>
 
+              {/* Download All button */}
+              <div className="col-span-1 sm:col-span-1 sm:w-auto">
+                <button
+                  onClick={() => {
+                    const filterParts = [];
+                    if (collectionFilter !== "All") filterParts.push(collectionFilter);
+                    if (celebrityFilter !== "All") filterParts.push(celebrityFilter);
+                    if (searchQuery && searchQuery.trim()) filterParts.push(`search`);
+                    const filterDesc = filterParts.length > 0 ? filterParts.join("-") : "all";
+                    setIsDownloading(true);
+                    cancelDownloadRef.current = false;
+                    setDownloadProgress(0);
+                    setDownloadTotal(filteredFiles.length);
+                    downloadFilteredFilesAsZip(
+                      filteredFiles,
+                      filterDesc,
+                      (current, total, status) => {
+                        setDownloadProgress(current);
+                        setDownloadTotal(total);
+                        setDownloadStatus(status);
+                      },
+                      () => cancelDownloadRef.current,
+                      addToast,
+                      requestConfirmation
+                    ).finally(() => {
+                      setIsDownloading(false);
+                      setDownloadProgress(0);
+                      setDownloadStatus("");
+                    });
+                  }}
+                  disabled={filteredFiles.length === 0}
+                  className="w-full inline-flex items-center justify-center gap-1.5 text-sm px-4 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-sm hover:shadow"
+                  aria-disabled={filteredFiles.length === 0}
+                  aria-label="Download all filtered files as ZIP"
+                  title="Download all filtered files as ZIP"
+                >
+                  <Download className="w-4 h-4" />
+                  <span className="font-medium">Download All</span>
+                </button>
+              </div>
+
               {/* File count tile - full width on mobile, after controls */}
               <div className="col-span-2 sm:col-span-1 sm:w-auto">
                 <div className="flex items-center justify-center sm:justify-start gap-2 px-3 py-2 bg-secondary/50 rounded-xl w-full">
@@ -1571,6 +1748,122 @@ export function FileBrowser() {
           </div>
         </div>
       )}
+
+      {/* Download Progress Modal */}
+      {isDownloading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+          <div className="relative bg-card border border-border rounded-2xl shadow-2xl max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <Download className="w-5 h-5" />
+                Downloading Files
+              </h2>
+            </div>
+            
+            <div className="space-y-4">
+              {/* Progress bar */}
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm text-muted-foreground">Progress</span>
+                  <span className="text-sm font-medium text-foreground">
+                    {downloadProgress} / {downloadTotal}
+                  </span>
+                </div>
+                <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
+                  <div
+                    className="bg-primary h-full rounded-full transition-all duration-300"
+                    style={{
+                      width: `${downloadTotal > 0 ? (downloadProgress / downloadTotal) * 100 : 0}%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Status text */}
+              <p className="text-sm text-muted-foreground line-clamp-2">
+                {downloadStatus || "Initializing download..."}
+              </p>
+
+              {/* Cancel button */}
+              <button
+                onClick={() => {
+                  cancelDownloadRef.current = true;
+                }}
+                className="w-full px-4 py-2 rounded-lg bg-destructive/20 text-destructive hover:bg-destructive/30 text-sm font-medium transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal */}
+      {confirmDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+          <div className="relative bg-card border border-border rounded-2xl shadow-2xl max-w-sm w-full p-6">
+            <h2 className="text-lg font-semibold text-foreground mb-3">Confirm Download</h2>
+            <p className="text-muted-foreground text-sm mb-6">{confirmDialog.message}</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  confirmDialog.resolve(false);
+                  setConfirmDialog(null);
+                }}
+                className="flex-1 px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-sm font-medium transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  confirmDialog.resolve(true);
+                  setConfirmDialog(null);
+                }}
+                className="flex-1 px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-colors cursor-pointer"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notifications */}
+      <div className="fixed bottom-6 right-6 z-40 space-y-2 max-w-sm">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`px-4 py-3 rounded-lg shadow-lg border animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+              toast.type === "success"
+                ? "bg-green-500/20 border-green-500/30 text-green-100"
+                : toast.type === "error"
+                ? "bg-red-500/20 border-red-500/30 text-red-100"
+                : "bg-blue-500/20 border-blue-500/30 text-blue-100"
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              {toast.type === "success" && (
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+              {toast.type === "error" && (
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+              {toast.type === "info" && (
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              )}
+              <p className="text-sm font-medium">{toast.message}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
