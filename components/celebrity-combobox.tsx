@@ -27,12 +27,18 @@ interface CelebrityComboboxProps {
   celebrities: Celebrity[];
   value: string;
   onValueChange: (value: string) => void;
+  // Optional placeholder for the search input (defaults to "Search people...")
+  placeholder?: string;
+  // Optional label to use when value === "All" (defaults to "All People")
+  allLabel?: string;
 }
 
 export function CelebrityCombobox({
   celebrities,
   value,
   onValueChange,
+  placeholder,
+  allLabel,
 }: CelebrityComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -50,7 +56,7 @@ export function CelebrityCombobox({
           <div className="flex items-center gap-2 min-w-0">
             <User className="h-4 w-4 text-muted-foreground flex-shrink-0" />
             {value === "All" ? (
-              <span className="text-sm font-medium">All People</span>
+              <span className="text-sm font-medium">{allLabel ?? "All People"}</span>
             ) : selectedCelebrity ? (
               <span className="truncate text-sm font-medium">
                 {selectedCelebrity.name}
@@ -65,13 +71,13 @@ export function CelebrityCombobox({
       </PopoverTrigger>
       <PopoverContent className="w-[280px] p-0 bg-card border-border rounded-xl shadow-xl" align="start">
         <Command className="bg-transparent">
-          <CommandInput
-            placeholder="Search people..."
+            <CommandInput
+            placeholder={placeholder ?? "Search people..."}
             className="text-foreground placeholder:text-muted-foreground border-b border-border"
           />
           <CommandList className="max-h-[300px]">
             <CommandEmpty className="text-muted-foreground py-6 text-center text-sm">
-              No person found.
+              {placeholder && placeholder.includes("document") ? "No document found." : "No person found."}
             </CommandEmpty>
             <CommandGroup className="p-1.5">
               <CommandItem

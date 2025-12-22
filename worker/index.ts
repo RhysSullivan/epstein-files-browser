@@ -2,6 +2,33 @@ interface Env {
   R2_BUCKET: R2Bucket;
 }
 
+const DOCUMENT_EXTS = [".pdf", ".doc", ".docx", ".rtf", ".txt", ".md"];
+const DOCUMENT_NAME_KEYWORDS = ["letter", "note", "doc"];
+
+function hasDocumentExtension(key: string) {
+  const lower = key.toLowerCase();
+  return DOCUMENT_EXTS.some((ext) => lower.endsWith(ext));
+}
+
+function looksLikeScannedDocument(obj: R2ObjectBody | null, key: string) {
+  // Heuristic: filename contains common keywords OR custom metadata indicates document
+  const lower = key.toLowerCase();
+  if (DOCUMENT_NAME_KEYWORDS.some((k) => lower.includes(k))) return true;
+
+  try {
+    // Try inspect metadata fields that might signal a document
+    // Custom metadata keys vary, try common ones
+    const meta = (obj as any)?.customMetadata || (obj as any)?.metadata || {};
+    if (!meta) return false;
+    const joined = Object.values(meta).join(" ").toLowerCase();
+    if (joined.includes("document") || joined.includes("scan") || joined.includes("scanned")) return true;
+  } catch {
+    // ignore
+  }
+
+  return false;
+}
+
 function getFileId(key: string): string {
   const match = key.match(/EFTA\d+/);
   return match ? match[0] : key.split('/').pop() || key;
@@ -92,6 +119,41 @@ export default {
       });
     }
 
+    // Build documents index - scans bucket and writes a JSON index to R2
+    if (path === "api/build-documents-index" && request.method === "POST") {
+      const docs: { key: string; size: number; uploaded: string; type: string }[] = [];
+
+      let hasMoreInBucket = true;
+      let bucketCursor: string | undefined = undefined;
+
+      while (hasMoreInBucket) {
+        const listOptions: R2ListOptions = { limit: 1000 };
+        if (bucketCursor) listOptions.cursor = bucketCursor;
+        const listed = await env.R2_BUCKET.list(listOptions);
+        for (const obj of listed.objects) {
+          const key = obj.key;
+          const head = await env.R2_BUCKET.head(key);
+          const contentType = head?.httpMetadata?.contentType ?? "";
+          const isDoc = hasDocumentExtension(key) || (contentType && /application\/(pdf|msword|vnd\.ms-word|rtf|plain)/i.test(contentType)) || (contentType.startsWith("image/") && looksLikeScannedDocument(head, key));
+          if (isDoc) {
+            docs.push({ key, size: obj.size, uploaded: obj.uploaded.toISOString(), type: "document" });
+          }
+        }
+        hasMoreInBucket = listed.truncated;
+        bucketCursor = listed.truncated ? listed.cursor : undefined;
+      }
+
+      // Store index in R2 for quick retrieval
+      const indexKey = "indexes/documents-index.json";
+      await env.R2_BUCKET.put(indexKey, JSON.stringify({ files: docs }), {
+        httpMetadata: { contentType: "application/json" },
+      });
+
+      return new Response(JSON.stringify({ success: true, total: docs.length, indexKey }), {
+        headers: { "Content-Type": "application/json", ...cacheHeaders },
+      });
+    }
+
     // Handle OG metadata endpoint for social media bots
     if (path === "og" || path === "api/og") {
       const filePath = url.searchParams.get("file");
@@ -157,7 +219,7 @@ export default {
 
     // List all files endpoint (returns everything)
     if (path === "api/all-files") {
-      const files: { key: string; size: number; uploaded: string }[] = [];
+      const files: { key: string; size: number; uploaded: string; type?: string }[] = [];
       let hasMoreInBucket = true;
       let bucketCursor: string | undefined = undefined;
 
@@ -173,13 +235,22 @@ export default {
         const listed = await env.R2_BUCKET.list(listOptions);
 
         for (const obj of listed.objects) {
-          if (obj.key.toLowerCase().endsWith(".pdf")) {
-            files.push({
-              key: obj.key,
-              size: obj.size,
-              uploaded: obj.uploaded.toISOString(),
-            });
-          }
+          const key = obj.key;
+          const head = await env.R2_BUCKET.head(key);
+          const contentType = head?.httpMetadata?.contentType ?? "";
+          const fileType = hasDocumentExtension(key) || (contentType && /application\/(pdf|msword|vnd\.ms-word|rtf|plain)/i.test(contentType))
+            ? "document"
+            : contentType.startsWith("image/") ? "image" : "other";
+
+          // Also mark images that look like scanned documents as document
+          const finalType = fileType === "image" && looksLikeScannedDocument(head, key) ? "document" : fileType;
+
+          files.push({
+            key: obj.key,
+            size: obj.size,
+            uploaded: obj.uploaded.toISOString(),
+            type: finalType,
+          });
         }
 
         hasMoreInBucket = listed.truncated;
@@ -207,7 +278,7 @@ export default {
       const prefix = url.searchParams.get("prefix") || "";
 
       // We need to fetch more than requested since we filter out non-PDFs
-      const files: { key: string; size: number; uploaded: string }[] = [];
+      const files: { key: string; size: number; uploaded: string; type?: string }[] = [];
       let hasMoreInBucket = true;
       let bucketCursor: string | undefined = undefined;
       let isFirstRequest = true;
@@ -228,13 +299,16 @@ export default {
         const listed = await env.R2_BUCKET.list(listOptions);
 
         for (const obj of listed.objects) {
-          if (obj.key.toLowerCase().endsWith(".pdf")) {
-            files.push({
-              key: obj.key,
-              size: obj.size,
-              uploaded: obj.uploaded.toISOString(),
-            });
-          }
+          const key = obj.key;
+          const head = await env.R2_BUCKET.head(key);
+          const contentType = head?.httpMetadata?.contentType ?? "";
+          const fileType = hasDocumentExtension(key) || (contentType && /application\/(pdf|msword|vnd\.ms-word|rtf|plain)/i.test(contentType))
+            ? "document"
+            : contentType.startsWith("image/") ? "image" : "other";
+
+          const finalType = fileType === "image" && looksLikeScannedDocument(head, key) ? "document" : fileType;
+
+          files.push({ key: obj.key, size: obj.size, uploaded: obj.uploaded.toISOString(), type: finalType });
         }
 
         hasMoreInBucket = listed.truncated;

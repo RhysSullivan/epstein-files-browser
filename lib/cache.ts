@@ -2,6 +2,8 @@ export interface FileItem {
   key: string;
   size: number;
   uploaded: string;
+  // optional type classification, e.g. "document", "image", "pdf"
+  type?: string;
 }
 
 interface FilesCache {

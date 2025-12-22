@@ -658,6 +658,7 @@ export function FileBrowser() {
   const [collectionFilter, setCollectionFilter] = useQueryState("collection", {
     defaultValue: "All",
   });
+  const [searchMode, setSearchMode] = useState<"people" | "documents">("people");
   const [celebrityFilter, setCelebrityFilter] = useQueryState("celebrity", {
     defaultValue: "All",
   });
@@ -669,13 +670,28 @@ export function FileBrowser() {
   // Get celebrities with >99% confidence for the dropdown
   const celebrities = getCelebritiesAboveConfidence(99);
 
+  // Documents list for the combobox (derived from initial files)
+  const documentsList = useMemo(() => {
+    const docs = initialFiles.filter((f) => f.type === "document");
+    const map = new Map<string, number>();
+    for (const d of docs) {
+      const id = getFileId(d.key);
+      map.set(id, (map.get(id) || 0) + 1);
+    }
+    return Array.from(map.entries()).map(([name, count]) => ({ name, count }));
+  }, [initialFiles]);
+
   // Derive filtered and sorted files from initialFiles + filters
   const filteredFiles = useMemo(() => {
     let files = initialFiles;
 
     // Apply collection filter
     if (collectionFilter !== "All") {
-      files = files.filter((f) => f.key.startsWith(collectionFilter));
+      if (collectionFilter === "documents") {
+        files = files.filter((f) => (f as any).type === "document");
+      } else {
+        files = files.filter((f) => f.key.startsWith(collectionFilter));
+      }
     }
 
     // Apply celebrity filter
@@ -783,6 +799,7 @@ export function FileBrowser() {
                 className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
               >
                 <option value="All">All Collections</option>
+                <option value="documents">Documents</option>
                 <option value="VOL00001">Volume 1</option>
                 <option value="VOL00002">Volume 2</option>
                 <option value="VOL00003">Volume 3</option>
@@ -798,10 +815,24 @@ export function FileBrowser() {
               </div>
             </div>
             <CelebrityCombobox
-              celebrities={celebrities}
+              celebrities={searchMode === "people" ? celebrities : documentsList}
               value={celebrityFilter}
               onValueChange={(value) => setCelebrityFilter(value)}
+              placeholder={searchMode === "people" ? "Search people..." : "Search documents..."}
+              allLabel={searchMode === "people" ? "All People" : "All Documents"}
             />
+
+            <div className="flex items-center gap-2">
+              <label className="text-sm text-muted-foreground">Mode</label>
+              <select
+                value={searchMode}
+                onChange={(e) => setSearchMode(e.target.value as any)}
+                className="appearance-none px-2 py-1 bg-secondary border border-border rounded-lg text-foreground text-sm font-medium"
+              >
+                <option value="people">People</option>
+                <option value="documents">Documents</option>
+              </select>
+            </div>
 
             <div className="relative">
               <select
