@@ -1,0 +1,55 @@
+{
+  "name": "Epstein Files Browser",
+  "short_name": "Files Browser",
+  "description": "Browse and view the released Epstein files with advanced search and filtering",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%23a78bfa' width='192' height='192'/><text x='50%' y='50%' font-size='80' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'>EB</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%23a78bfa' width='512' height='512'/><text x='50%' y='50%' font-size='250' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'>EB</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%23f8f8f8' width='540' height='720'/><text x='270' y='360' font-size='60' text-anchor='middle' fill='%23333'>Epstein Files Browser</text></svg>",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Browse Files",
+      "short_name": "Browse",
+      "description": "Open the file browser",
+      "url": "/?mode=browse",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%23a78bfa' width='96' height='96'/><text x='50%' y='50%' font-size='50' font-weight='bold' text-anchor='middle' dominant-baseline='central' fill='%23fff'>EB</text></svg>",
+          "sizes": "96x96",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ]
+}

@@ -48,38 +48,41 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.09 0.005 260);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.13 0.005 260);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.13 0.005 260);
-  --popover-foreground: oklch(0.95 0 0);
+  /* Light theme (default) */
+  --background: oklch(0.985 0 0);
+  --foreground: oklch(0.22 0 0);
+  --card: oklch(0.985 0 0);
+  --card-foreground: oklch(0.22 0 0);
+  --popover: oklch(0.99 0 0);
+  --popover-foreground: oklch(0.22 0 0);
   --primary: oklch(0.65 0.2 250);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.18 0.005 260);
-  --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.18 0.005 260);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.22 0.01 260);
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.25 0.01 260);
-  --input: oklch(0.20 0.01 260);
+  --secondary: oklch(0.96 0.005 260);
+  --secondary-foreground: oklch(0.22 0 0);
+  --muted: oklch(0.96 0.005 260);
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.97 0.01 260);
+  --accent-foreground: oklch(0.22 0 0);
+  --destructive: oklch(0.6 0.25 27.3);
+  --border: oklch(0.9 0.005 260);
+  --input: oklch(0.95 0.005 260);
   --ring: oklch(0.65 0.2 250);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.11 0.005 260);
-  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.22 0 0);
   --sidebar-primary: oklch(0.65 0.2 250);
   --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.18 0.005 260);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.25 0.01 260);
+  --sidebar-accent: oklch(0.96 0.005 260);
+  --sidebar-accent-foreground: oklch(0.22 0 0);
+  --sidebar-border: oklch(0.9 0.005 260);
   --sidebar-ring: oklch(0.65 0.2 250);
 }
+
+/* System preference is applied via .dark class in JS for consistency */
 
 .dark {
   --background: oklch(0.09 0.005 260);
@@ -116,6 +119,14 @@
 }
 
 @layer base {
+  html {
+    color-scheme: light;
+  }
+  
+  html.dark {
+    color-scheme: dark;
+  }
+  
   * {
     @apply border-border outline-ring/50;
   }
@@ -124,26 +135,103 @@
   }
 }
 
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes theme-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Theme transition overlay */
+#theme-transition-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-color: var(--background);
+  opacity: 0;
+  z-index: 9999;
+}
+
+#theme-transition-overlay.fade-in {
+  animation: theme-fade-in 0.25s ease-in;
+}
+
+#theme-transition-overlay.fade-out {
+  animation: theme-fade-out 0.25s ease-out;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
+/* Light default */
 ::-webkit-scrollbar-track {
-  background: oklch(0.12 0.005 260);
+  background: oklch(0.95 0.005 260);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.28 0.01 260);
+  background: oklch(0.75 0.02 260);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.7 0.03 260);
+}
+
+/* Dark overrides */
+.dark ::-webkit-scrollbar-track {
+  background: oklch(0.12 0.005 260);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: oklch(0.28 0.01 260);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
   background: oklch(0.35 0.01 260);
 }
 
 /* Selection styling */
 ::selection {
   background: oklch(0.65 0.2 250 / 0.3);
+}
+
+/* Minimap animations */
+@keyframes expandMinimap {
+  from {
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    max-height: calc(100vh - 14rem);
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes collapseMinimap {
+  from {
+    max-height: calc(100vh - 14rem);
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0);
+  }
 }

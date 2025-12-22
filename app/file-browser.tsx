@@ -15,13 +15,28 @@ import {
   CELEBRITY_DATA,
 } from "@/lib/celebrity-data";
 import { CelebrityCombobox } from "@/components/celebrity-combobox";
+import { CollectionCombobox } from "@/components/collection-combobox";
+import { SortCombobox } from "@/components/sort-combobox";
 import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
 import { useFiles } from "@/lib/files-context";
+import ThemeToggle from "@/components/theme-toggle";
+import GlobalSearch, { GlobalSearchHandle } from "@/components/global-search";
+import { StatisticsDashboard } from "@/components/statistics-dashboard";
+import { HelpCircle, BarChart3, Download } from "lucide-react";
+import { fuzzyMatch } from "@/lib/fuzzy-search";
 
-const WORKER_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:8787"
-    : "https://epstein-files.rhys-669.workers.dev";
+const WORKER_URL = "https://epstein-files.rhys-669.workers.dev";
+
+// Client-only number formatter to avoid hydration mismatch
+function FormattedNumber({ value }: { value: number }) {
+  const [formatted, setFormatted] = useState(value.toString());
+  
+  useEffect(() => {
+    setFormatted(value.toLocaleString());
+  }, [value]);
+  
+  return <>{formatted}</>;
+}
 
 function formatFileSize(bytes: number): string {
   if (bytes === 0) return "0 B";
@@ -61,13 +76,15 @@ function Thumbnail({ fileKey }: { fileKey: string }) {
   const thumbnailUrl = `${WORKER_URL}/thumbnails/${fileKey.replace(".pdf", ".jpg")}`;
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={thumbnailUrl}
-      alt="Document thumbnail"
-      className="aspect-[3/4] w-full object-cover object-top bg-secondary rounded-xl"
-      loading="lazy"
-    />
+    <div className="relative w-full aspect-[3/4] bg-secondary rounded-xl overflow-hidden">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={thumbnailUrl}
+        alt="Document thumbnail"
+        className="absolute inset-0 w-full h-full object-cover object-top"
+        loading="lazy"
+      />
+    </div>
   );
 }
 
@@ -77,7 +94,7 @@ function FileCard({ file, onClick, onMouseEnter }: { file: FileItem; onClick: ()
     <button
       onClick={onClick}
       onMouseEnter={onMouseEnter}
-      className="group relative hover:-translate-y-1 text-left w-full transition-all duration-200"
+      className="group relative hover:-translate-y-1 text-left w-full transition-all duration-200 cursor-pointer"
     >
       <div className="relative mb-2 overflow-hidden rounded-xl">
         <Thumbnail fileKey={file.key} />
@@ -248,7 +265,7 @@ function SharePopover({ filePath, queryString }: { filePath: string; queryString
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
-        <button className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2">
+        <button className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2 cursor-pointer">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
           </svg>
@@ -274,7 +291,7 @@ function SharePopover({ filePath, queryString }: { filePath: string; queryString
             <button
               onClick={handleCopy}
               className={cn(
-                "px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors",
+                "px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors cursor-pointer",
                 copied 
                   ? "bg-green-500/20 text-green-400 border border-green-500/30" 
                   : "bg-primary hover:bg-primary/90 text-primary-foreground"
@@ -327,6 +344,56 @@ function FileModal({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
+  const pageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [showMiniMap, setShowMiniMap] = useState(true);
+  const [miniMapCollapsed, setMiniMapCollapsed] = useState(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const raw = localStorage.getItem("minimap_collapsed");
+        return raw === "true";
+      } catch (e) {
+        console.error("Failed to load minimap state:", e);
+      }
+    }
+    return false;
+  });
+  const [miniMapJump, setMiniMapJump] = useState(1);
+  const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [thumbnails, setThumbnails] = useState<string[]>([]);
+  const [miniPages, setMiniPages] = useState<string[]>([]);
+  const [showMiniMapAnimation, setShowMiniMapAnimation] = useState(false);
+  const skipNextAnimationRef = useRef(true);
+  const animationRunningRef = useRef(false);
+
+  useEffect(() => {
+    // On mount, skip the first animation trigger
+    skipNextAnimationRef.current = true;
+    // After first render, allow animations
+    const timer = setTimeout(() => {
+      skipNextAnimationRef.current = false;
+    }, 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        localStorage.setItem("minimap_collapsed", miniMapCollapsed ? "true" : "false");
+        if (!skipNextAnimationRef.current && !animationRunningRef.current) {
+          animationRunningRef.current = true;
+          setShowMiniMapAnimation(true);
+          const timer = setTimeout(() => {
+            setShowMiniMapAnimation(false);
+            animationRunningRef.current = false;
+          }, 250);
+          return () => clearTimeout(timer);
+        }
+      } catch (e) {
+        console.error("Failed to save minimap state:", e);
+      }
+    }
+  }, [miniMapCollapsed]);
   
   const filePath = file.key;
   const fileId = getFileId(filePath);
@@ -372,6 +439,131 @@ function FileModal({
     touchStartRef.current = null;
   }, [hasPrev, hasNext, onPrev, onNext]);
 
+  // Scroll to a specific page inside the modal content
+  const scrollToPage = useCallback((pageIndex: number) => {
+    const container = contentRef.current;
+    const target = pageRefs.current[pageIndex];
+    if (!container || !target) return;
+
+    const top = target.offsetTop - 96; // larger offset to account for header and spacing
+    container.scrollTo({ top, behavior: "smooth" });
+  }, []);
+
+  // Reset scroll/jump state when file changes
+  useEffect(() => {
+    pageRefs.current = [];
+    if (contentRef.current) {
+      contentRef.current.scrollTo({ top: 0 });
+    }
+    setMiniMapJump(1);
+  }, [filePath]);
+
+  // Generate small thumbnails for mini-map to ensure proper previews
+  useEffect(() => {
+    let cancelled = false;
+    async function buildThumbs() {
+      if (pages.length === 0) {
+        setThumbnails([]);
+        return;
+      }
+      const targetW = 120;
+      const targetH = 160; // 3/4 aspect ratio
+      const results: string[] = new Array(pages.length);
+
+      for (let i = 0; i < pages.length; i++) {
+        const src = pages[i];
+        try {
+          const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+            const im = new Image();
+            im.crossOrigin = "anonymous"; // allow drawing if same-origin
+            im.onload = () => resolve(im);
+            im.onerror = reject;
+            im.src = src;
+          });
+          if (cancelled) return;
+          const canvas = document.createElement("canvas");
+          canvas.width = targetW;
+          canvas.height = targetH;
+          const ctx = canvas.getContext("2d");
+          if (!ctx) continue;
+          ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue("--color-secondary").trim() || "#111";
+          ctx.fillRect(0, 0, targetW, targetH);
+          const scale = Math.min(targetW / img.naturalWidth, targetH / img.naturalHeight);
+          const drawW = Math.max(1, Math.floor(img.naturalWidth * scale));
+          const drawH = Math.max(1, Math.floor(img.naturalHeight * scale));
+          const dx = Math.floor((targetW - drawW) / 2);
+          const dy = Math.floor((targetH - drawH) / 2);
+          ctx.drawImage(img, dx, dy, drawW, drawH);
+          results[i] = canvas.toDataURL("image/jpeg", 0.7);
+        } catch {
+          // Fallback to original src if thumbnail generation fails
+          results[i] = src;
+        }
+        // Progressive update for responsiveness
+        setThumbnails((prev) => {
+          const next = prev.slice();
+          next[i] = results[i];
+          return next.length === pages.length ? next : [...results];
+        });
+      }
+      if (!cancelled) {
+        setThumbnails(results);
+      }
+    }
+    buildThumbs();
+    return () => { cancelled = true; };
+  }, [pages, filePath]);
+
+  // Build mini-map pages using pre-rendered images from manifest when available
+  // Initialize with expected count immediately to prevent layout shifts
+  const [expectedPageCount, setExpectedPageCount] = useState(0);
+  
+  useEffect(() => {
+    const manifest = getPdfManifest();
+    const manifestEntry = manifest?.[filePath];
+    if (manifestEntry && manifestEntry.pages > 0) {
+      setExpectedPageCount(manifestEntry.pages);
+      const urls: string[] = [];
+      for (let i = 1; i <= manifestEntry.pages; i++) {
+        urls.push(getPageImageUrl(filePath, i));
+      }
+      setMiniPages(urls);
+    } else {
+      // Fallback: use pages count when available
+      if (pages.length > 0) {
+        setExpectedPageCount(pages.length);
+        setMiniPages(pages);
+      }
+    }
+  }, [filePath, pages]);
+
+  // Track current page index based on scroll position to highlight in mini-map
+  useEffect(() => {
+    const container = contentRef.current;
+    if (!container) return;
+
+    const handler = () => {
+      const scrollTop = container.scrollTop;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < pageRefs.current.length; i++) {
+        const el = pageRefs.current[i];
+        if (!el) continue;
+        const dist = Math.abs(el.offsetTop - scrollTop);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
+        }
+      }
+      setCurrentPageIndex(bestIdx);
+    };
+
+    container.addEventListener("scroll", handler, { passive: true });
+    // Initialize once
+    handler();
+    return () => container.removeEventListener("scroll", handler as EventListener);
+  }, [pages.length]);
+
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("touchstart", handleTouchStart);
@@ -406,11 +598,13 @@ function FileModal({
 
     async function loadPages() {
       try {
+        console.log('[FileModal] Loading PDF:', filePath);
         const manifest = getPdfManifest();
         const manifestEntry = manifest?.[filePath];
         
         // If we have pre-rendered images in the manifest, use those
         if (manifestEntry && manifestEntry.pages > 0) {
+          console.log('[FileModal] Using pre-rendered images, pages:', manifestEntry.pages);
           const imageUrls = await loadPagesFromImages(filePath, manifestEntry.pages);
           
           if (cancelled) return;
@@ -419,15 +613,18 @@ function FileModal({
           setPages(imageUrls);
           setPdfPages(filePath, imageUrls);
           setLoading(false);
+          console.log('[FileModal] Pre-rendered images loaded successfully');
           return;
         }
         
+        console.log('[FileModal] No pre-rendered images, using client-side PDF rendering');
         // Fallback to client-side PDF rendering
         const pdfjsLib = await import("pdfjs-dist");
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
         const loadingTask = pdfjsLib.getDocument(fileUrl);
         const pdf = await loadingTask.promise;
+        console.log('[FileModal] PDF loaded, pages:', pdf.numPages);
 
         if (cancelled) return;
 
@@ -462,6 +659,7 @@ function FileModal({
         }
       } catch (err) {
         if (!cancelled) {
+          console.error('[FileModal] Error loading PDF:', err);
           setError(err instanceof Error ? err.message : "Failed to load PDF");
         }
       } finally {
@@ -499,6 +697,10 @@ function FileModal({
     };
   }, [loading, nextFileKeys]);
 
+  const contentClasses = cn(
+    "flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-48 xl:pl-56"
+  );
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
@@ -508,14 +710,14 @@ function FileModal({
       />
       
       {/* Modal content */}
-      <div className="relative w-full h-full flex flex-col">
+      <div className="relative w-full h-full flex flex-col min-w-0">
         {/* Header */}
         <header className="flex-shrink-0 border-b border-border bg-card/80 backdrop-blur-xl z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex items-center justify-between gap-3">
             <div className="flex items-center gap-3 sm:gap-4 min-w-0">
               <button
                 onClick={onClose}
-                className="p-2 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground flex-shrink-0"
+                className="p-2 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground flex-shrink-0 cursor-pointer"
                 aria-label="Close"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -543,7 +745,13 @@ function FileModal({
         </header>
 
         {/* Content - key forces remount on file change for clean transition */}
-        <div key={filePath} className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24" onClick={onClose}>
+        {/* Add extra bottom padding so the bottom nav doesn't overlap the detected metadata */}
+        <div
+          key={filePath}
+          ref={contentRef}
+          className={contentClasses}
+          onClick={onClose}
+        >
           {error && (
             <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -560,7 +768,14 @@ function FileModal({
             {pages.map((dataUrl, index) => {
               const pageCelebrities = getCelebritiesForPage(filePath, index + 1);
               return (
-                <div key={`${filePath}-${index}`} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border" onClick={(e) => e.stopPropagation()}>
+                <div
+                  key={`${filePath}-${index}`}
+                  ref={(el) => {
+                    pageRefs.current[index] = el;
+                  }}
+                  className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="relative">
                     {pages.length > 1 && (
                       <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs font-medium text-muted-foreground border border-border">
@@ -571,8 +786,7 @@ function FileModal({
                     <img
                       src={dataUrl}
                       alt={`Page ${index + 1}`}
-                      className="w-full h-auto md:max-h-[75vh] md:w-auto md:mx-auto"
-                      style={{ maxWidth: "100%" }}
+                      className="max-w-full h-auto max-h-[75vh] mx-auto block"
                     />
                   </div>
                   {pageCelebrities.length > 0 && (
@@ -613,14 +827,158 @@ function FileModal({
               <p className="text-foreground font-medium">Loading PDF...</p>
             </div>
           )}
+
+          {/* Spacer to ensure content can scroll past the fixed bottom nav */}
+          <div className="h-16" aria-hidden="true" />
         </div>
+
+        {/* Mini-map for quick page jumps (desktop only, left sidebar) */}
+        {showMiniMap && (expectedPageCount > 0 || pages.length > 0) && (
+          <>
+            {(!miniMapCollapsed || showMiniMapAnimation) && (
+              <div 
+                className="hidden xl:flex fixed left-6 top-28 z-30 w-40 flex-col overflow-hidden rounded-2xl border border-border bg-card/90 backdrop-blur-sm shadow-2xl" 
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  animation: (showMiniMapAnimation) ? (miniMapCollapsed ? 'collapseMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)' : 'expandMinimap 0.25s cubic-bezier(0.4, 0, 0.2, 1)') : 'none',
+                  transformOrigin: 'top',
+                  height: 'calc(100vh - 14rem)',
+                  pointerEvents: miniMapCollapsed ? 'none' : 'auto'
+                }}
+              >
+            {/* Header */}
+            <div className="sticky top-0 z-10 bg-gradient-to-b from-card to-card/95 backdrop-blur-md border-b border-border/50 shadow-sm">
+              <div className="px-4 py-3">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold text-foreground tracking-wide">Navigation</span>
+                  </div>
+                  <button
+                    onClick={() => setMiniMapCollapsed(true)}
+                    className="p-1.5 rounded-lg bg-secondary/50 hover:bg-secondary border border-border/50 transition-colors cursor-pointer group"
+                    aria-label="Collapse mini-map"
+                  >
+                    <svg className="w-3 h-3 text-muted-foreground group-hover:text-foreground transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <div className="flex items-center gap-1.5 mb-2">
+                  <div className="flex-1 relative">
+                    <input
+                      type="number"
+                      min={1}
+                      max={expectedPageCount || pages.length}
+                      value={miniMapJump}
+                      onChange={(e) => {
+                        const val = Math.min(Math.max(1, Number(e.target.value) || 1), expectedPageCount || pages.length);
+                        setMiniMapJump(val);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          scrollToPage(miniMapJump - 1);
+                        }
+                      }}
+                      placeholder="Page"
+                      className="w-full px-2.5 py-1.5 text-xs bg-secondary/50 border border-border/50 rounded-lg text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all"
+                    />
+                  </div>
+                  <button
+                    onClick={() => scrollToPage(miniMapJump - 1)}
+                    className="px-3 py-1.5 text-xs font-medium rounded-lg bg-primary/90 text-primary-foreground hover:bg-primary shadow-sm hover:shadow transition-all cursor-pointer flex items-center gap-1"
+                    aria-label="Go to page"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <div className="text-[10px] text-muted-foreground">
+                  <span>{expectedPageCount || pages.length} pages</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Thumbnails */}
+            <div className="flex-1 overflow-y-auto px-3 py-3 space-y-2"
+              style={{ 
+                scrollbarWidth: 'thin',
+                scrollbarColor: 'rgb(var(--border)) transparent'
+              }}
+            >
+              {Array.from({ length: expectedPageCount || pages.length }).map((_, idx) => {
+              const src = miniPages[idx] || pages[idx];
+              const isLoaded = !!src;
+              
+              return (
+                <button
+                  key={`mini-${filePath}-${idx}`}
+                  onClick={() => {
+                    if (isLoaded) scrollToPage(idx);
+                  }}
+                  className={cn(
+                    "w-full rounded-lg border overflow-hidden transition-all flex-shrink-0",
+                    isLoaded ? "bg-secondary/50 hover:border-primary hover:shadow-sm cursor-pointer" : "bg-secondary/30 cursor-wait",
+                    currentPageIndex === idx && isLoaded ? "ring-2 ring-primary border-primary" : "border-border"
+                  )}
+                  aria-label={`Jump to page ${idx + 1}`}
+                  disabled={!isLoaded}
+                >
+                  <div className="relative aspect-[3/4] w-full bg-secondary rounded-md overflow-hidden">
+                    {isLoaded ? (
+                      <>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={src}
+                          crossOrigin="anonymous"
+                          alt={`Page ${idx + 1} thumbnail`}
+                          className="absolute inset-0 w-full h-full object-contain"
+                          loading="lazy"
+                        />
+                        <div className="absolute top-1 right-1 px-1.5 py-0.5 text-[10px] rounded bg-background/80 border border-border text-foreground/80">
+                          {idx + 1}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-6 h-6 rounded-full border-2 border-muted-foreground/20 border-t-muted-foreground/60 animate-spin" />
+                      </div>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+            </div>
+          </div>
+            )}
+            {miniMapCollapsed && !showMiniMapAnimation && (
+              <div 
+                className="hidden xl:flex fixed left-6 top-28 z-30 items-center"
+              >
+                <button
+                  onClick={(e) => { e.stopPropagation(); setMiniMapCollapsed(false); }}
+                  className="px-3 py-1.5 rounded-full border border-border bg-card/90 backdrop-blur-sm text-xs text-muted-foreground hover:bg-secondary cursor-pointer shadow transition-all flex items-center gap-1.5"
+                  aria-label="Expand mini-map"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  Show mini-map
+                </button>
+              </div>
+            )}
+          </>
+        )}
 
         {/* Navigation bar */}
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-2 bg-card/90 backdrop-blur-sm border border-border rounded-full shadow-lg z-20">
           {hasPrev ? (
             <button
               onClick={onPrev}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full cursor-pointer"
             >
               <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">←</kbd>
               <span>Prev</span>
@@ -635,7 +993,7 @@ function FileModal({
           {hasNext ? (
             <button
               onClick={onNext}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full cursor-pointer"
             >
               <span>Next</span>
               <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">→</kbd>
@@ -652,8 +1010,125 @@ function FileModal({
   );
 }
 
+// Toast interface
+interface Toast {
+  id: string;
+  message: string;
+  type: "success" | "error" | "info";
+}
+
+// Download all filtered files as a ZIP with progress tracking
+async function downloadFilteredFilesAsZip(
+  files: FileItem[],
+  filterDesc: string,
+  onProgress: (current: number, total: number, status: string) => void,
+  onCancel: () => boolean,
+  onToast: (message: string, type: "success" | "error" | "info") => void,
+  requestConfirmation: (message: string) => Promise<boolean>
+): Promise<void> {
+  if (files.length === 0) {
+    onToast("No files to download", "info");
+    return;
+  }
+
+  // Warn if too many files
+  if (files.length > 500) {
+    const proceed = await requestConfirmation(
+      `You are about to download ${files.length} files. This may take a while. Continue?`
+    );
+    if (!proceed) return;
+  }
+
+  try {
+    const JSZipLib = (await import("jszip")).default;
+    const zip = new JSZipLib();
+    let downloaded = 0;
+    let failed = 0;
+
+    // Download in batches of 5 concurrent requests to avoid overwhelming the server/browser
+    const batchSize = 5;
+    for (let i = 0; i < files.length; i += batchSize) {
+      // Check if user cancelled
+      if (onCancel()) {
+        onToast("Download cancelled", "info");
+        return;
+      }
+
+      const batch = files.slice(i, Math.min(i + batchSize, files.length));
+      
+      const batchPromises = batch.map(async (file) => {
+        try {
+          onProgress(downloaded + 1, files.length, `Downloading: ${file.key.split("/").pop()}`);
+          const fileUrl = `https://epstein-files.rhys-669.workers.dev/${file.key}`;
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout per file
+          
+          const response = await fetch(fileUrl, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          
+          if (!response.ok) {
+            return { success: false };
+          }
+          
+          const blob = await response.blob();
+          const fileName = file.key.split("/").pop() || file.key;
+          zip.file(fileName, blob);
+          return { success: true };
+        } catch (err) {
+          console.error(`Failed to download ${file.key}:`, err);
+          return { success: false };
+        }
+      });
+
+      const results = await Promise.all(batchPromises);
+      results.forEach((result) => {
+        if (result.success) {
+          downloaded++;
+        } else {
+          failed++;
+        }
+      });
+    }
+
+    if (downloaded === 0) {
+      onToast("Failed to download any files", "error");
+      return;
+    }
+
+    onProgress(downloaded, files.length, "Generating ZIP file...");
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    
+    onProgress(downloaded, files.length, "Creating download...");
+    const url = URL.createObjectURL(zipBlob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `epstein-files-${filterDesc || "all"}-${new Date().toISOString().split("T")[0]}.zip`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    if (failed > 0) {
+      onToast(`Downloaded ${downloaded} of ${files.length} files (${failed} failed)`, "info");
+    } else {
+      onToast(`Successfully downloaded ${downloaded} files`, "success");
+    }
+  } catch (err) {
+    console.error("Error creating ZIP:", err);
+    onToast(`Error: ${err instanceof Error ? err.message : "Failed to create download package"}`, "error");
+  }
+}
+
 export function FileBrowser() {
   const { files: initialFiles } = useFiles();
+  
+  // Debug: Log files on mount
+  useEffect(() => {
+    console.log('[FileBrowser] Files loaded:', initialFiles.length);
+    if (initialFiles.length > 0) {
+      console.log('[FileBrowser] First file:', initialFiles[0]);
+    }
+  }, [initialFiles]);
 
   const [collectionFilter, setCollectionFilter] = useQueryState("collection", {
     defaultValue: "All",
@@ -665,11 +1140,94 @@ export function FileBrowser() {
     defaultValue: "name",
   });
   const [openFile, setOpenFile] = useQueryState("file");
+  const [searchQuery, setSearchQuery] = useQueryState("q", { defaultValue: "" });
+  const hasActiveFilters = (collectionFilter !== "All") || (celebrityFilter !== "All") || !!(searchQuery && searchQuery.trim());
+  const searchRef = useRef<GlobalSearchHandle | null>(null);
+  const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showStats, setShowStats] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+  const [downloadProgress, setDownloadProgress] = useState(0);
+  const [downloadTotal, setDownloadTotal] = useState(0);
+  const [downloadStatus, setDownloadStatus] = useState("");
+  const [isDownloading, setIsDownloading] = useState(false);
+  const cancelDownloadRef = useRef(false);
+  const [toasts, setToasts] = useState<Toast[]>([]);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    message: string;
+    resolve: (value: boolean) => void;
+  } | null>(null);
+
+  // Add toast notification
+  const addToast = useCallback((message: string, type: "success" | "error" | "info" = "info") => {
+    const id = Math.random().toString(36).substr(2, 9);
+    setToasts((prev) => [...prev, { id, message, type }]);
+    // Auto-dismiss after 4 seconds
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 4000);
+  }, []);
+
+  // Request confirmation via modal
+  const requestConfirmation = useCallback((message: string): Promise<boolean> => {
+    return new Promise((resolve) => {
+      setConfirmDialog({ message, resolve });
+    });
+  }, []);
+
+  // Detect desktop devices (fine pointer + hover usually indicates non-touch desktop)
+  useEffect(() => {
+    try {
+      const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const update = () => setIsDesktop(mq.matches);
+      update();
+      mq.addEventListener('change', update);
+      return () => mq.removeEventListener('change', update);
+    } catch {
+      setIsDesktop(true);
+    }
+  }, []);
+
+  const resetFilters = useCallback(() => {
+    setCollectionFilter("All");
+    setCelebrityFilter("All");
+    setSearchQuery(null);
+  }, [setCollectionFilter, setCelebrityFilter, setSearchQuery]);
+
+  // Recent searches for inline history display
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("recent_searches");
+      const list: string[] = raw ? JSON.parse(raw) : [];
+      setRecentSearches(list);
+    } catch {
+      setRecentSearches([]);
+    }
+  }, [searchQuery]);
 
   // Get celebrities with >99% confidence for the dropdown
   const celebrities = getCelebritiesAboveConfidence(99);
 
-  // Derive filtered and sorted files from initialFiles + filters
+  // Calculate celebrity counts based on current collection filter
+  const celebrityCounts = useMemo(() => {
+    let baseFiles = initialFiles;
+    
+    // Apply collection filter to base files
+    if (collectionFilter !== "All") {
+      baseFiles = baseFiles.filter((f) => f.key.startsWith(collectionFilter));
+    }
+    
+    // Count how many files each celebrity appears in (within the filtered collection)
+    const counts: { [name: string]: number } = {};
+    for (const celeb of celebrities) {
+      const celebFiles = new Set(getFilesForCelebrity(celeb.name, 99));
+      counts[celeb.name] = baseFiles.filter(f => celebFiles.has(f.key)).length;
+    }
+    
+    return counts;
+  }, [initialFiles, collectionFilter, celebrities]);
+
+  // Derive filtered and sorted files from initialFiles + filters + search
   const filteredFiles = useMemo(() => {
     let files = initialFiles;
 
@@ -682,6 +1240,44 @@ export function FileBrowser() {
     if (celebrityFilter !== "All") {
       const celebrityFileKeys = new Set(getFilesForCelebrity(celebrityFilter, 99));
       files = files.filter((f) => celebrityFileKeys.has(f.key));
+    }
+
+    // Apply search query with fuzzy matching
+    const q = (searchQuery || "").trim();
+    if (q) {
+      // Precompute keys for celebrities matching the query using fuzzy search
+      const matchedCelebKeys = new Set<string>();
+      for (const c of celebrities) {
+        const celebMatch = fuzzyMatch(q, c.name);
+        if (celebMatch.matches) {
+          for (const fk of getFilesForCelebrity(c.name, 99)) matchedCelebKeys.add(fk);
+        }
+      }
+
+      // Score and filter files using fuzzy matching
+      const scoredFiles = files.map((f) => {
+        const id = getFileId(f.key);
+        const prefix = f.key.split("/")[0] || "";
+        
+        // Calculate fuzzy match scores for different fields
+        const idMatch = fuzzyMatch(q, id);
+        const keyMatch = fuzzyMatch(q, f.key);
+        const volumeMatch = fuzzyMatch(q, prefix);
+        const celebMatch = matchedCelebKeys.has(f.key);
+        
+        // Best score wins
+        let bestScore = 0;
+        if (idMatch.matches) bestScore = Math.max(bestScore, idMatch.score);
+        if (keyMatch.matches) bestScore = Math.max(bestScore, keyMatch.score);
+        if (volumeMatch.matches) bestScore = Math.max(bestScore, volumeMatch.score);
+        if (celebMatch) bestScore = Math.max(bestScore, 500); // Celebrity match gets medium-high score
+        
+        return { file: f, score: bestScore };
+      })
+      .filter((result) => result.score > 0)
+      .sort((a, b) => b.score - a.score);
+      
+      files = scoredFiles.map((r) => r.file);
     }
 
     // Apply sorting
@@ -702,16 +1298,17 @@ export function FileBrowser() {
     });
 
     return files;
-  }, [initialFiles, collectionFilter, celebrityFilter, sortBy]);
+  }, [initialFiles, collectionFilter, celebrityFilter, sortBy, searchQuery, celebrities]);
 
   // Build query string to preserve filters in file links
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
     if (collectionFilter !== "All") params.set("collection", collectionFilter);
     if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter);
+    if (searchQuery) params.set("q", searchQuery);
     const str = params.toString();
     return str ? `?${str}` : "";
-  }, [collectionFilter, celebrityFilter]);
+  }, [collectionFilter, celebrityFilter, searchQuery]);
   
   // Modal state - find index from file key
   const selectedFileIndex = useMemo(() => {
@@ -740,97 +1337,290 @@ export function FileBrowser() {
     setOpenFile(null);
   }, [setOpenFile]);
 
+  // Incremental rendering: reveal files progressively as user scrolls
+  const INITIAL_BATCH = 60;
+  const LOAD_STEP = 60;
+  const [visibleCount, setVisibleCount] = useState<number>(INITIAL_BATCH);
+  const loadMoreRef = useRef<HTMLDivElement | null>(null);
+  const [isAutoLoading, setIsAutoLoading] = useState(false);
+
+  // Reset visible count when filters or sorting change
+  useEffect(() => {
+    setVisibleCount(INITIAL_BATCH);
+  }, [collectionFilter, celebrityFilter, sortBy, searchQuery]);
+
+  // IntersectionObserver to load more when sentinel enters viewport
+  useEffect(() => {
+    const el = loadMoreRef.current;
+    if (!el) return;
+    const onIntersect: IntersectionObserverCallback = (entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting && visibleCount < filteredFiles.length) {
+        setIsAutoLoading(true);
+        // Batch more items
+        setVisibleCount((c) => Math.min(c + LOAD_STEP, filteredFiles.length));
+      }
+    };
+    const io = new IntersectionObserver(onIntersect, {
+      root: null,
+      rootMargin: "600px 0px 600px 0px",
+      threshold: 0,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [filteredFiles.length, visibleCount]);
+
+  useEffect(() => {
+    // Stop the loading indicator when we've revealed more items
+    setIsAutoLoading(false);
+  }, [visibleCount]);
+
+  // Global keyboard shortcuts
+  useEffect(() => {
+    if (!isDesktop) return; // Only enable keyboard shortcuts on desktop
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isTyping = target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
+
+      // Always allow opening the help with Shift+?
+      if (e.key === "?" && e.shiftKey) {
+        e.preventDefault();
+        setShowShortcuts(true);
+        return;
+      }
+
+      if (isTyping) return;
+      const hasModifier = e.metaKey || e.ctrlKey || e.altKey;
+
+      if (!hasModifier && e.key === "/") {
+        e.preventDefault();
+        searchRef.current?.focus();
+      } else if (!hasModifier && e.key.toLowerCase() === "r") {
+        e.preventDefault();
+        resetFilters();
+      } else if (e.key === "Escape" && showShortcuts) {
+        e.preventDefault();
+        setShowShortcuts(false);
+      }
+    };
+
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [resetFilters, showShortcuts, isDesktop]);
+
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-xl sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-3">
-              <div>
-                <h1 className="text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center min-w-0">
+              <div className="min-w-0">
+                <h1 className="text-base sm:text-2xl font-bold text-foreground tracking-tight truncate">
                   Epstein Files Browser
                 </h1>
               </div>
             </div>
-            <a
-              href="https://github.com/RhysSullivan/epstein-files-browser"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105"
-              aria-label="View source on GitHub"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </a>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="relative group">
+                <ThemeToggle variant="header" />
+                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                  Change theme
+                </span>
+              </div>
+              <div className="relative group">
+                <button
+                  onClick={() => setShowStats(true)}
+                  className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
+                  aria-label="Statistics"
+                  title="Statistics"
+                >
+                  <BarChart3 className="w-5 h-5" />
+                </button>
+                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                  Statistics
+                </span>
+              </div>
+              {isDesktop && (
+                <div className="relative group">
+                  <button
+                    onClick={() => setShowShortcuts(true)}
+                    className="p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105 cursor-pointer"
+                    aria-label="Keyboard shortcuts"
+                    title="Keyboard shortcuts (?)"
+                  >
+                    <HelpCircle className="w-5 h-5" />
+                  </button>
+                  <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                    Keyboard shortcuts
+                  </span>
+                </div>
+              )}
+              <div className="relative inline-flex group">
+                <a
+                  href="https://github.com/RhysSullivan/epstein-files-browser"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center p-2.5 rounded-xl bg-secondary hover:bg-accent text-muted-foreground hover:text-foreground transition-all duration-200 hover:scale-105"
+                  aria-label="View source on GitHub"
+                  title="View source on GitHub"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </a>
+                <span className="pointer-events-none absolute top-full right-0 mt-2 hidden whitespace-nowrap rounded-lg border border-border bg-card px-2.5 py-1 text-xs text-foreground shadow-sm group-hover:block">
+                  Open GitHub
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="flex gap-3 items-center flex-wrap">
-            <div className="relative">
-              <select
-                value={collectionFilter}
-                onChange={(e) => setCollectionFilter(e.target.value)}
-                className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
-              >
-                <option value="All">All Collections</option>
-                <option value="VOL00001">Volume 1</option>
-                <option value="VOL00002">Volume 2</option>
-                <option value="VOL00003">Volume 3</option>
-                <option value="VOL00004">Volume 4</option>
-                <option value="VOL00005">Volume 5</option>
-                <option value="VOL00006">Volume 6</option>
-                <option value="VOL00007">Volume 7</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
-            <CelebrityCombobox
-              celebrities={celebrities}
-              value={celebrityFilter}
-              onValueChange={(value) => setCelebrityFilter(value)}
-            />
-
-            <div className="relative">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
-              >
-                <option value="name">Sort by Name</option>
-                <option value="size-desc">Largest First</option>
-                <option value="size-asc">Smallest First</option>
-              </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
+          {/* Filters row inside sticky header */}
+          <div className="mt-2 sm:mt-3 space-y-2 sm:space-y-3">
+            {/* Search on its own row above filters */}
+            <div className="w-full">
+              <GlobalSearch ref={searchRef} />
             </div>
 
-            <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 rounded-xl">
-              <span className="text-sm font-medium text-muted-foreground">
-                {filteredFiles.length.toLocaleString()} files
-                {collectionFilter !== "All" || celebrityFilter !== "All"
-                  ? <span className="text-foreground/50"> / {initialFiles.length.toLocaleString()}</span>
-                  : ""}
-              </span>
+            {/* Filter controls */}
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
+              <div className="col-span-1">
+                <CollectionCombobox
+                  value={collectionFilter}
+                  onValueChange={(value) => setCollectionFilter(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <CelebrityCombobox
+                  celebrities={celebrities.map(c => ({ ...c, count: celebrityCounts[c.name] || 0 }))}
+                  value={celebrityFilter}
+                  onValueChange={(value) => setCelebrityFilter(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <SortCombobox
+                  value={sortBy}
+                  onValueChange={(value) => setSortBy(value)}
+                />
+              </div>
+              {/* Separate Reset button tile - next to Sort on mobile */}
+              <div className="col-span-1 sm:col-span-1 sm:w-auto">
+                <button
+                  onClick={resetFilters}
+                  disabled={!hasActiveFilters}
+                  className="w-full inline-flex items-center justify-center gap-1.5 text-sm px-4 py-2.5 rounded-xl bg-secondary border border-border text-foreground hover:bg-accent hover:text-foreground transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  aria-disabled={!hasActiveFilters}
+                  aria-label="Reset filters"
+                  title="Reset filters"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="font-medium">Reset Filters</span>
+                </button>
+              </div>
+
+              {/* Download All button */}
+              <div className="col-span-1 sm:col-span-1 sm:w-auto">
+                <button
+                  onClick={() => {
+                    const filterParts = [];
+                    if (collectionFilter !== "All") filterParts.push(collectionFilter);
+                    if (celebrityFilter !== "All") filterParts.push(celebrityFilter);
+                    if (searchQuery && searchQuery.trim()) filterParts.push(`search`);
+                    const filterDesc = filterParts.length > 0 ? filterParts.join("-") : "all";
+                    setIsDownloading(true);
+                    cancelDownloadRef.current = false;
+                    setDownloadProgress(0);
+                    setDownloadTotal(filteredFiles.length);
+                    downloadFilteredFilesAsZip(
+                      filteredFiles,
+                      filterDesc,
+                      (current, total, status) => {
+                        setDownloadProgress(current);
+                        setDownloadTotal(total);
+                        setDownloadStatus(status);
+                      },
+                      () => cancelDownloadRef.current,
+                      addToast,
+                      requestConfirmation
+                    ).finally(() => {
+                      setIsDownloading(false);
+                      setDownloadProgress(0);
+                      setDownloadStatus("");
+                    });
+                  }}
+                  disabled={filteredFiles.length === 0}
+                  className="w-full inline-flex items-center justify-center gap-1.5 text-sm px-4 py-2.5 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-sm hover:shadow"
+                  aria-disabled={filteredFiles.length === 0}
+                  aria-label="Download all filtered files as ZIP"
+                  title="Download all filtered files as ZIP"
+                >
+                  <Download className="w-4 h-4" />
+                  <span className="font-medium">Download All</span>
+                </button>
+              </div>
+
+              {/* File count tile - sits next to Download on mobile */}
+              <div className="col-span-1 sm:col-span-1 sm:w-auto">
+                <div className="flex items-center justify-center sm:justify-start gap-2 px-3 py-2 bg-secondary/50 rounded-xl w-full">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    <FormattedNumber value={filteredFiles.length} /> files
+                    {collectionFilter !== "All" || celebrityFilter !== "All" || (searchQuery && searchQuery.trim())
+                      ? <span className="text-foreground/50"> / <FormattedNumber value={initialFiles.length} /></span>
+                      : ""}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </header>
+
+      {/* Shortcuts Popup (desktop only) */}
+      {isDesktop && showShortcuts && (
+        <div className="fixed inset-0 z-30 flex items-center justify-center px-4 sm:px-6" role="dialog" aria-modal="true">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setShowShortcuts(false)} />
+          <div className="relative w-full max-w-md rounded-2xl border border-border bg-card shadow-2xl">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+              <h2 className="text-lg font-semibold text-foreground">Keyboard shortcuts</h2>
+              <button
+                onClick={() => setShowShortcuts(false)}
+                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
+                aria-label="Close shortcuts"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="px-4 py-3 space-y-3">
+              {[{label:"Focus search", combo:["/"]},{label:"Reset filters", combo:["R"]},{label:"Open shortcuts", combo:["Shift","?"]},{label:"Close (Esc)", combo:["Esc"]}].map((item) => (
+                <div key={item.label} className="flex items-center justify-between gap-3">
+                  <span className="text-sm text-foreground">{item.label}</span>
+                  <div className="flex items-center gap-1">
+                    {item.combo.map((key) => (
+                      <kbd key={key} className="px-2 py-1 rounded-md bg-secondary border border-border text-xs font-mono text-foreground">
+                        {key}
+                      </kbd>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Celebrity Detection Disclaimer */}
       {celebrityFilter !== "All" && (
@@ -853,10 +1643,11 @@ export function FileBrowser() {
         </div>
       )}
 
-      {/* File Grid */}
+      {/* File Grid */
+      }
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-          {filteredFiles.map((file) => (
+          {filteredFiles.slice(0, visibleCount).map((file) => (
             <FileCard 
               key={file.key} 
               file={file} 
@@ -865,6 +1656,26 @@ export function FileBrowser() {
             />
           ))}
         </div>
+
+        {/* Load more sentinel + status */}
+        {filteredFiles.length > visibleCount && (
+          <div className="flex items-center justify-center py-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              {isAutoLoading && (
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4A4 4 0 008 12H4z"></path>
+                </svg>
+              )}
+              <span>
+                Showing {visibleCount.toLocaleString()} of {filteredFiles.length.toLocaleString()} files
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Intersection sentinel */}
+        <div ref={loadMoreRef} className="h-1 w-full" />
 
         {/* Empty state */}
         {filteredFiles.length === 0 && (
@@ -875,7 +1686,20 @@ export function FileBrowser() {
               </svg>
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-1">No files found</h3>
-            <p className="text-muted-foreground text-sm">Try adjusting your filters to find what you&apos;re looking for.</p>
+            <p className="text-muted-foreground text-sm mb-4">Try changing your search or adjusting filters.</p>
+            {recentSearches.length > 0 && (
+              <div className="flex flex-wrap gap-2 justify-center">
+                {recentSearches.map((s) => (
+                  <button
+                    key={`empty-${s}`}
+                    onClick={() => setSearchQuery(s)}
+                    className="px-2.5 py-1 rounded-full bg-secondary hover:bg-accent text-xs text-foreground border border-border cursor-pointer"
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         )}
       </main>
@@ -893,6 +1717,153 @@ export function FileBrowser() {
           nextFiles={selectedFileIndex !== null ? filteredFiles.slice(selectedFileIndex + 1, selectedFileIndex + 6) : []}
         />
       )}
+
+      {/* Statistics Modal */}
+      {showStats && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={() => setShowStats(false)} />
+          <div className="relative bg-card border border-border rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-card border-b border-border p-4 sm:p-6 flex items-center justify-between">
+              <h2 className="text-xl sm:text-2xl font-bold text-foreground flex items-center gap-2">
+                <BarChart3 className="w-6 h-6" />
+                Statistics
+              </h2>
+              <button
+                onClick={() => setShowStats(false)}
+                className="p-2 rounded-lg hover:bg-accent text-muted-foreground hover:text-foreground cursor-pointer"
+                aria-label="Close statistics"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="p-4 sm:p-6">
+              <StatisticsDashboard 
+                files={filteredFiles} 
+                allFiles={initialFiles}
+                hasActiveFilter={hasActiveFilters}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Download Progress Modal */}
+      {isDownloading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+          <div className="relative bg-card border border-border rounded-2xl shadow-2xl max-w-md w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <Download className="w-5 h-5" />
+                Downloading Files
+              </h2>
+            </div>
+            
+            <div className="space-y-4">
+              {/* Progress bar */}
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-sm text-muted-foreground">Progress</span>
+                  <span className="text-sm font-medium text-foreground">
+                    {downloadProgress} / {downloadTotal}
+                  </span>
+                </div>
+                <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
+                  <div
+                    className="bg-primary h-full rounded-full transition-all duration-300"
+                    style={{
+                      width: `${downloadTotal > 0 ? (downloadProgress / downloadTotal) * 100 : 0}%`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Status text */}
+              <p className="text-sm text-muted-foreground line-clamp-2">
+                {downloadStatus || "Initializing download..."}
+              </p>
+
+              {/* Cancel button */}
+              <button
+                onClick={() => {
+                  cancelDownloadRef.current = true;
+                }}
+                className="w-full px-4 py-2 rounded-lg bg-destructive/20 text-destructive hover:bg-destructive/30 text-sm font-medium transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation Modal */}
+      {confirmDialog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-background/70 backdrop-blur-sm" />
+          <div className="relative bg-card border border-border rounded-2xl shadow-2xl max-w-sm w-full p-6">
+            <h2 className="text-lg font-semibold text-foreground mb-3">Confirm Download</h2>
+            <p className="text-muted-foreground text-sm mb-6">{confirmDialog.message}</p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  confirmDialog.resolve(false);
+                  setConfirmDialog(null);
+                }}
+                className="flex-1 px-4 py-2 rounded-lg bg-secondary hover:bg-secondary/80 text-foreground text-sm font-medium transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  confirmDialog.resolve(true);
+                  setConfirmDialog(null);
+                }}
+                className="flex-1 px-4 py-2 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-colors cursor-pointer"
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toast Notifications */}
+      <div className="fixed bottom-6 right-6 z-40 space-y-2 max-w-sm">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`px-4 py-3 rounded-lg shadow-lg border animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+              toast.type === "success"
+                ? "bg-green-500/20 border-green-500/30 text-green-100"
+                : toast.type === "error"
+                ? "bg-red-500/20 border-red-500/30 text-red-100"
+                : "bg-blue-500/20 border-blue-500/30 text-blue-100"
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              {toast.type === "success" && (
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              )}
+              {toast.type === "error" && (
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              )}
+              {toast.type === "info" && (
+                <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              )}
+              <p className="text-sm font-medium">{toast.message}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

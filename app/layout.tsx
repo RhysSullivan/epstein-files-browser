@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Analytics } from "@vercel/analytics/next";
 import { FilesProvider } from "@/lib/files-context";
 import { FileItem, PdfManifest } from "@/lib/cache";
 import "./globals.css";
+import ScrollToTopButton from "@/components/scroll-to-top-button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,6 +21,24 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Epstein Files Browser",
   description: "Browse and view the released Epstein files",
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Files Browser",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#1f2937",
 };
 
 const WORKER_URL = "https://epstein-files.rhys-669.workers.dev";
@@ -29,20 +49,29 @@ interface AllFilesResponse {
 }
 
 async function fetchAllFiles(): Promise<FileItem[]> {
-  const response = await fetch(`${WORKER_URL}/api/all-files`, {
-    next: { revalidate: 3600 }, // Revalidate every hour
-  });
+  try {
+    console.log('Fetching files from:', `${WORKER_URL}/api/all-files`);
+    const response = await fetch(`${WORKER_URL}/api/all-files`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch files");
+    if (!response.ok) {
+      console.error('Failed to fetch files:', response.status, response.statusText);
+      throw new Error("Failed to fetch files");
+    }
+
+    const data: AllFilesResponse = await response.json();
+    console.log('Files loaded:', data.totalReturned);
+    return data.files;
+  } catch (error) {
+    console.error('Error fetching files:', error);
+    throw error;
   }
-
-  const data: AllFilesResponse = await response.json();
-  return data.files;
 }
 
 async function fetchPdfManifest(): Promise<PdfManifest> {
   try {
+    console.log('Fetching PDF manifest from:', `${WORKER_URL}/api/pdf-manifest`);
     const response = await fetch(`${WORKER_URL}/api/pdf-manifest`, {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
@@ -52,9 +81,11 @@ async function fetchPdfManifest(): Promise<PdfManifest> {
       return {};
     }
 
-    return await response.json();
-  } catch {
-    console.warn("Failed to fetch PDF manifest, falling back to PDF rendering");
+    const manifest: PdfManifest = await response.json();
+    console.log('PDF manifest loaded, entries:', Object.keys(manifest).length);
+    return manifest;
+  } catch (error) {
+    console.warn("Failed to fetch PDF manifest:", error);
     return {};
   }
 }
@@ -71,12 +102,75 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Files Browser" />
+        <meta name="theme-color" content="#ffffff" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <div id="theme-transition-overlay" />
+        <Script id="theme-init" strategy="beforeInteractive">
+          {`(() => {try {var s = localStorage.getItem('theme'); var m = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; var r = document.documentElement; var isDark = s === 'dark' || ((s === 'system' || !s) && m); if (isDark) { r.classList.add('dark'); } else { r.classList.remove('dark'); } var themeColor = document.querySelector('meta[name="theme-color"]'); if (themeColor) { themeColor.setAttribute('content', isDark ? '#000000' : '#ffffff'); }} catch (e) { /* noop */ }})();`}
+        </Script>
+        <Script id="theme-color-sync" strategy="afterInteractive">
+          {`
+            function updateThemeColor() {
+              const isDark = document.documentElement.classList.contains('dark');
+              const themeColor = document.querySelector('meta[name="theme-color"]');
+              if (themeColor) {
+                themeColor.setAttribute('content', isDark ? '#000000' : '#ffffff');
+              }
+            }
+            
+            // Update on load
+            updateThemeColor();
+            
+            // Watch for theme changes
+            const observer = new MutationObserver((mutations) => {
+              mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                  updateThemeColor();
+                }
+              });
+            });
+            
+            observer.observe(document.documentElement, { attributes: true });
+            
+            // Also sync with system preference changes
+            if (window.matchMedia) {
+              window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeColor);
+            }
+          `}
+        </Script>
+        <Script id="sw-register" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                  .then(function(registration) {
+                    console.log('Service Worker registered successfully:', registration);
+                  })
+                  .catch(function(error) {
+                    console.error('Service Worker registration failed:', error);
+                    console.error('Error details:', error.message);
+                  });
+              });
+            } else {
+              console.warn('Service Workers are not supported in this browser');
+            }
+          `}
+        </Script>
         <FilesProvider files={files} pdfManifest={pdfManifest}>
           <NuqsAdapter>{children}</NuqsAdapter>
         </FilesProvider>
+        <ScrollToTopButton />
         <Analytics />
       </body>
     </html>
