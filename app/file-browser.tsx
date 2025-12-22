@@ -1571,8 +1571,8 @@ export function FileBrowser() {
                 </button>
               </div>
 
-              {/* File count tile - full width on mobile, after controls */}
-              <div className="col-span-2 sm:col-span-1 sm:w-auto">
+              {/* File count tile - sits next to Download on mobile */}
+              <div className="col-span-1 sm:col-span-1 sm:w-auto">
                 <div className="flex items-center justify-center sm:justify-start gap-2 px-3 py-2 bg-secondary/50 rounded-xl w-full">
                   <span className="text-sm font-medium text-muted-foreground">
                     <FormattedNumber value={filteredFiles.length} /> files
