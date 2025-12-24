@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import { createContext, useContext, ReactNode, useMemo, useEffect } from 'react'
-import { FileItem, PdfManifest, setPdfManifest } from './cache'
-import { getFilesForCelebrity } from './celebrity-data'
-import { getFileId } from './utils'
+import { createContext, useContext, ReactNode, useMemo, useEffect } from "react"
+import { FileItem, PdfManifest, setPdfManifest } from "./cache"
+import { getFilesForCelebrity } from "./celebrity-data"
+import { getFileId } from "./utils"
 
 interface FilesContextValue {
   files: FileItem[]
@@ -26,17 +26,17 @@ function getFilteredFileKeys(
   const { collection, celebrity } = filters
 
   // Celebrity filter takes precedence
-  if (celebrity && celebrity !== 'All') {
+  if (celebrity && celebrity !== "All") {
     const celebrityFileKeys = getFilesForCelebrity(celebrity, 99)
     // Optionally filter by collection too
-    if (collection && collection !== 'All') {
+    if (collection && collection !== "All") {
       return celebrityFileKeys.filter((key) => key.startsWith(collection))
     }
     return celebrityFileKeys
   }
 
   // Collection filter only
-  if (collection && collection !== 'All') {
+  if (collection && collection !== "All") {
     return allFiles
       .filter((f) => f.key.startsWith(collection))
       .map((f) => f.key)
@@ -95,7 +95,7 @@ export function FilesProvider({
     let fileKeys: string[]
     if (
       filters &&
-      (filters.collection !== 'All' || filters.celebrity !== 'All')
+      (filters.collection !== "All" || filters.celebrity !== "All")
     ) {
       fileKeys = getFilteredFileKeys(sortedFiles, filters)
       // Sort the filtered keys by file ID
@@ -129,7 +129,7 @@ export function FilesProvider({
 export function useFiles() {
   const context = useContext(FilesContext)
   if (!context) {
-    throw new Error('useFiles must be used within a FilesProvider')
+    throw new Error("useFiles must be used within a FilesProvider")
   }
   return context
 }

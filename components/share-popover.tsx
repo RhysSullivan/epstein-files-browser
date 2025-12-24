@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState } from "react"
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from '@/components/ui/popover'
-import { cn } from '@/lib/utils'
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
 // Share popover component
 export function SharePopover({
   filePath,
@@ -17,7 +17,7 @@ export function SharePopover({
   const [isOpen, setIsOpen] = useState(false)
 
   const shareUrl =
-    typeof window !== 'undefined'
+    typeof window !== "undefined"
       ? `${window.location.origin}/file/${encodeURIComponent(
           filePath
         )}${queryString}`
@@ -30,11 +30,11 @@ export function SharePopover({
       setTimeout(() => setCopied(false), 2000)
     } catch {
       // Fallback for older browsers
-      const textArea = document.createElement('textarea')
+      const textArea = document.createElement("textarea")
       textArea.value = shareUrl
       document.body.appendChild(textArea)
       textArea.select()
-      document.execCommand('copy')
+      document.execCommand("copy")
       document.body.removeChild(textArea)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
@@ -90,10 +90,10 @@ export function SharePopover({
             <button
               onClick={handleCopy}
               className={cn(
-                'flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                "flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 copied
-                  ? 'border border-green-500/30 bg-green-500/20 text-green-400'
-                  : 'bg-primary hover:bg-primary/90 text-primary-foreground'
+                  ? "border border-green-500/30 bg-green-500/20 text-green-400"
+                  : "bg-primary hover:bg-primary/90 text-primary-foreground"
               )}
             >
               {copied ? (

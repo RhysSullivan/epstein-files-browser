@@ -1,6 +1,6 @@
-import { FileItem } from '@/lib/cache'
-import { Thumbnail } from './thumbnail'
-import { formatFileSize, getFileId } from '@/lib/utils'
+import { FileItem } from "@/lib/cache"
+import { Thumbnail } from "./thumbnail"
+import { formatFileSize, getFileId } from "@/lib/utils"
 
 export function FileCard({
   file,

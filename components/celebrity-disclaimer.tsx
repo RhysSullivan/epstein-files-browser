@@ -1,9 +1,9 @@
-import { cn } from '@/lib/utils'
-import { XCircleIcon, XIcon } from 'lucide-react'
-import { useState } from 'react'
+import { cn } from "@/lib/utils"
+import { XCircleIcon, XIcon } from "lucide-react"
+import { useState } from "react"
 
 export function CelebrityDisclaimer({
-  className = '',
+  className = "",
 }: {
   className?: string
 }) {
@@ -12,8 +12,8 @@ export function CelebrityDisclaimer({
   return (
     <div
       className={cn(
-        'mx-auto mt-5 max-h-24 max-w-7xl transition-[max-height] duration-300 ease-in-out',
-        isDismissed && 'max-h-0 overflow-hidden'
+        "mx-auto mt-5 max-h-24 max-w-7xl transition-[max-height] duration-300 ease-in-out",
+        isDismissed && "max-h-0 overflow-hidden"
       )}
     >
       <div className="relative rounded-2xl border border-amber-500/20 bg-amber-500/10 px-16 py-4 text-amber-200 backdrop-blur-sm">
@@ -44,7 +44,7 @@ export function CelebrityDisclaimer({
               className={`text-muted-foreground text-xs leading-relaxed ${className}`}
             >
               <p>
-                Detection powered by{' '}
+                Detection powered by{" "}
                 <a
                   href="https://aws.amazon.com/rekognition/"
                   target="_blank"
@@ -53,7 +53,7 @@ export function CelebrityDisclaimer({
                 >
                   AWS Rekognition
                 </a>
-                . Results may not be accurate.{' '}
+                . Results may not be accurate.{" "}
                 <a
                   href="https://github.com/RhysSullivan/epstein-files-browser"
                   target="_blank"
@@ -66,7 +66,7 @@ export function CelebrityDisclaimer({
               </p>
             </div>
             <p className="mt-1.5 text-sm text-amber-200/70">
-              Results limited to {'>'}99% confidence matches from AWS
+              Results limited to {">"}99% confidence matches from AWS
               Rekognition.
             </p>
           </div>

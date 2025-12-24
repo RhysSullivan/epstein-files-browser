@@ -1,10 +1,10 @@
-import { WORKER_URL } from '@/lib/const'
+import { WORKER_URL } from "@/lib/const"
 
 // Thumbnail component - loads thumbnail from R2
 export function Thumbnail({ fileKey }: { fileKey: string }) {
   const thumbnailUrl = `${WORKER_URL}/thumbnails/${fileKey.replace(
-    '.pdf',
-    '.jpg'
+    ".pdf",
+    ".jpg"
   )}`
 
   return (

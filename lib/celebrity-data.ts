@@ -16,5573 +16,5573 @@ export interface Celebrity {
 
 export const CELEBRITY_DATA: Celebrity[] = [
   {
-    name: 'Jeffrey Epstein',
+    name: "Jeffrey Epstein",
     count: 369,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003324.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003324.pdf",
         page: 1,
         confidence: 99.99982452392578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003420.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003420.pdf",
         page: 1,
         confidence: 99.99982452392578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003758.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003758.pdf",
         page: 1,
         confidence: 99.99979400634766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003660.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003660.pdf",
         page: 1,
         confidence: 99.99978637695312,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003636.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003636.pdf",
         page: 1,
         confidence: 99.9997787475586,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003716.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003716.pdf",
         page: 1,
         confidence: 99.9997787475586,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003661.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003661.pdf",
         page: 1,
         confidence: 99.99974822998047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003759.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003759.pdf",
         page: 1,
         confidence: 99.99974060058594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003749.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003749.pdf",
         page: 1,
         confidence: 99.9996566772461,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003547.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003547.pdf",
         page: 1,
         confidence: 99.9996337890625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003772.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003772.pdf",
         page: 1,
         confidence: 99.99961853027344,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 18,
         confidence: 99.99960327148438,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003664.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003664.pdf",
         page: 1,
         confidence: 99.99958038330078,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003434.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003434.pdf",
         page: 1,
         confidence: 99.99955749511719,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 23,
         confidence: 99.99955749511719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003583.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003583.pdf",
         page: 1,
         confidence: 99.99954986572266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003797.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003797.pdf",
         page: 1,
         confidence: 99.99954223632812,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 12,
         confidence: 99.99952697753906,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 50,
         confidence: 99.99952697753906,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 11,
         confidence: 99.99950408935547,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 9,
         confidence: 99.99949645996094,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003545.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003545.pdf",
         page: 1,
         confidence: 99.9994888305664,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 20,
         confidence: 99.99948120117188,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003517.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003517.pdf",
         page: 1,
         confidence: 99.99946594238281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003755.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003755.pdf",
         page: 1,
         confidence: 99.99945831298828,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 17,
         confidence: 99.99945831298828,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003540.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003540.pdf",
         page: 1,
         confidence: 99.99944305419922,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 7,
         confidence: 99.99944305419922,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 22,
         confidence: 99.99942779541016,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003202.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003202.pdf",
         page: 1,
         confidence: 99.9994125366211,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003541.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003541.pdf",
         page: 1,
         confidence: 99.9993896484375,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 47,
         confidence: 99.9993896484375,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 49,
         confidence: 99.99937438964844,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 16,
         confidence: 99.9993667602539,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 10,
         confidence: 99.99935913085938,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 6,
         confidence: 99.99935150146484,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 8,
         confidence: 99.99935150146484,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 13,
         confidence: 99.99935150146484,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 19,
         confidence: 99.99931335449219,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 14,
         confidence: 99.99930572509766,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 22,
         confidence: 99.99930572509766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003502.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003502.pdf",
         page: 1,
         confidence: 99.9992904663086,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003558.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003558.pdf",
         page: 1,
         confidence: 99.99928283691406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003560.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003560.pdf",
         page: 1,
         confidence: 99.99927520751953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003403.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003403.pdf",
         page: 1,
         confidence: 99.99925994873047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003360.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003360.pdf",
         page: 1,
         confidence: 99.99925231933594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003575.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003575.pdf",
         page: 1,
         confidence: 99.99922180175781,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003633.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003633.pdf",
         page: 1,
         confidence: 99.99919891357422,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003546.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003546.pdf",
         page: 1,
         confidence: 99.99918365478516,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 24,
         confidence: 99.9991226196289,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003653.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003653.pdf",
         page: 1,
         confidence: 99.99909973144531,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003750.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003750.pdf",
         page: 1,
         confidence: 99.99906158447266,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 21,
         confidence: 99.99905395507812,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003655.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003655.pdf",
         page: 1,
         confidence: 99.9990463256836,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 5,
         confidence: 99.99903106689453,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 15,
         confidence: 99.99899291992188,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003206.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003206.pdf",
         page: 1,
         confidence: 99.99898529052734,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 19,
         confidence: 99.99898529052734,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000515.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000515.pdf",
         page: 1,
         confidence: 99.9989242553711,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003549.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003549.pdf",
         page: 1,
         confidence: 99.99889373779297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003561.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003561.pdf",
         page: 1,
         confidence: 99.99889373779297,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 3,
         confidence: 99.99886322021484,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 20,
         confidence: 99.99885559082031,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 18,
         confidence: 99.99879455566406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003599.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003599.pdf",
         page: 1,
         confidence: 99.99873352050781,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003746.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003746.pdf",
         page: 1,
         confidence: 99.99872589111328,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003852.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003852.pdf",
         page: 1,
         confidence: 99.99871826171875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003577.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003577.pdf",
         page: 1,
         confidence: 99.99869537353516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003552.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003552.pdf",
         page: 1,
         confidence: 99.99864959716797,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003774.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003774.pdf",
         page: 1,
         confidence: 99.99858093261719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003171.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003171.pdf",
         page: 1,
         confidence: 99.99852752685547,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003760.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003760.pdf",
         page: 1,
         confidence: 99.99851989746094,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 19,
         confidence: 99.99848937988281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003654.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003654.pdf",
         page: 1,
         confidence: 99.99848175048828,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 22,
         confidence: 99.99842834472656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003529.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003529.pdf",
         page: 1,
         confidence: 99.99840545654297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003513.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003513.pdf",
         page: 1,
         confidence: 99.9983901977539,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003652.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003652.pdf",
         page: 1,
         confidence: 99.99837493896484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003506.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003506.pdf",
         page: 1,
         confidence: 99.99836730957031,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003361.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003361.pdf",
         page: 1,
         confidence: 99.99835968017578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003368.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003368.pdf",
         page: 1,
         confidence: 99.99832153320312,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003573.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003573.pdf",
         page: 1,
         confidence: 99.99830627441406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003754.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003754.pdf",
         page: 1,
         confidence: 99.99822998046875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003387.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003387.pdf",
         page: 1,
         confidence: 99.99818420410156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003770.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003770.pdf",
         page: 1,
         confidence: 99.99817657470703,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 15,
         confidence: 99.99813079833984,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003550.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003550.pdf",
         page: 1,
         confidence: 99.99810028076172,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000472.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000472.pdf",
         page: 1,
         confidence: 99.99805450439453,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003773.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003773.pdf",
         page: 1,
         confidence: 99.99805450439453,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003559.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003559.pdf",
         page: 1,
         confidence: 99.99797058105469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003176.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003176.pdf",
         page: 1,
         confidence: 99.9979476928711,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 21,
         confidence: 99.99783325195312,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003562.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003562.pdf",
         page: 1,
         confidence: 99.99774932861328,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003747.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003747.pdf",
         page: 1,
         confidence: 99.99771118164062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003445.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003445.pdf",
         page: 1,
         confidence: 99.99769592285156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 17,
         confidence: 99.99766540527344,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003362.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003362.pdf",
         page: 1,
         confidence: 99.99762725830078,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003854.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003854.pdf",
         page: 1,
         confidence: 99.99757385253906,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003447.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003447.pdf",
         page: 1,
         confidence: 99.99755859375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003484.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003484.pdf",
         page: 1,
         confidence: 99.99755859375,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002500.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002500.pdf",
         page: 1,
         confidence: 99.99748229980469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003512.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003512.pdf",
         page: 1,
         confidence: 99.99739837646484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003551.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003551.pdf",
         page: 1,
         confidence: 99.99736785888672,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003571.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003571.pdf",
         page: 1,
         confidence: 99.997314453125,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 45,
         confidence: 99.99720001220703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003569.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003569.pdf",
         page: 1,
         confidence: 99.99714660644531,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003409.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003409.pdf",
         page: 1,
         confidence: 99.99713134765625,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 20,
         confidence: 99.99707794189453,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 41,
         confidence: 99.99696350097656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003745.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003745.pdf",
         page: 1,
         confidence: 99.99684143066406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003557.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003557.pdf",
         page: 1,
         confidence: 99.99674224853516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003402.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003402.pdf",
         page: 1,
         confidence: 99.99652862548828,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 13,
         confidence: 99.99642944335938,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002477.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002477.pdf",
         page: 1,
         confidence: 99.99639892578125,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 18,
         confidence: 99.99635314941406,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 4,
         confidence: 99.99630737304688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003769.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003769.pdf",
         page: 1,
         confidence: 99.99622344970703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 7,
         confidence: 99.99618530273438,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003771.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003771.pdf",
         page: 1,
         confidence: 99.99613952636719,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003951.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003951.pdf",
         page: 3,
         confidence: 99.99604797363281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003485.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003485.pdf",
         page: 1,
         confidence: 99.9959716796875,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002476.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002476.pdf",
         page: 1,
         confidence: 99.99568176269531,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003505.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003505.pdf",
         page: 1,
         confidence: 99.99567413330078,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003446.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003446.pdf",
         page: 1,
         confidence: 99.99559020996094,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003656.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003656.pdf",
         page: 1,
         confidence: 99.9954605102539,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003525.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003525.pdf",
         page: 1,
         confidence: 99.99534606933594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003296.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003296.pdf",
         page: 4,
         confidence: 99.9953384399414,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003579.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003579.pdf",
         page: 1,
         confidence: 99.99500274658203,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003357.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003357.pdf",
         page: 1,
         confidence: 99.9949722290039,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000504.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000504.pdf",
         page: 1,
         confidence: 99.99490356445312,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 43,
         confidence: 99.9947509765625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003199.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003199.pdf",
         page: 1,
         confidence: 99.99440002441406,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005563.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005563.pdf",
         page: 1,
         confidence: 99.99412536621094,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003657.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003657.pdf",
         page: 1,
         confidence: 99.99396514892578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003419.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003419.pdf",
         page: 1,
         confidence: 99.99380493164062,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 10,
         confidence: 99.99335479736328,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 18,
         confidence: 99.99332427978516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003392.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003392.pdf",
         page: 1,
         confidence: 99.99324035644531,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003634.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003634.pdf",
         page: 1,
         confidence: 99.99292755126953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003527.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003527.pdf",
         page: 1,
         confidence: 99.99291229248047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003188.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003188.pdf",
         page: 1,
         confidence: 99.99254608154297,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000515.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000515.pdf",
         page: 1,
         confidence: 99.99215698242188,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003363.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003363.pdf",
         page: 1,
         confidence: 99.99153900146484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003388.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003388.pdf",
         page: 1,
         confidence: 99.9914321899414,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003523.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003523.pdf",
         page: 1,
         confidence: 99.99116516113281,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 20,
         confidence: 99.99115753173828,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 22,
         confidence: 99.99022674560547,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001844.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001844.pdf",
         page: 1,
         confidence: 99.9902114868164,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003748.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003748.pdf",
         page: 1,
         confidence: 99.98938751220703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003209.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003209.pdf",
         page: 1,
         confidence: 99.98889923095703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003531.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003531.pdf",
         page: 1,
         confidence: 99.98876190185547,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003766.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003766.pdf",
         page: 1,
         confidence: 99.98814392089844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003198.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003198.pdf",
         page: 1,
         confidence: 99.98808288574219,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001956.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001956.pdf",
         page: 1,
         confidence: 99.98570251464844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003765.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003765.pdf",
         page: 1,
         confidence: 99.9852294921875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003355.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003355.pdf",
         page: 1,
         confidence: 99.98505401611328,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 1,
         confidence: 99.9845962524414,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 31,
         confidence: 99.98342895507812,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003704.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003704.pdf",
         page: 1,
         confidence: 99.98306274414062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003353.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003353.pdf",
         page: 1,
         confidence: 99.98277282714844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003356.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003356.pdf",
         page: 1,
         confidence: 99.98252868652344,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003659.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003659.pdf",
         page: 1,
         confidence: 99.98246765136719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003820.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003820.pdf",
         page: 1,
         confidence: 99.98091125488281,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004100.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004100.pdf",
         page: 5,
         confidence: 99.98013305664062,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004051.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004051.pdf",
         page: 3,
         confidence: 99.97996520996094,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000520.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000520.pdf",
         page: 1,
         confidence: 99.97949981689453,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000472.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000472.pdf",
         page: 1,
         confidence: 99.97923278808594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003379.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003379.pdf",
         page: 1,
         confidence: 99.97787475585938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003327.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003327.pdf",
         page: 1,
         confidence: 99.97643280029297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003339.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003339.pdf",
         page: 1,
         confidence: 99.97643280029297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003391.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003391.pdf",
         page: 1,
         confidence: 99.97630310058594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003528.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003528.pdf",
         page: 1,
         confidence: 99.97405242919922,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003868.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003868.pdf",
         page: 39,
         confidence: 99.97366333007812,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 52,
         confidence: 99.97284698486328,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 29,
         confidence: 99.9719467163086,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003575.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003575.pdf",
         page: 2,
         confidence: 99.97169494628906,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 16,
         confidence: 99.9716567993164,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003694.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003694.pdf",
         page: 1,
         confidence: 99.96949005126953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003444.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003444.pdf",
         page: 1,
         confidence: 99.96905517578125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003422.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003422.pdf",
         page: 1,
         confidence: 99.96878814697266,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005569.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005569.pdf",
         page: 5,
         confidence: 99.96870422363281,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 36,
         confidence: 99.96830749511719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003203.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003203.pdf",
         page: 1,
         confidence: 99.96785736083984,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 3,
         confidence: 99.9675064086914,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 12,
         confidence: 99.96369171142578,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 13,
         confidence: 99.96159362792969,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003410.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003410.pdf",
         page: 1,
         confidence: 99.96102905273438,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003695.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003695.pdf",
         page: 1,
         confidence: 99.96098327636719,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 13,
         confidence: 99.9598617553711,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003178.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003178.pdf",
         page: 1,
         confidence: 99.9593734741211,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 23,
         confidence: 99.95916748046875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003692.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003692.pdf",
         page: 1,
         confidence: 99.95832824707031,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003167.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003167.pdf",
         page: 1,
         confidence: 99.95560455322266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003495.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003495.pdf",
         page: 1,
         confidence: 99.95451354980469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003518.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003518.pdf",
         page: 1,
         confidence: 99.9459228515625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003514.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003514.pdf",
         page: 1,
         confidence: 99.9453353881836,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003469.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003469.pdf",
         page: 1,
         confidence: 99.94388580322266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 9,
         confidence: 99.94193267822266,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000216.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000216.pdf",
         page: 1,
         confidence: 99.94136047363281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003556.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003556.pdf",
         page: 1,
         confidence: 99.9386215209961,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 27,
         confidence: 99.93429565429688,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004250.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004250.pdf",
         page: 30,
         confidence: 99.9328842163086,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002475.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002475.pdf",
         page: 1,
         confidence: 99.93228149414062,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 15,
         confidence: 99.9302978515625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003521.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003521.pdf",
         page: 1,
         confidence: 99.92717742919922,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002195.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002195.pdf",
         page: 1,
         confidence: 99.92587280273438,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003853.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003853.pdf",
         page: 1,
         confidence: 99.92582702636719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003567.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003567.pdf",
         page: 1,
         confidence: 99.92567443847656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003204.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003204.pdf",
         page: 1,
         confidence: 99.92500305175781,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 13,
         confidence: 99.92418670654297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003798.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003798.pdf",
         page: 1,
         confidence: 99.92355346679688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003177.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003177.pdf",
         page: 1,
         confidence: 99.92230987548828,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003519.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003519.pdf",
         page: 1,
         confidence: 99.92123413085938,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001947.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001947.pdf",
         page: 1,
         confidence: 99.91941833496094,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003522.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003522.pdf",
         page: 1,
         confidence: 99.91626739501953,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 96,
         confidence: 99.91454315185547,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003840.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003840.pdf",
         page: 1,
         confidence: 99.91438293457031,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 31,
         confidence: 99.89981079101562,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003583.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003583.pdf",
         page: 2,
         confidence: 99.89696502685547,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005191.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005191.pdf",
         page: 38,
         confidence: 99.89667510986328,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003166.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003166.pdf",
         page: 1,
         confidence: 99.8935775756836,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003524.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003524.pdf",
         page: 1,
         confidence: 99.8885269165039,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003390.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003390.pdf",
         page: 1,
         confidence: 99.87957763671875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003796.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003796.pdf",
         page: 1,
         confidence: 99.87679290771484,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 36,
         confidence: 99.8753433227539,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 19,
         confidence: 99.86310577392578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003317.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003317.pdf",
         page: 1,
         confidence: 99.85086822509766,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000639.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000639.pdf",
         page: 1,
         confidence: 99.84862518310547,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 5,
         confidence: 99.83627319335938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003389.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003389.pdf",
         page: 1,
         confidence: 99.8357162475586,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 11,
         confidence: 99.83329010009766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003509.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003509.pdf",
         page: 1,
         confidence: 99.83174133300781,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003516.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003516.pdf",
         page: 1,
         confidence: 99.78987884521484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003658.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003658.pdf",
         page: 1,
         confidence: 99.78141021728516,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 14,
         confidence: 99.7733383178711,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 4,
         confidence: 99.764404296875,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000765.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000765.pdf",
         page: 1,
         confidence: 99.75249481201172,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 12,
         confidence: 99.74546813964844,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 40,
         confidence: 99.74330139160156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003847.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003847.pdf",
         page: 1,
         confidence: 99.73839569091797,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 27,
         confidence: 99.73314666748047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 20,
         confidence: 99.73265838623047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003848.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003848.pdf",
         page: 1,
         confidence: 99.7313003540039,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003442.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003442.pdf",
         page: 1,
         confidence: 99.72962188720703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003162.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003162.pdf",
         page: 1,
         confidence: 99.70756530761719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003470.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003470.pdf",
         page: 1,
         confidence: 99.68142700195312,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 31,
         confidence: 99.66605377197266,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 42,
         confidence: 99.6512451171875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003530.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003530.pdf",
         page: 1,
         confidence: 99.64483642578125,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 83,
         confidence: 99.6380844116211,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003381.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003381.pdf",
         page: 1,
         confidence: 99.60726928710938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003693.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003693.pdf",
         page: 1,
         confidence: 99.60321807861328,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003643.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003643.pdf",
         page: 1,
         confidence: 99.58442687988281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003597.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003597.pdf",
         page: 1,
         confidence: 99.58391571044922,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003795.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003795.pdf",
         page: 1,
         confidence: 99.58380889892578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003644.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003644.pdf",
         page: 1,
         confidence: 99.57295227050781,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001957.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001957.pdf",
         page: 1,
         confidence: 99.57286071777344,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003803.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003803.pdf",
         page: 1,
         confidence: 99.55635833740234,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 17,
         confidence: 99.54752349853516,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 12,
         confidence: 99.54467010498047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003663.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003663.pdf",
         page: 1,
         confidence: 99.4949951171875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003443.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003443.pdf",
         page: 1,
         confidence: 99.48361206054688,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 25,
         confidence: 99.4520263671875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003501.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003501.pdf",
         page: 1,
         confidence: 99.44647979736328,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003581.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003581.pdf",
         page: 1,
         confidence: 99.41009521484375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003846.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003846.pdf",
         page: 1,
         confidence: 99.40939331054688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 6,
         confidence: 99.34770202636719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 14,
         confidence: 99.32432556152344,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 22,
         confidence: 99.31917572021484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003767.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003767.pdf",
         page: 1,
         confidence: 99.3024673461914,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 64,
         confidence: 99.21791076660156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003486.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003486.pdf",
         page: 1,
         confidence: 99.14075469970703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003296.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003296.pdf",
         page: 3,
         confidence: 99.14069366455078,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003472.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003472.pdf",
         page: 1,
         confidence: 99.0971450805664,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 34,
         confidence: 99.05326843261719,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 29,
         confidence: 98.98796844482422,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001959.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001959.pdf",
         page: 1,
         confidence: 98.9242172241211,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003507.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003507.pdf",
         page: 1,
         confidence: 98.91966247558594,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001960.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001960.pdf",
         page: 1,
         confidence: 98.84066009521484,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000471.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000471.pdf",
         page: 1,
         confidence: 98.79813385009766,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 25,
         confidence: 98.76434326171875,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 23,
         confidence: 98.7489242553711,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 34,
         confidence: 98.74131774902344,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 3,
         confidence: 98.73721313476562,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 19,
         confidence: 98.57402801513672,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003662.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003662.pdf",
         page: 1,
         confidence: 98.56663513183594,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 34,
         confidence: 98.49547576904297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003647.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003647.pdf",
         page: 1,
         confidence: 98.39698791503906,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 58,
         confidence: 98.26952362060547,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 30,
         confidence: 98.2369155883789,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 31,
         confidence: 98.18064880371094,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 31,
         confidence: 98.16573333740234,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003577.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003577.pdf",
         page: 2,
         confidence: 98.16048431396484,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001347.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001347.pdf",
         page: 1,
         confidence: 98.05715942382812,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000471.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000471.pdf",
         page: 1,
         confidence: 98.0418472290039,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003641.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003641.pdf",
         page: 1,
         confidence: 98.0159683227539,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 15,
         confidence: 97.99247741699219,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 8,
         confidence: 97.99169158935547,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 52,
         confidence: 97.93568420410156,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 51,
         confidence: 97.86498260498047,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004100.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004100.pdf",
         page: 3,
         confidence: 97.63479614257812,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 35,
         confidence: 97.60243225097656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003163.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003163.pdf",
         page: 1,
         confidence: 97.54763793945312,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000480.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000480.pdf",
         page: 1,
         confidence: 97.53864288330078,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 18,
         confidence: 97.40020751953125,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003933.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003933.pdf",
         page: 2,
         confidence: 97.18087768554688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003393.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003393.pdf",
         page: 1,
         confidence: 97.17062377929688,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001033.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001033.pdf",
         page: 1,
         confidence: 97.06373596191406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003323.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003323.pdf",
         page: 1,
         confidence: 96.89329528808594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003370.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003370.pdf",
         page: 1,
         confidence: 96.21940612792969,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003753.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003753.pdf",
         page: 1,
         confidence: 96.15137481689453,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004250.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004250.pdf",
         page: 67,
         confidence: 96.08128356933594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003471.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003471.pdf",
         page: 1,
         confidence: 96.0223388671875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003573.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003573.pdf",
         page: 2,
         confidence: 95.44393157958984,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 17,
         confidence: 95.37077331542969,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 52,
         confidence: 95.33924102783203,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 13,
         confidence: 95.1193618774414,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003210.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003210.pdf",
         page: 1,
         confidence: 94.97916412353516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003638.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003638.pdf",
         page: 1,
         confidence: 94.96455383300781,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003715.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003715.pdf",
         page: 1,
         confidence: 94.6707534790039,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 51,
         confidence: 94.66650390625,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 22,
         confidence: 94.62352752685547,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 31,
         confidence: 94.46525573730469,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 31,
         confidence: 93.94095611572266,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001031.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001031.pdf",
         page: 1,
         confidence: 93.66928100585938,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 51,
         confidence: 93.22785186767578,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 41,
         confidence: 92.99578857421875,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 56,
         confidence: 92.71221160888672,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 51,
         confidence: 92.46247100830078,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 42,
         confidence: 92.18795013427734,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 17,
         confidence: 91.68150329589844,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 32,
         confidence: 91.28373718261719,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 92,
         confidence: 90.9526138305664,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 37,
         confidence: 90.75340270996094,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 51,
         confidence: 90.67871856689453,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 28,
         confidence: 90.53028869628906,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001933.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001933.pdf",
         page: 1,
         confidence: 89.97348022460938,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 16,
         confidence: 89.81349182128906,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003768.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003768.pdf",
         page: 1,
         confidence: 89.36534118652344,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003599.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003599.pdf",
         page: 2,
         confidence: 89.26316833496094,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 83,
         confidence: 88.54967498779297,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 70,
         confidence: 88.22437286376953,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 31,
         confidence: 87.15505981445312,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 87,
         confidence: 86.39530944824219,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 53,
         confidence: 86.07432556152344,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004250.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004250.pdf",
         page: 67,
         confidence: 85.93862915039062,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 8,
         confidence: 84.22855377197266,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 54,
         confidence: 83.43738555908203,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001029.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001029.pdf",
         page: 1,
         confidence: 83.37787628173828,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000514.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000514.pdf",
         page: 1,
         confidence: 83.35057067871094,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 96,
         confidence: 83.1398696899414,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 30,
         confidence: 82.82420349121094,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002481.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002481.pdf",
         page: 1,
         confidence: 81.72220611572266,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 57,
         confidence: 80.56973266601562,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 54,
         confidence: 79.8752212524414,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 55,
         confidence: 79.73770141601562,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 56,
         confidence: 79.64958190917969,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 31,
         confidence: 79.51350402832031,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 10,
         confidence: 79.37503814697266,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 40,
         confidence: 79.01545715332031,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 64,
         confidence: 78.89165496826172,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 2,
         confidence: 78.57660675048828,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003571.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003571.pdf",
         page: 2,
         confidence: 77.84076690673828,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 21,
         confidence: 77.65637969970703,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 30,
         confidence: 77.21435546875,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 50,
         confidence: 76.59993743896484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003845.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003845.pdf",
         page: 1,
         confidence: 76.11046600341797,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 92,
         confidence: 75.86458587646484,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 13,
         confidence: 75.81880950927734,
       },
     ],
   },
   {
-    name: 'Ghislaine Maxwell',
+    name: "Ghislaine Maxwell",
     count: 126,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003555.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003555.pdf",
         page: 1,
         confidence: 99.9995346069336,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003710.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003710.pdf",
         page: 1,
         confidence: 99.99927520751953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003824.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003824.pdf",
         page: 1,
         confidence: 99.9991455078125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003571.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003571.pdf",
         page: 1,
         confidence: 99.99908447265625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003734.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003734.pdf",
         page: 1,
         confidence: 99.99908447265625,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005563.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005563.pdf",
         page: 1,
         confidence: 99.99891662597656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003709.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003709.pdf",
         page: 1,
         confidence: 99.99889373779297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003825.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003825.pdf",
         page: 1,
         confidence: 99.99878692626953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003816.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003816.pdf",
         page: 1,
         confidence: 99.99874114990234,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003567.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003567.pdf",
         page: 1,
         confidence: 99.9985580444336,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003733.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003733.pdf",
         page: 1,
         confidence: 99.99845886230469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003362.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003362.pdf",
         page: 1,
         confidence: 99.99834442138672,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003735.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003735.pdf",
         page: 1,
         confidence: 99.99801635742188,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003685.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003685.pdf",
         page: 1,
         confidence: 99.9972152709961,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003569.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003569.pdf",
         page: 1,
         confidence: 99.99677276611328,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003684.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003684.pdf",
         page: 1,
         confidence: 99.99639892578125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003714.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003714.pdf",
         page: 1,
         confidence: 99.99639129638672,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003732.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003732.pdf",
         page: 1,
         confidence: 99.99609375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003817.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003817.pdf",
         page: 1,
         confidence: 99.9955825805664,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003819.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003819.pdf",
         page: 1,
         confidence: 99.99535369873047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003378.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003378.pdf",
         page: 1,
         confidence: 99.99533081054688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003182.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003182.pdf",
         page: 1,
         confidence: 99.99505615234375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003183.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003183.pdf",
         page: 1,
         confidence: 99.99500274658203,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003384.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003384.pdf",
         page: 1,
         confidence: 99.99456787109375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003682.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003682.pdf",
         page: 1,
         confidence: 99.99441528320312,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003490.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003490.pdf",
         page: 1,
         confidence: 99.99440002441406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003492.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003492.pdf",
         page: 1,
         confidence: 99.99418640136719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003818.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003818.pdf",
         page: 1,
         confidence: 99.99360656738281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003815.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003815.pdf",
         page: 1,
         confidence: 99.99295806884766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003853.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003853.pdf",
         page: 1,
         confidence: 99.99253845214844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003184.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003184.pdf",
         page: 1,
         confidence: 99.99124145507812,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003195.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003195.pdf",
         page: 1,
         confidence: 99.9912338256836,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003579.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003579.pdf",
         page: 1,
         confidence: 99.990966796875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003855.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003855.pdf",
         page: 1,
         confidence: 99.99079895019531,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003296.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003296.pdf",
         page: 4,
         confidence: 99.9900894165039,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003352.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003352.pdf",
         page: 1,
         confidence: 99.98982238769531,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001947.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001947.pdf",
         page: 1,
         confidence: 99.98917388916016,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003850.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003850.pdf",
         page: 1,
         confidence: 99.98832702636719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003382.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003382.pdf",
         page: 1,
         confidence: 99.98399353027344,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003649.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003649.pdf",
         page: 1,
         confidence: 99.98388671875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003185.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003185.pdf",
         page: 1,
         confidence: 99.98326873779297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003731.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003731.pdf",
         page: 1,
         confidence: 99.98097229003906,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003681.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003681.pdf",
         page: 1,
         confidence: 99.97933959960938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 9,
         confidence: 99.97799682617188,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003852.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003852.pdf",
         page: 1,
         confidence: 99.97334289550781,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003826.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003826.pdf",
         page: 1,
         confidence: 99.968994140625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003648.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003648.pdf",
         page: 1,
         confidence: 99.95703125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003215.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003215.pdf",
         page: 1,
         confidence: 99.9548110961914,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003193.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003193.pdf",
         page: 1,
         confidence: 99.95266723632812,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 91,
         confidence: 99.94593048095703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003635.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003635.pdf",
         page: 1,
         confidence: 99.94107818603516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003317.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003317.pdf",
         page: 1,
         confidence: 99.9372329711914,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003713.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003713.pdf",
         page: 1,
         confidence: 99.92424011230469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003712.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003712.pdf",
         page: 1,
         confidence: 99.91510009765625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003323.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003323.pdf",
         page: 1,
         confidence: 99.91201782226562,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003571.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003571.pdf",
         page: 2,
         confidence: 99.9104232788086,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003331.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003331.pdf",
         page: 1,
         confidence: 99.90383911132812,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003456.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003456.pdf",
         page: 1,
         confidence: 99.90103912353516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003369.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003369.pdf",
         page: 1,
         confidence: 99.89384460449219,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 40,
         confidence: 99.87862396240234,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005486.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005486.pdf",
         page: 8,
         confidence: 99.87710571289062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003846.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003846.pdf",
         page: 1,
         confidence: 99.85660552978516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 1,
         confidence: 99.85230255126953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003208.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003208.pdf",
         page: 1,
         confidence: 99.84669494628906,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003211.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003211.pdf",
         page: 1,
         confidence: 99.83338928222656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003708.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003708.pdf",
         page: 1,
         confidence: 99.82728576660156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003680.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003680.pdf",
         page: 1,
         confidence: 99.79704284667969,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003328.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003328.pdf",
         page: 1,
         confidence: 99.78158569335938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003340.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003340.pdf",
         page: 1,
         confidence: 99.78158569335938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003164.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003164.pdf",
         page: 1,
         confidence: 99.77037048339844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003683.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003683.pdf",
         page: 1,
         confidence: 99.76557922363281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003213.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003213.pdf",
         page: 1,
         confidence: 99.75926971435547,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003455.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003455.pdf",
         page: 1,
         confidence: 99.75125885009766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003376.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003376.pdf",
         page: 1,
         confidence: 99.71515655517578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 12,
         confidence: 99.67491912841797,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003569.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003569.pdf",
         page: 2,
         confidence: 99.66947174072266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003188.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003188.pdf",
         page: 1,
         confidence: 99.65834045410156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003730.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003730.pdf",
         page: 1,
         confidence: 99.63941955566406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003679.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003679.pdf",
         page: 1,
         confidence: 99.58490753173828,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003171.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003171.pdf",
         page: 1,
         confidence: 99.58097839355469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003179.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003179.pdf",
         page: 1,
         confidence: 99.56060791015625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003173.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003173.pdf",
         page: 1,
         confidence: 99.54463958740234,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003175.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003175.pdf",
         page: 1,
         confidence: 99.52439880371094,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003579.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003579.pdf",
         page: 2,
         confidence: 99.423095703125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 14,
         confidence: 99.28321838378906,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005486.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005486.pdf",
         page: 8,
         confidence: 99.26560974121094,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 84,
         confidence: 99.14102172851562,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 2,
         confidence: 99.12791442871094,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003454.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003454.pdf",
         page: 1,
         confidence: 99.112060546875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003736.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003736.pdf",
         page: 1,
         confidence: 99.0855941772461,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 42,
         confidence: 98.75587463378906,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003335.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003335.pdf",
         page: 1,
         confidence: 98.63018798828125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003347.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003347.pdf",
         page: 1,
         confidence: 98.63018798828125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003321.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003321.pdf",
         page: 1,
         confidence: 98.49127197265625,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 27,
         confidence: 98.44563293457031,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003931.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003931.pdf",
         page: 2,
         confidence: 98.04280853271484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003851.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003851.pdf",
         page: 1,
         confidence: 97.9510269165039,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003214.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003214.pdf",
         page: 1,
         confidence: 97.94429779052734,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 85,
         confidence: 97.92753601074219,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003711.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003711.pdf",
         page: 1,
         confidence: 97.58736419677734,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003738.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003738.pdf",
         page: 1,
         confidence: 97.1230697631836,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 10,
         confidence: 96.98027038574219,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003370.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003370.pdf",
         page: 1,
         confidence: 96.9104995727539,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003577.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003577.pdf",
         page: 1,
         confidence: 96.62904357910156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003593.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003593.pdf",
         page: 1,
         confidence: 95.9642333984375,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 84,
         confidence: 94.7314453125,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004250.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004250.pdf",
         page: 30,
         confidence: 94.64083099365234,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004250.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004250.pdf",
         page: 30,
         confidence: 94.05806732177734,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003844.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003844.pdf",
         page: 1,
         confidence: 93.6958236694336,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003729.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003729.pdf",
         page: 1,
         confidence: 93.405029296875,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001933.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001933.pdf",
         page: 1,
         confidence: 93.33515167236328,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 40,
         confidence: 93.22160339355469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003495.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003495.pdf",
         page: 1,
         confidence: 91.9405288696289,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003333.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003333.pdf",
         page: 1,
         confidence: 91.53466796875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003345.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003345.pdf",
         page: 1,
         confidence: 91.53466796875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003181.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003181.pdf",
         page: 1,
         confidence: 91.20451354980469,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 91,
         confidence: 88.46784973144531,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 6,
         confidence: 87.40229797363281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003573.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003573.pdf",
         page: 1,
         confidence: 86.56283569335938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003577.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003577.pdf",
         page: 2,
         confidence: 86.0555191040039,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003457.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003457.pdf",
         page: 1,
         confidence: 85.46605682373047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 5,
         confidence: 83.12809753417969,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 16,
         confidence: 83.05359649658203,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 84,
         confidence: 78.0727310180664,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 4,
         confidence: 76.24466705322266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003573.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003573.pdf",
         page: 2,
         confidence: 75.06121826171875,
       },
     ],
   },
   {
-    name: 'Bill Clinton',
+    name: "Bill Clinton",
     count: 32,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003364.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003364.pdf",
         page: 1,
         confidence: 99.99977111816406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003380.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003380.pdf",
         page: 1,
         confidence: 99.99977111816406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003338.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003338.pdf",
         page: 1,
         confidence: 99.99974060058594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003330.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003330.pdf",
         page: 1,
         confidence: 99.99968719482422,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003342.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003342.pdf",
         page: 1,
         confidence: 99.99966430664062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003377.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003377.pdf",
         page: 1,
         confidence: 99.99960327148438,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003376.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003376.pdf",
         page: 1,
         confidence: 99.99949645996094,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003365.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003365.pdf",
         page: 1,
         confidence: 99.99895477294922,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003178.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003178.pdf",
         page: 1,
         confidence: 99.9937744140625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003177.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003177.pdf",
         page: 1,
         confidence: 99.98323822021484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003381.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003381.pdf",
         page: 1,
         confidence: 99.97938537597656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003335.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003335.pdf",
         page: 1,
         confidence: 99.97456359863281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003347.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003347.pdf",
         page: 1,
         confidence: 99.97456359863281,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003367.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003367.pdf",
         page: 1,
         confidence: 99.97355651855469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003379.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003379.pdf",
         page: 1,
         confidence: 99.96107482910156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003170.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003170.pdf",
         page: 1,
         confidence: 99.9298324584961,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003197.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003197.pdf",
         page: 1,
         confidence: 99.79658508300781,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000468.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000468.pdf",
         page: 1,
         confidence: 99.78047943115234,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001459.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001459.pdf",
         page: 1,
         confidence: 99.69365692138672,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003334.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003334.pdf",
         page: 1,
         confidence: 99.56546020507812,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003346.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003346.pdf",
         page: 1,
         confidence: 99.56546020507812,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000862.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000862.pdf",
         page: 1,
         confidence: 99.53977966308594,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000819.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000819.pdf",
         page: 1,
         confidence: 99.48561096191406,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003332.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003332.pdf",
         page: 1,
         confidence: 99.06499481201172,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003343.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003343.pdf",
         page: 1,
         confidence: 99.06499481201172,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003168.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003168.pdf",
         page: 1,
         confidence: 98.42912292480469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003336.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003336.pdf",
         page: 1,
         confidence: 98.31839752197266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003348.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003348.pdf",
         page: 1,
         confidence: 98.31839752197266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003349.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003349.pdf",
         page: 1,
         confidence: 97.25728607177734,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 27,
         confidence: 94.28504180908203,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003176.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003176.pdf",
         page: 1,
         confidence: 84.92103576660156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 84.53426361083984,
       },
     ],
   },
   {
-    name: 'Bill Kenney',
+    name: "Bill Kenney",
     count: 11,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 89.975341796875,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 76,
         confidence: 86.34068298339844,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000163.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000163.pdf",
         page: 1,
         confidence: 79.86778259277344,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001174.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001174.pdf",
         page: 1,
         confidence: 79.54362487792969,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 79.47274017333984,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 79.1911849975586,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000706.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000706.pdf",
         page: 1,
         confidence: 78.70421600341797,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 78.33201599121094,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 7,
         confidence: 76.57586669921875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003187.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003187.pdf",
         page: 1,
         confidence: 76.46218872070312,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 85,
         confidence: 75.65644836425781,
       },
     ],
   },
   {
-    name: 'La Parka',
+    name: "La Parka",
     count: 11,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001755.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001755.pdf",
         page: 1,
         confidence: 94.1486587524414,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001348.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001348.pdf",
         page: 1,
         confidence: 92.83521270751953,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002294.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002294.pdf",
         page: 1,
         confidence: 90.93203735351562,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001942.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001942.pdf",
         page: 1,
         confidence: 85.37734985351562,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 1,
         confidence: 85.06880950927734,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 73,
         confidence: 82.80218505859375,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 34,
         confidence: 81.8152847290039,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 59,
         confidence: 81.30451202392578,
       },
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008020.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008020.pdf",
         page: 83,
         confidence: 78.71353912353516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 76.20381927490234,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000438.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000438.pdf",
         page: 1,
         confidence: 75.07955169677734,
       },
     ],
   },
   {
-    name: 'Walter Cronkite',
+    name: "Walter Cronkite",
     count: 10,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003646.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003646.pdf",
         page: 1,
         confidence: 99.99480438232422,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003642.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003642.pdf",
         page: 1,
         confidence: 99.98818969726562,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003645.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003645.pdf",
         page: 1,
         confidence: 99.98796844482422,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003638.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003638.pdf",
         page: 1,
         confidence: 99.98574829101562,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003639.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003639.pdf",
         page: 1,
         confidence: 99.96321868896484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003640.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003640.pdf",
         page: 1,
         confidence: 99.9579086303711,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003644.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003644.pdf",
         page: 1,
         confidence: 99.90486907958984,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003641.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003641.pdf",
         page: 1,
         confidence: 99.82140350341797,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003647.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003647.pdf",
         page: 1,
         confidence: 99.82072448730469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003643.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003643.pdf",
         page: 1,
         confidence: 97.64390563964844,
       },
     ],
   },
   {
-    name: 'Jonathan Cyprien',
+    name: "Jonathan Cyprien",
     count: 9,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 65,
         confidence: 96.55593872070312,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000690.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000690.pdf",
         page: 1,
         confidence: 88.78572082519531,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 13,
         confidence: 86.33119201660156,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002764.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002764.pdf",
         page: 1,
         confidence: 85.30093383789062,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000186.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000186.pdf",
         page: 1,
         confidence: 85.07024383544922,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 26,
         confidence: 82.33570098876953,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 44,
         confidence: 79.74109649658203,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 33,
         confidence: 79.4322280883789,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000041.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000041.pdf",
         page: 1,
         confidence: 77.14033508300781,
       },
     ],
   },
   {
-    name: 'Freddie Williams II',
+    name: "Freddie Williams II",
     count: 9,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 13,
         confidence: 91.4632797241211,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000137.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000137.pdf",
         page: 1,
         confidence: 91.0025405883789,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003351.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003351.pdf",
         page: 1,
         confidence: 90.69670104980469,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000686.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000686.pdf",
         page: 1,
         confidence: 86.47176361083984,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001259.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001259.pdf",
         page: 1,
         confidence: 84.49822998046875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003168.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003168.pdf",
         page: 1,
         confidence: 83.22403717041016,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 44,
         confidence: 81.53453063964844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003614.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003614.pdf",
         page: 1,
         confidence: 78.32379913330078,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002907.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002907.pdf",
         page: 1,
         confidence: 75.44194793701172,
       },
     ],
   },
   {
-    name: 'Miguel Aceves Mejía',
+    name: "Miguel Aceves Mejía",
     count: 9,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 88,
         confidence: 92.0403823852539,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003761.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003761.pdf",
         page: 1,
         confidence: 87.2774429321289,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003725.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003725.pdf",
         page: 1,
         confidence: 86.24439239501953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003726.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003726.pdf",
         page: 1,
         confidence: 82.75406646728516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003777.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003777.pdf",
         page: 1,
         confidence: 81.33971405029297,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003842.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003842.pdf",
         page: 1,
         confidence: 80.93791198730469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003757.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003757.pdf",
         page: 1,
         confidence: 78.00621032714844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003762.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003762.pdf",
         page: 1,
         confidence: 77.35491943359375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003836.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003836.pdf",
         page: 1,
         confidence: 77.34390258789062,
       },
     ],
   },
   {
-    name: 'Del Kathryn Barton',
+    name: "Del Kathryn Barton",
     count: 7,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000824.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000824.pdf",
         page: 1,
         confidence: 94.20370483398438,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000926.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000926.pdf",
         page: 1,
         confidence: 91.84606170654297,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000931.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000931.pdf",
         page: 1,
         confidence: 91.16424560546875,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000055.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000055.pdf",
         page: 1,
         confidence: 87.4739990234375,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000825.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000825.pdf",
         page: 1,
         confidence: 86.57859802246094,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000927.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000927.pdf",
         page: 1,
         confidence: 84.69963073730469,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000932.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000932.pdf",
         page: 1,
         confidence: 81.25025939941406,
       },
     ],
   },
   {
-    name: 'William Daniel Hillis',
+    name: "William Daniel Hillis",
     count: 7,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 16,
         confidence: 99.9911117553711,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 10,
         confidence: 99.99075317382812,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 14,
         confidence: 99.98103332519531,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 16,
         confidence: 99.61637878417969,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 13,
         confidence: 99.47038269042969,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 20,
         confidence: 98.568359375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 20,
         confidence: 98.21681213378906,
       },
     ],
   },
   {
-    name: 'Henry Jarecki',
+    name: "Henry Jarecki",
     count: 7,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003525.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003525.pdf",
         page: 1,
         confidence: 99.9503402709961,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003520.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003520.pdf",
         page: 1,
         confidence: 99.89525604248047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003524.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003524.pdf",
         page: 1,
         confidence: 99.76726531982422,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003518.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003518.pdf",
         page: 1,
         confidence: 99.68810272216797,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003523.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003523.pdf",
         page: 1,
         confidence: 97.99886322021484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003522.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003522.pdf",
         page: 1,
         confidence: 96.85347747802734,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003521.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003521.pdf",
         page: 1,
         confidence: 96.72553253173828,
       },
     ],
   },
   {
-    name: 'Christian Jones',
+    name: "Christian Jones",
     count: 6,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 99.11266326904297,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001948.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001948.pdf",
         page: 1,
         confidence: 98.94768524169922,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000119.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000119.pdf",
         page: 1,
         confidence: 94.52938842773438,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 87.34832763671875,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 79,
         confidence: 84.58940124511719,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 82.74559783935547,
       },
     ],
   },
   {
-    name: 'Chris Tucker',
+    name: "Chris Tucker",
     count: 6,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003350.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003350.pdf",
         page: 1,
         confidence: 99.99641418457031,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003385.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003385.pdf",
         page: 1,
         confidence: 99.99625396728516,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003386.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003386.pdf",
         page: 1,
         confidence: 99.9903564453125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003331.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003331.pdf",
         page: 1,
         confidence: 99.59860229492188,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003329.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003329.pdf",
         page: 1,
         confidence: 99.53731536865234,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003341.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003341.pdf",
         page: 1,
         confidence: 99.53731536865234,
       },
     ],
   },
   {
-    name: 'Kevin Spacey',
+    name: "Kevin Spacey",
     count: 6,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003332.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003332.pdf",
         page: 1,
         confidence: 99.85347747802734,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003343.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003343.pdf",
         page: 1,
         confidence: 99.85347747802734,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003335.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003335.pdf",
         page: 1,
         confidence: 98.17300415039062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003347.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003347.pdf",
         page: 1,
         confidence: 98.17300415039062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003334.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003334.pdf",
         page: 1,
         confidence: 90.6486587524414,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003346.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003346.pdf",
         page: 1,
         confidence: 90.6486587524414,
       },
     ],
   },
   {
-    name: 'Teddy Williams',
+    name: "Teddy Williams",
     count: 5,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 92.78585052490234,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 83,
         confidence: 92.71904754638672,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002011.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002011.pdf",
         page: 1,
         confidence: 91.44830322265625,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001157.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001157.pdf",
         page: 1,
         confidence: 84.53579711914062,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 13,
         confidence: 77.24315643310547,
       },
     ],
   },
   {
-    name: 'Walter Jones',
+    name: "Walter Jones",
     count: 5,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 78,
         confidence: 99.6160888671875,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001845.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001845.pdf",
         page: 1,
         confidence: 94.78181457519531,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003351.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003351.pdf",
         page: 1,
         confidence: 89.7830581665039,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004448.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004448.pdf",
         page: 29,
         confidence: 77.41422271728516,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 39,
         confidence: 77.32305145263672,
       },
     ],
   },
   {
-    name: 'Jack Kamen',
+    name: "Jack Kamen",
     count: 5,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008020.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008020.pdf",
         page: 36,
         confidence: 89.95536804199219,
       },
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008220.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008220.pdf",
         page: 34,
         confidence: 86.01204681396484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003216.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003216.pdf",
         page: 15,
         confidence: 80.85142517089844,
       },
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008020.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008020.pdf",
         page: 36,
         confidence: 80.38987731933594,
       },
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008220.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008220.pdf",
         page: 40,
         confidence: 75.1361083984375,
       },
     ],
   },
   {
-    name: 'Ted Waitt',
+    name: "Ted Waitt",
     count: 5,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003383.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003383.pdf",
         page: 1,
         confidence: 99.99952697753906,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003382.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003382.pdf",
         page: 1,
         confidence: 99.99838256835938,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003816.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003816.pdf",
         page: 1,
         confidence: 99.9943618774414,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003814.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003814.pdf",
         page: 1,
         confidence: 99.98259735107422,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003815.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003815.pdf",
         page: 1,
         confidence: 82.1780014038086,
       },
     ],
   },
   {
-    name: 'Hamidou Benmassoud',
+    name: "Hamidou Benmassoud",
     count: 5,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003537.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003537.pdf",
         page: 1,
         confidence: 84.99726867675781,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003398.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003398.pdf",
         page: 1,
         confidence: 79.61395263671875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003397.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003397.pdf",
         page: 1,
         confidence: 76.32910919189453,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003399.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003399.pdf",
         page: 1,
         confidence: 75.49012756347656,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003847.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003847.pdf",
         page: 1,
         confidence: 75.33883666992188,
       },
     ],
   },
   {
-    name: 'John Brockman',
+    name: "John Brockman",
     count: 5,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003424.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003424.pdf",
         page: 1,
         confidence: 99.9015121459961,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003423.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003423.pdf",
         page: 1,
         confidence: 99.62316131591797,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003421.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003421.pdf",
         page: 1,
         confidence: 99.59005737304688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003405.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003405.pdf",
         page: 1,
         confidence: 98.6848373413086,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 34,
         confidence: 98.4542236328125,
       },
     ],
   },
   {
-    name: 'Isabella of Portugal',
+    name: "Isabella of Portugal",
     count: 4,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001402.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001402.pdf",
         page: 1,
         confidence: 94.54945373535156,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001107.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001107.pdf",
         page: 1,
         confidence: 86.33853149414062,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001103.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001103.pdf",
         page: 1,
         confidence: 82.25575256347656,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001110.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001110.pdf",
         page: 1,
         confidence: 77.17051696777344,
       },
     ],
   },
   {
-    name: 'Gautama Buddha',
+    name: "Gautama Buddha",
     count: 4,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003163.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003163.pdf",
         page: 1,
         confidence: 97.69798278808594,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003163.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003163.pdf",
         page: 1,
         confidence: 97.00823974609375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003162.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003162.pdf",
         page: 1,
         confidence: 96.6126480102539,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003162.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003162.pdf",
         page: 1,
         confidence: 90.83226013183594,
       },
     ],
   },
   {
-    name: 'Mick Jagger',
+    name: "Mick Jagger",
     count: 4,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003380.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003380.pdf",
         page: 1,
         confidence: 99.99982452392578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003378.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003378.pdf",
         page: 1,
         confidence: 99.99907684326172,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003376.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003376.pdf",
         page: 1,
         confidence: 99.99835968017578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003379.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003379.pdf",
         page: 1,
         confidence: 99.9648208618164,
       },
     ],
   },
   {
-    name: 'Freeman Dyson',
+    name: "Freeman Dyson",
     count: 4,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003406.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003406.pdf",
         page: 1,
         confidence: 99.9991683959961,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003415.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003415.pdf",
         page: 1,
         confidence: 99.92974090576172,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003413.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003413.pdf",
         page: 1,
         confidence: 94.80256652832031,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003405.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003405.pdf",
         page: 1,
         confidence: 78.30929565429688,
       },
     ],
   },
   {
-    name: 'Muhammad Ali',
+    name: "Muhammad Ali",
     count: 3,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000900.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000900.pdf",
         page: 1,
         confidence: 97.39714050292969,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000890.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000890.pdf",
         page: 1,
         confidence: 89.36483001708984,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000889.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000889.pdf",
         page: 1,
         confidence: 84.7497787475586,
       },
     ],
   },
   {
-    name: 'Andreas Hestler',
+    name: "Andreas Hestler",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 97.19120025634766,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000950.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000950.pdf",
         page: 1,
         confidence: 82.95851135253906,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003591.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003591.pdf",
         page: 2,
         confidence: 81.43175506591797,
       },
     ],
   },
   {
-    name: 'Bill Bergey',
+    name: "Bill Bergey",
     count: 3,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001346.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001346.pdf",
         page: 1,
         confidence: 90.78044891357422,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001217.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001217.pdf",
         page: 1,
         confidence: 86.52552795410156,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 76.40267944335938,
       },
     ],
   },
   {
-    name: 'Billy Joe DuPree',
+    name: "Billy Joe DuPree",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 93.24002075195312,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 59,
         confidence: 84.80332946777344,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001346.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001346.pdf",
         page: 1,
         confidence: 75.33560180664062,
       },
     ],
   },
   {
-    name: 'Larry Semon',
+    name: "Larry Semon",
     count: 3,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001862.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001862.pdf",
         page: 1,
         confidence: 85.37623596191406,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001857.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001857.pdf",
         page: 1,
         confidence: 80.82496643066406,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001861.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001861.pdf",
         page: 1,
         confidence: 77.4886474609375,
       },
     ],
   },
   {
-    name: 'Chandra Shekhar Azad',
+    name: "Chandra Shekhar Azad",
     count: 3,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002015.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002015.pdf",
         page: 1,
         confidence: 92.23917388916016,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001861.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001861.pdf",
         page: 1,
         confidence: 90.30841827392578,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001865.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001865.pdf",
         page: 1,
         confidence: 89.6198959350586,
       },
     ],
   },
   {
-    name: 'Les Wexner',
+    name: "Les Wexner",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003434.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003434.pdf",
         page: 1,
         confidence: 99.99620056152344,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 5,
         confidence: 99.95829772949219,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 8,
         confidence: 98.6585922241211,
       },
     ],
   },
   {
-    name: 'Keith Richards',
+    name: "Keith Richards",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003216.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003216.pdf",
         page: 9,
         confidence: 97.79165649414062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003216.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003216.pdf",
         page: 14,
         confidence: 94.04157257080078,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003216.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003216.pdf",
         page: 11,
         confidence: 87.70394897460938,
       },
     ],
   },
   {
-    name: 'Dontrelle Inman',
+    name: "Dontrelle Inman",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 97.64615631103516,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 13,
         confidence: 96.43860626220703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 86.23486328125,
       },
     ],
   },
   {
-    name: 'Tom Mandrake',
+    name: "Tom Mandrake",
     count: 3,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008220.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008220.pdf",
         page: 24,
         confidence: 91.151123046875,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 76.74641418457031,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 26,
         confidence: 76.32453155517578,
       },
     ],
   },
   {
-    name: 'Benoit Mandelbrot',
+    name: "Benoit Mandelbrot",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003408.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003408.pdf",
         page: 1,
         confidence: 99.98430633544922,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003409.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003409.pdf",
         page: 1,
         confidence: 99.97017669677734,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003410.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003410.pdf",
         page: 1,
         confidence: 99.89483642578125,
       },
     ],
   },
   {
-    name: 'Robert Trivers',
+    name: "Robert Trivers",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003406.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003406.pdf",
         page: 1,
         confidence: 99.99195098876953,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003404.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003404.pdf",
         page: 1,
         confidence: 99.2496337890625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003423.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003423.pdf",
         page: 1,
         confidence: 96.59307861328125,
       },
     ],
   },
   {
-    name: 'Joseph E. LeDoux',
+    name: "Joseph E. LeDoux",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003412.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003412.pdf",
         page: 1,
         confidence: 99.98905181884766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003417.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003417.pdf",
         page: 1,
         confidence: 99.97107696533203,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003407.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003407.pdf",
         page: 1,
         confidence: 99.6922378540039,
       },
     ],
   },
   {
-    name: 'Sarah, Duchess of York',
+    name: "Sarah, Duchess of York",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003433.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003433.pdf",
         page: 1,
         confidence: 99.99885559082031,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003431.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003431.pdf",
         page: 1,
         confidence: 99.99826049804688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003430.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003430.pdf",
         page: 1,
         confidence: 99.87102508544922,
       },
     ],
   },
   {
-    name: 'Martin A. Nowak',
+    name: "Martin A. Nowak",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003471.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003471.pdf",
         page: 1,
         confidence: 99.11409759521484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003470.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003470.pdf",
         page: 1,
         confidence: 92.26577758789062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003469.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003469.pdf",
         page: 1,
         confidence: 85.16375732421875,
       },
     ],
   },
   {
-    name: 'Nicholas Perricone',
+    name: "Nicholas Perricone",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003703.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003703.pdf",
         page: 1,
         confidence: 91.72697448730469,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003702.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003702.pdf",
         page: 1,
         confidence: 91.15735626220703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003701.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003701.pdf",
         page: 1,
         confidence: 83.12255859375,
       },
     ],
   },
   {
-    name: 'David Copperfield',
+    name: "David Copperfield",
     count: 3,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003819.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003819.pdf",
         page: 1,
         confidence: 99.97894287109375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003817.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003817.pdf",
         page: 1,
         confidence: 99.93017578125,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003818.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003818.pdf",
         page: 1,
         confidence: 99.8488540649414,
       },
     ],
   },
   {
-    name: 'Keith Jarrett',
+    name: "Keith Jarrett",
     count: 3,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 55,
         confidence: 90.20347595214844,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 38,
         confidence: 80.40611267089844,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 49,
         confidence: 76.69693756103516,
       },
     ],
   },
   {
-    name: 'Billie Thomas',
+    name: "Billie Thomas",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000935.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000935.pdf",
         page: 1,
         confidence: 87.92118072509766,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000060.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000060.pdf",
         page: 1,
         confidence: 86.83168029785156,
       },
     ],
   },
   {
-    name: 'Osceola',
+    name: "Osceola",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000677.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000677.pdf",
         page: 1,
         confidence: 85.12137603759766,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000116.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000116.pdf",
         page: 1,
         confidence: 82.01262664794922,
       },
     ],
   },
   {
-    name: 'Richard III of England',
+    name: "Richard III of England",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001016.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001016.pdf",
         page: 1,
         confidence: 84.27855682373047,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000121.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000121.pdf",
         page: 1,
         confidence: 80.84886169433594,
       },
     ],
   },
   {
-    name: 'Charles II of Spain',
+    name: "Charles II of Spain",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000598.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000598.pdf",
         page: 1,
         confidence: 80.19783782958984,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000235.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000235.pdf",
         page: 1,
         confidence: 75.17676544189453,
       },
     ],
   },
   {
-    name: 'Ken Stabler',
+    name: "Ken Stabler",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003370.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003370.pdf",
         page: 2,
         confidence: 92.85685729980469,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000468.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000468.pdf",
         page: 1,
         confidence: 84.17658996582031,
       },
     ],
   },
   {
-    name: 'Johann Adam Schall von Bell',
+    name: "Johann Adam Schall von Bell",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000468.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000468.pdf",
         page: 1,
         confidence: 85.72297668457031,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003351.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003351.pdf",
         page: 1,
         confidence: 83.78627014160156,
       },
     ],
   },
   {
-    name: 'Richard Branson',
+    name: "Richard Branson",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003540.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003540.pdf",
         page: 1,
         confidence: 99.99848937988281,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000515.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000515.pdf",
         page: 1,
         confidence: 99.99699401855469,
       },
     ],
   },
   {
-    name: 'John Noakes',
+    name: "John Noakes",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000900.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000900.pdf",
         page: 1,
         confidence: 85.9409408569336,
       },
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000807.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000807.pdf",
         page: 1,
         confidence: 85.51841735839844,
       },
     ],
   },
   {
-    name: 'Phidias',
+    name: "Phidias",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001353.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001353.pdf",
         page: 1,
         confidence: 99.95329284667969,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001983.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001983.pdf",
         page: 1,
         confidence: 94.1234359741211,
       },
     ],
   },
   {
-    name: 'Lourdes Domínguez Lino',
+    name: "Lourdes Domínguez Lino",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001590.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001590.pdf",
         page: 1,
         confidence: 80.15887451171875,
       },
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001589.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001589.pdf",
         page: 1,
         confidence: 75.66873168945312,
       },
     ],
   },
   {
-    name: 'Chuck Howley',
+    name: "Chuck Howley",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001986.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001986.pdf",
         page: 1,
         confidence: 97.12126159667969,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 86.19845581054688,
       },
     ],
   },
   {
-    name: 'Soon-Yi Previn',
+    name: "Soon-Yi Previn",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002502.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002502.pdf",
         page: 1,
         confidence: 99.41159057617188,
       },
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002501.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002501.pdf",
         page: 1,
         confidence: 89.10395812988281,
       },
     ],
   },
   {
-    name: 'Wes Horton',
+    name: "Wes Horton",
     count: 2,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002956.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002956.pdf",
         page: 1,
         confidence: 89.57401275634766,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 44,
         confidence: 87.33890533447266,
       },
     ],
   },
   {
-    name: 'John Sarbanes',
+    name: "John Sarbanes",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003193.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003193.pdf",
         page: 1,
         confidence: 78.03193664550781,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003173.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003173.pdf",
         page: 1,
         confidence: 77.94013214111328,
       },
     ],
   },
   {
-    name: 'J. C. Tretter',
+    name: "J. C. Tretter",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 89.32928466796875,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 13,
         confidence: 76.17063903808594,
       },
     ],
   },
   {
-    name: 'Mark Trammell',
+    name: "Mark Trammell",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003327.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003327.pdf",
         page: 1,
         confidence: 81.18340301513672,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003339.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003339.pdf",
         page: 1,
         confidence: 81.18340301513672,
       },
     ],
   },
   {
-    name: 'Michael Jackson',
+    name: "Michael Jackson",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003367.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003367.pdf",
         page: 1,
         confidence: 99.99739837646484,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 7,
         confidence: 99.82880401611328,
       },
     ],
   },
   {
-    name: 'Jonathan Erlich',
+    name: "Jonathan Erlich",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003334.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003334.pdf",
         page: 1,
         confidence: 82.58861541748047,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003346.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003346.pdf",
         page: 1,
         confidence: 82.58861541748047,
       },
     ],
   },
   {
-    name: 'Liam Byrne',
+    name: "Liam Byrne",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003334.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003334.pdf",
         page: 1,
         confidence: 79.26079559326172,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003346.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003346.pdf",
         page: 1,
         confidence: 79.26079559326172,
       },
     ],
   },
   {
-    name: 'Park Chung-hee',
+    name: "Park Chung-hee",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003336.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003336.pdf",
         page: 1,
         confidence: 75.00342559814453,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003348.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003348.pdf",
         page: 1,
         confidence: 75.00342559814453,
       },
     ],
   },
   {
-    name: 'Nicolás Eyzaguirre',
+    name: "Nicolás Eyzaguirre",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003336.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003336.pdf",
         page: 1,
         confidence: 81.26437377929688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003348.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003348.pdf",
         page: 1,
         confidence: 81.26437377929688,
       },
     ],
   },
   {
-    name: 'Johnny Osbourne',
+    name: "Johnny Osbourne",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003328.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003328.pdf",
         page: 1,
         confidence: 88.71066284179688,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003340.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003340.pdf",
         page: 1,
         confidence: 88.71066284179688,
       },
     ],
   },
   {
-    name: 'William Kamkwamba',
+    name: "William Kamkwamba",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003328.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003328.pdf",
         page: 1,
         confidence: 90.4775390625,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003340.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003340.pdf",
         page: 1,
         confidence: 90.4775390625,
       },
     ],
   },
   {
-    name: 'Ljudevit Gaj',
+    name: "Ljudevit Gaj",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003332.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003332.pdf",
         page: 1,
         confidence: 76.37210845947266,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003343.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003343.pdf",
         page: 1,
         confidence: 76.37210845947266,
       },
     ],
   },
   {
-    name: 'Sir John Tenniel',
+    name: "Sir John Tenniel",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003332.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003332.pdf",
         page: 1,
         confidence: 85.99491119384766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003343.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003343.pdf",
         page: 1,
         confidence: 85.99491119384766,
       },
     ],
   },
   {
-    name: 'Bear Pascoe',
+    name: "Bear Pascoe",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 97.91693878173828,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 96.14436340332031,
       },
     ],
   },
   {
-    name: 'Jason Worilds',
+    name: "Jason Worilds",
     count: 2,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 20,
         confidence: 83.72814178466797,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 76.1514663696289,
       },
     ],
   },
   {
-    name: 'Fred Pellerin',
+    name: "Fred Pellerin",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003424.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003424.pdf",
         page: 1,
         confidence: 81.45099639892578,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003423.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003423.pdf",
         page: 1,
         confidence: 76.41608428955078,
       },
     ],
   },
   {
-    name: 'Kate Beaton',
+    name: "Kate Beaton",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003434.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003434.pdf",
         page: 1,
         confidence: 81.73755645751953,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 48,
         confidence: 81.62799835205078,
       },
     ],
   },
   {
-    name: 'Erik Schinegger',
+    name: "Erik Schinegger",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003482.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003482.pdf",
         page: 1,
         confidence: 79.2880630493164,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003823.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003823.pdf",
         page: 1,
         confidence: 76.26859283447266,
       },
     ],
   },
   {
-    name: 'Aníbal Acevedo Vilá',
+    name: "Aníbal Acevedo Vilá",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003502.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003502.pdf",
         page: 1,
         confidence: 99.9996566772461,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003501.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003501.pdf",
         page: 1,
         confidence: 99.99896240234375,
       },
     ],
   },
   {
-    name: 'Peter Mandelson',
+    name: "Peter Mandelson",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003531.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003531.pdf",
         page: 1,
         confidence: 99.99114990234375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003530.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003530.pdf",
         page: 1,
         confidence: 99.54158020019531,
       },
     ],
   },
   {
-    name: 'Farhang Sharif',
+    name: "Farhang Sharif",
     count: 2,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 92,
         confidence: 82.95340728759766,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003597.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003597.pdf",
         page: 2,
         confidence: 82.29865264892578,
       },
     ],
   },
   {
-    name: 'Lando Norris',
+    name: "Lando Norris",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003558.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003558.pdf",
         page: 1,
         confidence: 79.48431396484375,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003557.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003557.pdf",
         page: 1,
         confidence: 76.38605499267578,
       },
     ],
   },
   {
-    name: 'Davey Boy Smith',
+    name: "Davey Boy Smith",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003740.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003740.pdf",
         page: 1,
         confidence: 77.35901641845703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003739.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003739.pdf",
         page: 1,
         confidence: 76.01790618896484,
       },
     ],
   },
   {
-    name: 'Maggie Tabberer',
+    name: "Maggie Tabberer",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003784.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003784.pdf",
         page: 1,
         confidence: 79.04605102539062,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003829.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003829.pdf",
         page: 1,
         confidence: 79.04605102539062,
       },
     ],
   },
   {
-    name: 'Jim Nill',
+    name: "Jim Nill",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003784.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003784.pdf",
         page: 2,
         confidence: 83.63850402832031,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003829.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003829.pdf",
         page: 2,
         confidence: 83.63850402832031,
       },
     ],
   },
   {
-    name: 'Ernie Eves',
+    name: "Ernie Eves",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003786.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003786.pdf",
         page: 1,
         confidence: 81.14075469970703,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003831.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003831.pdf",
         page: 1,
         confidence: 81.14075469970703,
       },
     ],
   },
   {
-    name: 'Ken Whisenhunt',
+    name: "Ken Whisenhunt",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003782.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003782.pdf",
         page: 1,
         confidence: 86.77281188964844,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003827.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003827.pdf",
         page: 1,
         confidence: 86.77281188964844,
       },
     ],
   },
   {
-    name: 'Francisco Rivera Ordóñez',
+    name: "Francisco Rivera Ordóñez",
     count: 2,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003807.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003807.pdf",
         page: 1,
         confidence: 80.9769515991211,
       },
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003806.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003806.pdf",
         page: 1,
         confidence: 79.3286361694336,
       },
     ],
   },
   {
-    name: 'Sergiu Nicolaescu',
+    name: "Sergiu Nicolaescu",
     count: 2,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 54,
         confidence: 94.24064636230469,
       },
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004250.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004250.pdf",
         page: 67,
         confidence: 84.56839752197266,
       },
     ],
   },
   {
-    name: 'Donald Trump',
+    name: "Donald Trump",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000468.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000468.pdf",
         page: 1,
         confidence: 100,
       },
     ],
   },
   {
-    name: 'Edgar Faure',
+    name: "Edgar Faure",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000032.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000032.pdf",
         page: 1,
         confidence: 84.63536834716797,
       },
     ],
   },
   {
-    name: 'Fritz Haber',
+    name: "Fritz Haber",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000035.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000035.pdf",
         page: 1,
         confidence: 75.48844146728516,
       },
     ],
   },
   {
-    name: 'Richard M. Cohen',
+    name: "Richard M. Cohen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000035.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000035.pdf",
         page: 1,
         confidence: 87.12858581542969,
       },
     ],
   },
   {
-    name: 'Caraun Reid',
+    name: "Caraun Reid",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000039.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000039.pdf",
         page: 1,
         confidence: 76.73905944824219,
       },
     ],
   },
   {
-    name: 'Elly Tumwine',
+    name: "Elly Tumwine",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000063.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000063.pdf",
         page: 1,
         confidence: 86.34158325195312,
       },
     ],
   },
   {
-    name: 'Steve Bannon',
+    name: "Steve Bannon",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000078.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000078.pdf",
         page: 1,
         confidence: 84.02486419677734,
       },
     ],
   },
   {
-    name: 'Brian Robertson',
+    name: "Brian Robertson",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000117.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000117.pdf",
         page: 1,
         confidence: 77.2260513305664,
       },
     ],
   },
   {
-    name: 'Guy Mitchell',
+    name: "Guy Mitchell",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000141.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000141.pdf",
         page: 1,
         confidence: 89.20665740966797,
       },
     ],
   },
   {
-    name: 'Albert Einstein',
+    name: "Albert Einstein",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000142.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000142.pdf",
         page: 1,
         confidence: 99.99280548095703,
       },
     ],
   },
   {
-    name: 'Mary Jepkosgei Keitany',
+    name: "Mary Jepkosgei Keitany",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000183.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000183.pdf",
         page: 1,
         confidence: 77.75081634521484,
       },
     ],
   },
   {
-    name: 'Gayatri Devi',
+    name: "Gayatri Devi",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000207.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000207.pdf",
         page: 1,
         confidence: 88.30023193359375,
       },
     ],
   },
   {
-    name: 'Manuela Sáenz',
+    name: "Manuela Sáenz",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000234.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000234.pdf",
         page: 1,
         confidence: 79.32661437988281,
       },
     ],
   },
   {
-    name: 'Filippo Lippi',
+    name: "Filippo Lippi",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000235.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000235.pdf",
         page: 1,
         confidence: 88.58346557617188,
       },
     ],
   },
   {
-    name: 'Elisa Longo Borghini',
+    name: "Elisa Longo Borghini",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000263.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000263.pdf",
         page: 1,
         confidence: 79.0850830078125,
       },
     ],
   },
   {
-    name: 'John Paul II',
+    name: "John Paul II",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000468.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000468.pdf",
         page: 1,
         confidence: 82.01237487792969,
       },
     ],
   },
   {
-    name: 'Mohammad bin Salman',
+    name: "Mohammad bin Salman",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000468.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000468.pdf",
         page: 1,
         confidence: 90.60252380371094,
       },
     ],
   },
   {
-    name: 'Kyle Gann',
+    name: "Kyle Gann",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000537.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000537.pdf",
         page: 1,
         confidence: 78.39786529541016,
       },
     ],
   },
   {
-    name: 'Lew Tabackin',
+    name: "Lew Tabackin",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000615.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000615.pdf",
         page: 1,
         confidence: 75.58175659179688,
       },
     ],
   },
   {
-    name: 'Senusret III',
+    name: "Senusret III",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000805.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000805.pdf",
         page: 1,
         confidence: 84.27802276611328,
       },
     ],
   },
   {
-    name: 'Emma, Lady Hamilton',
+    name: "Emma, Lady Hamilton",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000848.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000848.pdf",
         page: 1,
         confidence: 79.63914489746094,
       },
     ],
   },
   {
-    name: 'Marilyn Monroe',
+    name: "Marilyn Monroe",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000889.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000889.pdf",
         page: 1,
         confidence: 99.953125,
       },
     ],
   },
   {
-    name: 'Ian Tyson',
+    name: "Ian Tyson",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000889.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000889.pdf",
         page: 1,
         confidence: 82.82804107666016,
       },
     ],
   },
   {
-    name: 'Henri Breuil',
+    name: "Henri Breuil",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000900.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000900.pdf",
         page: 1,
         confidence: 81.18982696533203,
       },
     ],
   },
   {
-    name: 'Jerzy Kossela',
+    name: "Jerzy Kossela",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000946.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000946.pdf",
         page: 1,
         confidence: 86.59473419189453,
       },
     ],
   },
   {
-    name: 'DeMarlo Hale',
+    name: "DeMarlo Hale",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000950.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000950.pdf",
         page: 1,
         confidence: 81.7029037475586,
       },
     ],
   },
   {
-    name: 'Mike Watt',
+    name: "Mike Watt",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000950.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000950.pdf",
         page: 1,
         confidence: 76.91082000732422,
       },
     ],
   },
   {
-    name: 'Philip Doddridge',
+    name: "Philip Doddridge",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000950.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000950.pdf",
         page: 1,
         confidence: 88.59622192382812,
       },
     ],
   },
   {
-    name: 'Emperor Gaozu of Han',
+    name: "Emperor Gaozu of Han",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0001/EFTA00000950.pdf',
+        file: "VOL00001/IMAGES/0001/EFTA00000950.pdf",
         page: 1,
         confidence: 85.99849700927734,
       },
     ],
   },
   {
-    name: 'Lysimachus',
+    name: "Lysimachus",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001007.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001007.pdf",
         page: 1,
         confidence: 98.81385803222656,
       },
     ],
   },
   {
-    name: 'Isabelle Caro',
+    name: "Isabelle Caro",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001103.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001103.pdf",
         page: 1,
         confidence: 86.69527435302734,
       },
     ],
   },
   {
-    name: 'Elizabeth Siddal',
+    name: "Elizabeth Siddal",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001107.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001107.pdf",
         page: 1,
         confidence: 87.23917388916016,
       },
     ],
   },
   {
-    name: 'Lorenzo Monaco',
+    name: "Lorenzo Monaco",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001110.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001110.pdf",
         page: 1,
         confidence: 78.27152252197266,
       },
     ],
   },
   {
-    name: 'Blue Demon',
+    name: "Blue Demon",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001220.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001220.pdf",
         page: 1,
         confidence: 91.17081451416016,
       },
     ],
   },
   {
-    name: 'Ellen Schwiers',
+    name: "Ellen Schwiers",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001347.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001347.pdf",
         page: 1,
         confidence: 82.17085266113281,
       },
     ],
   },
   {
-    name: 'William Atherton',
+    name: "William Atherton",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001346.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001346.pdf",
         page: 1,
         confidence: 80.48411560058594,
       },
     ],
   },
   {
-    name: 'Jaber Al-Mubarak Al-Hamad Al-Sabah',
+    name: "Jaber Al-Mubarak Al-Hamad Al-Sabah",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001346.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001346.pdf",
         page: 1,
         confidence: 97.42855072021484,
       },
     ],
   },
   {
-    name: 'Hamad bin Jassim bin Jaber Al Thani',
+    name: "Hamad bin Jassim bin Jaber Al Thani",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001346.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001346.pdf",
         page: 1,
         confidence: 84.7376937866211,
       },
     ],
   },
   {
-    name: 'Eric Voegelin',
+    name: "Eric Voegelin",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001346.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001346.pdf",
         page: 1,
         confidence: 83.11924743652344,
       },
     ],
   },
   {
-    name: 'Colin David Jones',
+    name: "Colin David Jones",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001346.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001346.pdf",
         page: 1,
         confidence: 80.42407989501953,
       },
     ],
   },
   {
-    name: 'Gentile da Fabriano',
+    name: "Gentile da Fabriano",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001402.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001402.pdf",
         page: 1,
         confidence: 85.53172302246094,
       },
     ],
   },
   {
-    name: 'Maeve Brennan',
+    name: "Maeve Brennan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001591.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001591.pdf",
         page: 1,
         confidence: 75.84809112548828,
       },
     ],
   },
   {
-    name: 'Vespasian',
+    name: "Vespasian",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001749.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001749.pdf",
         page: 1,
         confidence: 80.54573822021484,
       },
     ],
   },
   {
-    name: 'Alexander I of Russia',
+    name: "Alexander I of Russia",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001766.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001766.pdf",
         page: 1,
         confidence: 82.50545501708984,
       },
     ],
   },
   {
-    name: 'Elizabeth Freeman',
+    name: "Elizabeth Freeman",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001848.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001848.pdf",
         page: 1,
         confidence: 85.1833724975586,
       },
     ],
   },
   {
-    name: 'Jesús Malverde',
+    name: "Jesús Malverde",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001857.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001857.pdf",
         page: 1,
         confidence: 81.98709869384766,
       },
     ],
   },
   {
-    name: 'Willie Rosario',
+    name: "Willie Rosario",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001858.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001858.pdf",
         page: 1,
         confidence: 77.86820220947266,
       },
     ],
   },
   {
-    name: 'Andrej Sládkovič',
+    name: "Andrej Sládkovič",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001858.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001858.pdf",
         page: 1,
         confidence: 81.23077392578125,
       },
     ],
   },
   {
-    name: 'Stefano di Battista',
+    name: "Stefano di Battista",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001863.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001863.pdf",
         page: 1,
         confidence: 79.1432876586914,
       },
     ],
   },
   {
-    name: 'Alexander Severus',
+    name: "Alexander Severus",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001895.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001895.pdf",
         page: 1,
         confidence: 87.02722930908203,
       },
     ],
   },
   {
-    name: 'Serigne Saliou Mbacké',
+    name: "Serigne Saliou Mbacké",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001959.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001959.pdf",
         page: 1,
         confidence: 75.56524658203125,
       },
     ],
   },
   {
-    name: 'James Chaney',
+    name: "James Chaney",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001984.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001984.pdf",
         page: 1,
         confidence: 96.33592224121094,
       },
     ],
   },
   {
-    name: 'Aspasia',
+    name: "Aspasia",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0002/EFTA00001966.pdf',
+        file: "VOL00001/IMAGES/0002/EFTA00001966.pdf",
         page: 1,
         confidence: 92.56959533691406,
       },
     ],
   },
   {
-    name: 'Alexander I of Yugoslavia',
+    name: "Alexander I of Yugoslavia",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002013.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002013.pdf",
         page: 1,
         confidence: 78.44000244140625,
       },
     ],
   },
   {
-    name: 'Diego de Landa',
+    name: "Diego de Landa",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002013.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002013.pdf",
         page: 1,
         confidence: 82.49717712402344,
       },
     ],
   },
   {
-    name: 'Mayra Sérbulo',
+    name: "Mayra Sérbulo",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002171.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002171.pdf",
         page: 1,
         confidence: 88.69339752197266,
       },
     ],
   },
   {
-    name: 'Dominic Zapata',
+    name: "Dominic Zapata",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002173.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002173.pdf",
         page: 1,
         confidence: 81.86199188232422,
       },
     ],
   },
   {
-    name: 'Paul Lieber',
+    name: "Paul Lieber",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002172.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002172.pdf",
         page: 1,
         confidence: 88.01181030273438,
       },
     ],
   },
   {
-    name: 'Jacques Lacan',
+    name: "Jacques Lacan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002480.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002480.pdf",
         page: 1,
         confidence: 77.4163818359375,
       },
     ],
   },
   {
-    name: 'Roger Waters',
+    name: "Roger Waters",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002502.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002502.pdf",
         page: 1,
         confidence: 79.68389129638672,
       },
     ],
   },
   {
-    name: 'Kōji Kitao',
+    name: "Kōji Kitao",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002778.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002778.pdf",
         page: 1,
         confidence: 77.73684692382812,
       },
     ],
   },
   {
-    name: 'Frances Burney',
+    name: "Frances Burney",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002907.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002907.pdf",
         page: 1,
         confidence: 85.2469711303711,
       },
     ],
   },
   {
-    name: 'Herman Moore',
+    name: "Herman Moore",
     count: 1,
     appearances: [
       {
-        file: 'VOL00001/IMAGES/0003/EFTA00002958.pdf',
+        file: "VOL00001/IMAGES/0003/EFTA00002958.pdf",
         page: 1,
         confidence: 83.84088134765625,
       },
     ],
   },
   {
-    name: 'Ali Tounsi',
+    name: "Ali Tounsi",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003159.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003159.pdf",
         page: 1,
         confidence: 86.6067123413086,
       },
     ],
   },
   {
-    name: 'One',
+    name: "One",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003162.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003162.pdf",
         page: 1,
         confidence: 86.19747161865234,
       },
     ],
   },
   {
-    name: 'Nelson de la Rosa',
+    name: "Nelson de la Rosa",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003163.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003163.pdf",
         page: 1,
         confidence: 78.34618377685547,
       },
     ],
   },
   {
-    name: 'Tony Scotti',
+    name: "Tony Scotti",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003174.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003174.pdf",
         page: 1,
         confidence: 77.43453216552734,
       },
     ],
   },
   {
-    name: 'Pietro Paolo Virdis',
+    name: "Pietro Paolo Virdis",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003165.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003165.pdf",
         page: 1,
         confidence: 75.96003723144531,
       },
     ],
   },
   {
-    name: 'Helga Nowotny',
+    name: "Helga Nowotny",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003186.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003186.pdf",
         page: 1,
         confidence: 80.72166442871094,
       },
     ],
   },
   {
-    name: 'Ronald Burkle',
+    name: "Ronald Burkle",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003178.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003178.pdf",
         page: 1,
         confidence: 99.91134643554688,
       },
     ],
   },
   {
-    name: 'Don Duong',
+    name: "Don Duong",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003193.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003193.pdf",
         page: 1,
         confidence: 88.65586853027344,
       },
     ],
   },
   {
-    name: 'Stephen Rahman-Hughes',
+    name: "Stephen Rahman-Hughes",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003193.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003193.pdf",
         page: 1,
         confidence: 81.45446014404297,
       },
     ],
   },
   {
-    name: 'Brian Krzanich',
+    name: "Brian Krzanich",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003187.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003187.pdf",
         page: 1,
         confidence: 77.65190887451172,
       },
     ],
   },
   {
-    name: 'Alyssa Valdez',
+    name: "Alyssa Valdez",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 81.33955383300781,
       },
     ],
   },
   {
-    name: 'Nancy Binay',
+    name: "Nancy Binay",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 85.91057586669922,
       },
     ],
   },
   {
-    name: 'Snaffu Rigor',
+    name: "Snaffu Rigor",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 83.52455139160156,
       },
     ],
   },
   {
-    name: 'Lyoto Machida',
+    name: "Lyoto Machida",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 81.99604034423828,
       },
     ],
   },
   {
-    name: 'Heber Bartolome',
+    name: "Heber Bartolome",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 88.72465515136719,
       },
     ],
   },
   {
-    name: 'Gatot Nurmantyo',
+    name: "Gatot Nurmantyo",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 78.63323974609375,
       },
     ],
   },
   {
-    name: 'Wahid Hasyim',
+    name: "Wahid Hasyim",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003191.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003191.pdf",
         page: 1,
         confidence: 87.41661071777344,
       },
     ],
   },
   {
-    name: 'Pernell McPhee',
+    name: "Pernell McPhee",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003196.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003196.pdf",
         page: 1,
         confidence: 83.14250946044922,
       },
     ],
   },
   {
-    name: 'Dean Kamen',
+    name: "Dean Kamen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003215.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003215.pdf",
         page: 1,
         confidence: 99.99706268310547,
       },
     ],
   },
   {
-    name: 'Jerzy Wenderlich',
+    name: "Jerzy Wenderlich",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003215.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003215.pdf",
         page: 1,
         confidence: 80.721435546875,
       },
     ],
   },
   {
-    name: 'Christie Blatchford',
+    name: "Christie Blatchford",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003215.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003215.pdf",
         page: 1,
         confidence: 90.07767486572266,
       },
     ],
   },
   {
-    name: 'Caol Uno',
+    name: "Caol Uno",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003203.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003203.pdf",
         page: 1,
         confidence: 79.9935073852539,
       },
     ],
   },
   {
-    name: 'Andrés Pastrana Arango',
+    name: "Andrés Pastrana Arango",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 1,
         confidence: 99.41932678222656,
       },
     ],
   },
   {
-    name: 'Leslie C. Arends',
+    name: "Leslie C. Arends",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 5,
         confidence: 79.62777709960938,
       },
     ],
   },
   {
-    name: 'Gerald Edelman',
+    name: "Gerald Edelman",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003236.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003236.pdf",
         page: 13,
         confidence: 99.79531860351562,
       },
     ],
   },
   {
-    name: 'Nigel Sheinwald',
+    name: "Nigel Sheinwald",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 6,
         confidence: 79.8797378540039,
       },
     ],
   },
   {
-    name: 'Franco Franchi',
+    name: "Franco Franchi",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003216.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003216.pdf",
         page: 4,
         confidence: 80.3231430053711,
       },
     ],
   },
   {
-    name: 'Louis Jacoby',
+    name: "Louis Jacoby",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003216.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003216.pdf",
         page: 19,
         confidence: 91.92737579345703,
       },
     ],
   },
   {
-    name: 'Alberto Vázquez',
+    name: "Alberto Vázquez",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003256.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003256.pdf",
         page: 17,
         confidence: 76.77526092529297,
       },
     ],
   },
   {
-    name: 'Matthias Höfs',
+    name: "Matthias Höfs",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003323.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003323.pdf",
         page: 1,
         confidence: 78.92630004882812,
       },
     ],
   },
   {
-    name: 'Barry Schwartz',
+    name: "Barry Schwartz",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003319.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003319.pdf",
         page: 1,
         confidence: 76.22846221923828,
       },
@@ -5593,2273 +5593,2273 @@ export const CELEBRITY_DATA: Celebrity[] = [
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003316.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003316.pdf",
         page: 1,
         confidence: 78.69111633300781,
       },
     ],
   },
   {
-    name: 'Martin Evans',
+    name: "Martin Evans",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003342.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003342.pdf",
         page: 1,
         confidence: 83.77090454101562,
       },
     ],
   },
   {
-    name: 'Jessica St. Clair',
+    name: "Jessica St. Clair",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003342.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003342.pdf",
         page: 1,
         confidence: 84.3133773803711,
       },
     ],
   },
   {
-    name: 'Umar Dzhabrailov',
+    name: "Umar Dzhabrailov",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003296.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003296.pdf",
         page: 1,
         confidence: 99.82897186279297,
       },
     ],
   },
   {
-    name: 'Olivier Dussopt',
+    name: "Olivier Dussopt",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 83.23358154296875,
       },
     ],
   },
   {
-    name: 'Werner Faymann',
+    name: "Werner Faymann",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 78.42501068115234,
       },
     ],
   },
   {
-    name: 'Demetrius McCray',
+    name: "Demetrius McCray",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 99.31857299804688,
       },
     ],
   },
   {
-    name: 'Dalvin Cook',
+    name: "Dalvin Cook",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 81.50502014160156,
       },
     ],
   },
   {
-    name: 'James Grady',
+    name: "James Grady",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 76.51889038085938,
       },
     ],
   },
   {
-    name: 'Brian Folkerts',
+    name: "Brian Folkerts",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 96.69258117675781,
       },
     ],
   },
   {
-    name: 'Mary Nighy',
+    name: "Mary Nighy",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 81.19326782226562,
       },
     ],
   },
   {
-    name: 'Ron Funches',
+    name: "Ron Funches",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 75.12003326416016,
       },
     ],
   },
   {
-    name: 'Eugene Sims',
+    name: "Eugene Sims",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003276.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003276.pdf",
         page: 20,
         confidence: 76.25259399414062,
       },
     ],
   },
   {
-    name: 'Ray Reardon',
+    name: "Ray Reardon",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003349.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003349.pdf",
         page: 1,
         confidence: 83.78459167480469,
       },
     ],
   },
   {
-    name: 'Liang Guanglie',
+    name: "Liang Guanglie",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003374.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003374.pdf",
         page: 1,
         confidence: 82.49671936035156,
       },
     ],
   },
   {
-    name: 'Larry Hoppen',
+    name: "Larry Hoppen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003351.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003351.pdf",
         page: 1,
         confidence: 82.13938903808594,
       },
     ],
   },
   {
-    name: 'Jan Pieterszoon Coen',
+    name: "Jan Pieterszoon Coen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003351.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003351.pdf",
         page: 1,
         confidence: 79.9361801147461,
       },
     ],
   },
   {
-    name: 'Piet Hut',
+    name: "Piet Hut",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003351.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003351.pdf",
         page: 1,
         confidence: 82.44420623779297,
       },
     ],
   },
   {
-    name: 'John Sullivan',
+    name: "John Sullivan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003351.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003351.pdf",
         page: 1,
         confidence: 80.51006317138672,
       },
     ],
   },
   {
-    name: 'Brian Robiskie',
+    name: "Brian Robiskie",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003370.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003370.pdf",
         page: 2,
         confidence: 98.3829574584961,
       },
     ],
   },
   {
-    name: 'Diana Ross',
+    name: "Diana Ross",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003367.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003367.pdf",
         page: 1,
         confidence: 99.9255142211914,
       },
     ],
   },
   {
-    name: 'Jamie Owen',
+    name: "Jamie Owen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003365.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003365.pdf",
         page: 1,
         confidence: 82.04820251464844,
       },
     ],
   },
   {
-    name: 'Keith Szarabajka',
+    name: "Keith Szarabajka",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003365.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003365.pdf",
         page: 1,
         confidence: 85.32656860351562,
       },
     ],
   },
   {
-    name: 'Andrzej Czuma',
+    name: "Andrzej Czuma",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003365.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003365.pdf",
         page: 1,
         confidence: 81.3991928100586,
       },
     ],
   },
   {
-    name: 'Frances McDormand',
+    name: "Frances McDormand",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003376.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003376.pdf",
         page: 1,
         confidence: 84.25794219970703,
       },
     ],
   },
   {
-    name: 'Yōjirō Takita',
+    name: "Yōjirō Takita",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003381.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003381.pdf",
         page: 1,
         confidence: 78.13678741455078,
       },
     ],
   },
   {
-    name: 'Matt Braunger',
+    name: "Matt Braunger",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003352.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003352.pdf",
         page: 1,
         confidence: 79.9571304321289,
       },
     ],
   },
   {
-    name: 'Obdulio Varela',
+    name: "Obdulio Varela",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003352.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003352.pdf",
         page: 1,
         confidence: 93.67367553710938,
       },
     ],
   },
   {
-    name: 'Yoshinobu Nisaka',
+    name: "Yoshinobu Nisaka",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003379.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003379.pdf",
         page: 1,
         confidence: 90.74757385253906,
       },
     ],
   },
   {
-    name: 'Arne Glimcher',
+    name: "Arne Glimcher",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003387.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003387.pdf",
         page: 1,
         confidence: 99.02532958984375,
       },
     ],
   },
   {
-    name: 'Dith Pran',
+    name: "Dith Pran",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003386.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003386.pdf",
         page: 1,
         confidence: 76.14393615722656,
       },
     ],
   },
   {
-    name: 'Salar Kamangar',
+    name: "Salar Kamangar",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003421.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003421.pdf",
         page: 1,
         confidence: 99.99846649169922,
       },
     ],
   },
   {
-    name: 'Bill Cubit',
+    name: "Bill Cubit",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003393.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003393.pdf",
         page: 1,
         confidence: 78.37443542480469,
       },
     ],
   },
   {
-    name: 'Guto Ferreira',
+    name: "Guto Ferreira",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003414.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003414.pdf",
         page: 1,
         confidence: 78.35307312011719,
       },
     ],
   },
   {
-    name: 'Karl Schroeder',
+    name: "Karl Schroeder",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003407.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003407.pdf",
         page: 1,
         confidence: 79.8399658203125,
       },
     ],
   },
   {
-    name: 'Brett Ratner',
+    name: "Brett Ratner",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003400.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003400.pdf",
         page: 1,
         confidence: 99.98818969726562,
       },
     ],
   },
   {
-    name: 'Michael Morell',
+    name: "Michael Morell",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003418.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003418.pdf",
         page: 1,
         confidence: 92.11248016357422,
       },
     ],
   },
   {
-    name: 'Brian Tracy',
+    name: "Brian Tracy",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003413.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003413.pdf",
         page: 1,
         confidence: 75.12995910644531,
       },
     ],
   },
   {
-    name: 'Sam Tanenhaus',
+    name: "Sam Tanenhaus",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003415.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003415.pdf",
         page: 1,
         confidence: 99.9962158203125,
       },
     ],
   },
   {
-    name: 'Saul Friedländer',
+    name: "Saul Friedländer",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003424.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003424.pdf",
         page: 1,
         confidence: 79.85602569580078,
       },
     ],
   },
   {
-    name: 'Tyler Rasch',
+    name: "Tyler Rasch",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003436.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003436.pdf",
         page: 1,
         confidence: 83.5274658203125,
       },
     ],
   },
   {
-    name: 'Kathy Whitworth',
+    name: "Kathy Whitworth",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003434.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003434.pdf",
         page: 1,
         confidence: 78.52632141113281,
       },
     ],
   },
   {
-    name: 'Acir Gurgacz',
+    name: "Acir Gurgacz",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003431.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003431.pdf",
         page: 1,
         confidence: 84.3031997680664,
       },
     ],
   },
   {
-    name: 'Neal Brennan',
+    name: "Neal Brennan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003437.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003437.pdf",
         page: 1,
         confidence: 77.78604888916016,
       },
     ],
   },
   {
-    name: 'Patrick French',
+    name: "Patrick French",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003464.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003464.pdf",
         page: 1,
         confidence: 81.24773406982422,
       },
     ],
   },
   {
-    name: 'Thomas Quasthoff',
+    name: "Thomas Quasthoff",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003467.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003467.pdf",
         page: 1,
         confidence: 85.64351654052734,
       },
     ],
   },
   {
-    name: 'Paul Howard',
+    name: "Paul Howard",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003479.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003479.pdf",
         page: 1,
         confidence: 75.47058868408203,
       },
     ],
   },
   {
-    name: 'Howard Duff',
+    name: "Howard Duff",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003481.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003481.pdf",
         page: 1,
         confidence: 81.18898010253906,
       },
     ],
   },
   {
-    name: 'Anne',
+    name: "Anne",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003486.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003486.pdf",
         page: 1,
         confidence: 87.9548568725586,
       },
     ],
   },
   {
-    name: 'David Sullivan',
+    name: "David Sullivan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003498.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003498.pdf",
         page: 1,
         confidence: 78.27098083496094,
       },
     ],
   },
   {
-    name: 'David Portnoy',
+    name: "David Portnoy",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003497.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003497.pdf",
         page: 1,
         confidence: 84.0273208618164,
       },
     ],
   },
   {
-    name: 'Michihiro Ogasawara',
+    name: "Michihiro Ogasawara",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003509.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003509.pdf",
         page: 1,
         confidence: 84.19963836669922,
       },
     ],
   },
   {
-    name: 'Jools Holland',
+    name: "Jools Holland",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003511.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003511.pdf",
         page: 1,
         confidence: 88.3033676147461,
       },
     ],
   },
   {
-    name: 'Pierre Buyoya',
+    name: "Pierre Buyoya",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003539.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003539.pdf",
         page: 1,
         confidence: 83.60009765625,
       },
     ],
   },
   {
-    name: 'Dat Nguyen',
+    name: "Dat Nguyen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003531.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003531.pdf",
         page: 1,
         confidence: 76.81594848632812,
       },
     ],
   },
   {
-    name: 'Ulf Samuelsson',
+    name: "Ulf Samuelsson",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003544.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003544.pdf",
         page: 1,
         confidence: 81.8357925415039,
       },
     ],
   },
   {
-    name: 'Ptolemy XII Auletes',
+    name: "Ptolemy XII Auletes",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003555.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003555.pdf",
         page: 1,
         confidence: 91.87582397460938,
       },
     ],
   },
   {
-    name: 'Prince Hussain Aga Khan',
+    name: "Prince Hussain Aga Khan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003565.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003565.pdf",
         page: 1,
         confidence: 78.21891021728516,
       },
     ],
   },
   {
-    name: 'Jim Furyk',
+    name: "Jim Furyk",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003554.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003554.pdf",
         page: 1,
         confidence: 81.10939025878906,
       },
     ],
   },
   {
-    name: 'George Vjestica',
+    name: "George Vjestica",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003537.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003537.pdf",
         page: 1,
         confidence: 78.84247589111328,
       },
     ],
   },
   {
-    name: 'Marc Trestman',
+    name: "Marc Trestman",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003589.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003589.pdf",
         page: 2,
         confidence: 75.71743774414062,
       },
     ],
   },
   {
-    name: 'Ferdy Mayne',
+    name: "Ferdy Mayne",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003579.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003579.pdf",
         page: 2,
         confidence: 81.34555053710938,
       },
     ],
   },
   {
-    name: 'Gary Pinkel',
+    name: "Gary Pinkel",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003591.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003591.pdf",
         page: 1,
         confidence: 82.29401397705078,
       },
     ],
   },
   {
-    name: 'Frank Zagarino',
+    name: "Frank Zagarino",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003601.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003601.pdf",
         page: 1,
         confidence: 82.1821060180664,
       },
     ],
   },
   {
-    name: 'Fabio Capello',
+    name: "Fabio Capello",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003560.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003560.pdf",
         page: 1,
         confidence: 85.34315490722656,
       },
     ],
   },
   {
-    name: 'Jørn Andersen',
+    name: "Jørn Andersen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003556.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003556.pdf",
         page: 1,
         confidence: 91.13108825683594,
       },
     ],
   },
   {
-    name: 'Mikhail Kuzmin',
+    name: "Mikhail Kuzmin",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003562.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003562.pdf",
         page: 1,
         confidence: 79.5315933227539,
       },
     ],
   },
   {
-    name: 'Ebrahim Patel',
+    name: "Ebrahim Patel",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003561.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003561.pdf",
         page: 1,
         confidence: 76.74417877197266,
       },
     ],
   },
   {
-    name: 'Andrew Harvey',
+    name: "Andrew Harvey",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003645.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003645.pdf",
         page: 1,
         confidence: 78.56427001953125,
       },
     ],
   },
   {
-    name: 'David Schwimmer',
+    name: "David Schwimmer",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003644.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003644.pdf",
         page: 1,
         confidence: 92.25714874267578,
       },
     ],
   },
   {
-    name: 'Miguel Alejo',
+    name: "Miguel Alejo",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003638.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003638.pdf",
         page: 1,
         confidence: 84.10765075683594,
       },
     ],
   },
   {
-    name: 'Chin Han',
+    name: "Chin Han",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003642.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003642.pdf",
         page: 1,
         confidence: 82.94595336914062,
       },
     ],
   },
   {
-    name: 'Alejandro Menéndez',
+    name: "Alejandro Menéndez",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003640.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003640.pdf",
         page: 1,
         confidence: 83.73656463623047,
       },
     ],
   },
   {
-    name: 'Pan Shiyi',
+    name: "Pan Shiyi",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003651.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003651.pdf",
         page: 1,
         confidence: 75.39137268066406,
       },
     ],
   },
   {
-    name: 'Duke Special',
+    name: "Duke Special",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003651.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003651.pdf",
         page: 1,
         confidence: 84.20421600341797,
       },
     ],
   },
   {
-    name: 'Gunter Spieß',
+    name: "Gunter Spieß",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003677.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003677.pdf",
         page: 1,
         confidence: 75.82733917236328,
       },
     ],
   },
   {
-    name: 'Jutta Speidel',
+    name: "Jutta Speidel",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003668.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003668.pdf",
         page: 1,
         confidence: 82.9283676147461,
       },
     ],
   },
   {
-    name: 'Raymond Arrieta',
+    name: "Raymond Arrieta",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003671.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003671.pdf",
         page: 1,
         confidence: 80.03179168701172,
       },
     ],
   },
   {
-    name: 'Alessandro Costacurta',
+    name: "Alessandro Costacurta",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003669.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003669.pdf",
         page: 1,
         confidence: 77.42529296875,
       },
     ],
   },
   {
-    name: 'Marc Martel',
+    name: "Marc Martel",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003696.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003696.pdf",
         page: 1,
         confidence: 93.17530059814453,
       },
     ],
   },
   {
-    name: 'Shaun Tan',
+    name: "Shaun Tan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003696.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003696.pdf",
         page: 1,
         confidence: 88.09860229492188,
       },
     ],
   },
   {
-    name: 'Edward Binns',
+    name: "Edward Binns",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003698.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003698.pdf",
         page: 1,
         confidence: 76.3415756225586,
       },
     ],
   },
   {
-    name: 'Rachid Taha',
+    name: "Rachid Taha",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003699.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003699.pdf",
         page: 1,
         confidence: 81.23226165771484,
       },
     ],
   },
   {
-    name: 'Mark Needham',
+    name: "Mark Needham",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003721.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003721.pdf",
         page: 1,
         confidence: 83.39466094970703,
       },
     ],
   },
   {
-    name: 'Nils-Aslak Valkeapää',
+    name: "Nils-Aslak Valkeapää",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003728.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003728.pdf",
         page: 1,
         confidence: 86.11976623535156,
       },
     ],
   },
   {
-    name: 'Crooked I',
+    name: "Crooked I",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003729.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003729.pdf",
         page: 1,
         confidence: 79.18309783935547,
       },
     ],
   },
   {
-    name: 'Ramadan Sobhi',
+    name: "Ramadan Sobhi",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003742.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003742.pdf",
         page: 1,
         confidence: 75.79574584960938,
       },
     ],
   },
   {
-    name: 'Diego Boneta',
+    name: "Diego Boneta",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003760.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003760.pdf",
         page: 1,
         confidence: 76.20747375488281,
       },
     ],
   },
   {
-    name: 'Iain Softley',
+    name: "Iain Softley",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003788.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003788.pdf",
         page: 1,
         confidence: 78.83307647705078,
       },
     ],
   },
   {
-    name: 'Scott Allan Campbell',
+    name: "Scott Allan Campbell",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003793.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003793.pdf",
         page: 1,
         confidence: 77.48812866210938,
       },
     ],
   },
   {
-    name: 'Józef Tischner',
+    name: "Józef Tischner",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003810.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003810.pdf",
         page: 1,
         confidence: 78.87303924560547,
       },
     ],
   },
   {
-    name: 'Melcochita',
+    name: "Melcochita",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003844.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003844.pdf",
         page: 1,
         confidence: 78.64836120605469,
       },
     ],
   },
   {
-    name: 'William Collum',
+    name: "William Collum",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003848.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003848.pdf",
         page: 1,
         confidence: 77.51395416259766,
       },
     ],
   },
   {
-    name: 'David Peel',
+    name: "David Peel",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003848.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003848.pdf",
         page: 1,
         confidence: 81.090576171875,
       },
     ],
   },
   {
-    name: 'Ubaldo Lay',
+    name: "Ubaldo Lay",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003839.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003839.pdf",
         page: 1,
         confidence: 89.53572082519531,
       },
     ],
   },
   {
-    name: 'Juan Manuel Bernal Chávez',
+    name: "Juan Manuel Bernal Chávez",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003808.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003808.pdf",
         page: 1,
         confidence: 77.18424987792969,
       },
     ],
   },
   {
-    name: 'Rob Andrew',
+    name: "Rob Andrew",
     count: 1,
     appearances: [
       {
-        file: 'VOL00002/IMAGES/0001/EFTA00003822.pdf',
+        file: "VOL00002/IMAGES/0001/EFTA00003822.pdf",
         page: 1,
         confidence: 81.3065414428711,
       },
     ],
   },
   {
-    name: 'Prince Andrew, Duke of York',
+    name: "Prince Andrew, Duke of York",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00003931.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00003931.pdf",
         page: 2,
         confidence: 99.33735656738281,
       },
     ],
   },
   {
-    name: 'Saint Nicholas',
+    name: "Saint Nicholas",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 29,
         confidence: 75.60256958007812,
       },
     ],
   },
   {
-    name: 'Zito',
+    name: "Zito",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004070.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004070.pdf",
         page: 24,
         confidence: 77.16471862792969,
       },
     ],
   },
   {
-    name: 'Manuel González Prada',
+    name: "Manuel González Prada",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004250.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004250.pdf",
         page: 30,
         confidence: 81.88575744628906,
       },
     ],
   },
   {
-    name: 'Frank Lowy',
+    name: "Frank Lowy",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 57,
         confidence: 77.04928588867188,
       },
     ],
   },
   {
-    name: 'Naji al-Ali',
+    name: "Naji al-Ali",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 56,
         confidence: 75.23048400878906,
       },
     ],
   },
   {
-    name: 'Bernardo Gómez-Pimienta',
+    name: "Bernardo Gómez-Pimienta",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 56,
         confidence: 86.22161865234375,
       },
     ],
   },
   {
-    name: 'Leonard Sweet',
+    name: "Leonard Sweet",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 55,
         confidence: 83.11459350585938,
       },
     ],
   },
   {
-    name: 'Pat Martino',
+    name: "Pat Martino",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 54,
         confidence: 80.5869140625,
       },
     ],
   },
   {
-    name: 'Charles Korvin',
+    name: "Charles Korvin",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004348.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004348.pdf",
         page: 54,
         confidence: 78.87615203857422,
       },
     ],
   },
   {
-    name: 'Thutmose I',
+    name: "Thutmose I",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 59,
         confidence: 76.01368713378906,
       },
     ],
   },
   {
-    name: 'Anthony Brindisi',
+    name: "Anthony Brindisi",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 61,
         confidence: 86.68409729003906,
       },
     ],
   },
   {
-    name: 'Sidsel Endresen',
+    name: "Sidsel Endresen",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 93,
         confidence: 88.7341079711914,
       },
     ],
   },
   {
-    name: 'Muharrem Ertaş',
+    name: "Muharrem Ertaş",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 97,
         confidence: 78.35350799560547,
       },
     ],
   },
   {
-    name: 'Christopher A. Sims',
+    name: "Christopher A. Sims",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 95,
         confidence: 77.19689178466797,
       },
     ],
   },
   {
-    name: 'Doppo Kunikida',
+    name: "Doppo Kunikida",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 76,
         confidence: 81.15174102783203,
       },
     ],
   },
   {
-    name: 'Randall McDaniel',
+    name: "Randall McDaniel",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004477.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004477.pdf",
         page: 77,
         confidence: 77.15606689453125,
       },
     ],
   },
   {
-    name: 'David Corn',
+    name: "David Corn",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 31,
         confidence: 75.85984802246094,
       },
     ],
   },
   {
-    name: 'Mary GrandPré',
+    name: "Mary GrandPré",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 34,
         confidence: 90.31351470947266,
       },
     ],
   },
   {
-    name: 'Melchor Múzquiz',
+    name: "Melchor Múzquiz",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 66,
         confidence: 76.9987564086914,
       },
     ],
   },
   {
-    name: 'Christopher Mayer',
+    name: "Christopher Mayer",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 68,
         confidence: 86.75163269042969,
       },
     ],
   },
   {
-    name: 'Tim Jennings',
+    name: "Tim Jennings",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 65,
         confidence: 95.23453521728516,
       },
     ],
   },
   {
-    name: 'Musashimaru Kōyō',
+    name: "Musashimaru Kōyō",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004577.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004577.pdf",
         page: 64,
         confidence: 76.35469055175781,
       },
     ],
   },
   {
-    name: 'Stanisław Oślizło',
+    name: "Stanisław Oślizło",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 24,
         confidence: 78.27130889892578,
       },
     ],
   },
   {
-    name: 'Shri Krishna Chaitanya Mahaprabhu',
+    name: "Shri Krishna Chaitanya Mahaprabhu",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 64,
         confidence: 84.2950668334961,
       },
     ],
   },
   {
-    name: 'Alain Colas',
+    name: "Alain Colas",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 68,
         confidence: 85.02495574951172,
       },
     ],
   },
   {
-    name: 'Manny Mashouf',
+    name: "Manny Mashouf",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 68,
         confidence: 78.99516296386719,
       },
     ],
   },
   {
-    name: 'Jack Pennick',
+    name: "Jack Pennick",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 85,
         confidence: 83.04747009277344,
       },
     ],
   },
   {
-    name: 'Mitsutoshi Shimabukuro',
+    name: "Mitsutoshi Shimabukuro",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 86,
         confidence: 77.01560974121094,
       },
     ],
   },
   {
-    name: 'Hana Hegerová',
+    name: "Hana Hegerová",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 86,
         confidence: 82.45025634765625,
       },
     ],
   },
   {
-    name: 'Magdalena Abakanowicz',
+    name: "Magdalena Abakanowicz",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 91,
         confidence: 75.69934844970703,
       },
     ],
   },
   {
-    name: 'Lynn Hill',
+    name: "Lynn Hill",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 91,
         confidence: 84.93403625488281,
       },
     ],
   },
   {
-    name: 'Lualhati Bautista',
+    name: "Lualhati Bautista",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004663.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004663.pdf",
         page: 91,
         confidence: 82.85379028320312,
       },
     ],
   },
   {
-    name: 'Želimir Žilnik',
+    name: "Želimir Žilnik",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 2,
         confidence: 83.6358642578125,
       },
     ],
   },
   {
-    name: 'Diego Hurtado de Mendoza',
+    name: "Diego Hurtado de Mendoza",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 2,
         confidence: 84.91535186767578,
       },
     ],
   },
   {
-    name: 'John Napier',
+    name: "John Napier",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 1,
         confidence: 79.30107116699219,
       },
     ],
   },
   {
-    name: 'Wilhelm Frick',
+    name: "Wilhelm Frick",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 23,
         confidence: 76.53296661376953,
       },
     ],
   },
   {
-    name: 'Raoul Hausmann',
+    name: "Raoul Hausmann",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 30,
         confidence: 81.67427062988281,
       },
     ],
   },
   {
-    name: 'Nash the Slash',
+    name: "Nash the Slash",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004763.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004763.pdf",
         page: 30,
         confidence: 92.52376556396484,
       },
     ],
   },
   {
-    name: 'Nidia Guenard',
+    name: "Nidia Guenard",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 35,
         confidence: 78.0846939086914,
       },
     ],
   },
   {
-    name: 'Villaño III',
+    name: "Villaño III",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004800.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004800.pdf",
         page: 83,
         confidence: 83.15447998046875,
       },
     ],
   },
   {
-    name: 'Gabriele Veneziano',
+    name: "Gabriele Veneziano",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004898.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004898.pdf",
         page: 51,
         confidence: 82.05233001708984,
       },
     ],
   },
   {
-    name: 'Anthony Bourdain',
+    name: "Anthony Bourdain",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 38,
         confidence: 78.20153045654297,
       },
     ],
   },
   {
-    name: 'Sarat Chandra Chattopadhyay',
+    name: "Sarat Chandra Chattopadhyay",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 53,
         confidence: 81.977783203125,
       },
     ],
   },
   {
-    name: 'Amenemhat III',
+    name: "Amenemhat III",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00004975.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00004975.pdf",
         page: 89,
         confidence: 79.84580993652344,
       },
     ],
   },
   {
-    name: 'Noel Purcell',
+    name: "Noel Purcell",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 13,
         confidence: 76.9680404663086,
       },
     ],
   },
   {
-    name: 'Duilio Marzio',
+    name: "Duilio Marzio",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 27,
         confidence: 78.9173583984375,
       },
     ],
   },
   {
-    name: 'Juan Ginés de Sepúlveda',
+    name: "Juan Ginés de Sepúlveda",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 41,
         confidence: 85.6988296508789,
       },
     ],
   },
   {
-    name: 'Beeb Birtles',
+    name: "Beeb Birtles",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 40,
         confidence: 84.10824584960938,
       },
     ],
   },
   {
-    name: 'Ian McEwan',
+    name: "Ian McEwan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 43,
         confidence: 80.08903503417969,
       },
     ],
   },
   {
-    name: 'Wang Yue',
+    name: "Wang Yue",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005091.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005091.pdf",
         page: 48,
         confidence: 84.37464141845703,
       },
     ],
   },
   {
-    name: 'Jeff Rovin',
+    name: "Jeff Rovin",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005191.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005191.pdf",
         page: 10,
         confidence: 78.16087341308594,
       },
     ],
   },
   {
-    name: 'Jean-Pierre Claris de Florian',
+    name: "Jean-Pierre Claris de Florian",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005191.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005191.pdf",
         page: 38,
         confidence: 78.63394927978516,
       },
     ],
   },
   {
-    name: 'Guy Hemmings',
+    name: "Guy Hemmings",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 26,
         confidence: 75.98365783691406,
       },
     ],
   },
   {
-    name: 'Alexandros Papadiamantis',
+    name: "Alexandros Papadiamantis",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 26,
         confidence: 92.6400375366211,
       },
     ],
   },
   {
-    name: 'Ted Danson',
+    name: "Ted Danson",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 88,
         confidence: 78.53960418701172,
       },
     ],
   },
   {
-    name: 'Nikos Alefantos',
+    name: "Nikos Alefantos",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005284.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005284.pdf",
         page: 88,
         confidence: 86.10134887695312,
       },
     ],
   },
   {
-    name: 'Carmen Maura',
+    name: "Carmen Maura",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 4,
         confidence: 89.51057434082031,
       },
     ],
   },
   {
-    name: 'Keely Smith',
+    name: "Keely Smith",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 33,
         confidence: 80.11815643310547,
       },
     ],
   },
   {
-    name: 'Qudrat Ullah Shahab',
+    name: "Qudrat Ullah Shahab",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 44,
         confidence: 76.2541732788086,
       },
     ],
   },
   {
-    name: 'Mat Maneri',
+    name: "Mat Maneri",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005386.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005386.pdf",
         page: 40,
         confidence: 76.45523071289062,
       },
     ],
   },
   {
-    name: 'David Speers',
+    name: "David Speers",
     count: 1,
     appearances: [
       {
-        file: 'VOL00003/IMAGES/0001/EFTA00005538.pdf',
+        file: "VOL00003/IMAGES/0001/EFTA00005538.pdf",
         page: 22,
         confidence: 75.28369140625,
       },
     ],
   },
   {
-    name: 'Jodelle Ferland',
+    name: "Jodelle Ferland",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 2,
         confidence: 76.378662109375,
       },
     ],
   },
   {
-    name: 'Roy Williams',
+    name: "Roy Williams",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 2,
         confidence: 85.80369567871094,
       },
     ],
   },
   {
-    name: 'Richard Farnsworth',
+    name: "Richard Farnsworth",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 2,
         confidence: 88.17153930664062,
       },
     ],
   },
   {
-    name: 'Philipp Poisel',
+    name: "Philipp Poisel",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 2,
         confidence: 81.8497085571289,
       },
     ],
   },
   {
-    name: 'Barbara Thalheim',
+    name: "Barbara Thalheim",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 2,
         confidence: 86.68022155761719,
       },
     ],
   },
   {
-    name: 'Alexandra Breckenridge',
+    name: "Alexandra Breckenridge",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 84.832763671875,
       },
     ],
   },
   {
-    name: 'Chantay Savage',
+    name: "Chantay Savage",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 86.67791748046875,
       },
     ],
   },
   {
-    name: 'Smita Sabharwal',
+    name: "Smita Sabharwal",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 86.36241912841797,
       },
     ],
   },
   {
-    name: 'Master Shortie',
+    name: "Master Shortie",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 83.40768432617188,
       },
     ],
   },
   {
-    name: 'Lisa Morpurgo',
+    name: "Lisa Morpurgo",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 78.25201416015625,
       },
     ],
   },
   {
-    name: 'Kate Bracken',
+    name: "Kate Bracken",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 81.43622589111328,
       },
     ],
   },
   {
-    name: 'Nell Hudson',
+    name: "Nell Hudson",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 77.16322326660156,
       },
     ],
   },
   {
-    name: 'Paris Bennett',
+    name: "Paris Bennett",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 88.33611297607422,
       },
     ],
   },
   {
-    name: 'Jemimah Rodrigues',
+    name: "Jemimah Rodrigues",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 77.56659698486328,
       },
     ],
   },
   {
-    name: 'Monika Dannemann',
+    name: "Monika Dannemann",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 4,
         confidence: 78.78092193603516,
       },
     ],
   },
   {
-    name: 'Bari Koral',
+    name: "Bari Koral",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 75.07218933105469,
       },
     ],
   },
   {
-    name: 'Megalyn Echikunwoke',
+    name: "Megalyn Echikunwoke",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 80.01212310791016,
       },
     ],
   },
   {
-    name: 'Josep Torras i Bages',
+    name: "Josep Torras i Bages",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 79.7186050415039,
       },
     ],
   },
   {
-    name: 'Jonathan Spence',
+    name: "Jonathan Spence",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 88.44819641113281,
       },
     ],
   },
   {
-    name: 'Seyed Ali Tabatabaei',
+    name: "Seyed Ali Tabatabaei",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 78.67204284667969,
       },
     ],
   },
   {
-    name: 'Astrid Varnay',
+    name: "Astrid Varnay",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 90.82142639160156,
       },
     ],
   },
   {
-    name: 'Bonnie Greer',
+    name: "Bonnie Greer",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 84.8568344116211,
       },
     ],
   },
   {
-    name: 'Tom Hess',
+    name: "Tom Hess",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 83.20320129394531,
       },
     ],
   },
   {
-    name: 'Wilma Rudolph',
+    name: "Wilma Rudolph",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 90.53201293945312,
       },
     ],
   },
   {
-    name: 'Yuko Kavaguti',
+    name: "Yuko Kavaguti",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 76.75706481933594,
       },
     ],
   },
   {
-    name: 'Kristaps Porziņģis',
+    name: "Kristaps Porziņģis",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 3,
         confidence: 87.00679779052734,
       },
     ],
   },
   {
-    name: 'Tiffany Limos',
+    name: "Tiffany Limos",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 5,
         confidence: 89.99111938476562,
       },
     ],
   },
   {
-    name: 'Carmen Melendez Teresa Rivas',
+    name: "Carmen Melendez Teresa Rivas",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 6,
         confidence: 87.59304809570312,
       },
     ],
   },
   {
-    name: 'Khaled Lemmouchia',
+    name: "Khaled Lemmouchia",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 6,
         confidence: 77.6363525390625,
       },
     ],
   },
   {
-    name: 'Shéhérazade Semsar de Boisséson',
+    name: "Shéhérazade Semsar de Boisséson",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 6,
         confidence: 81.36311340332031,
       },
     ],
   },
   {
-    name: 'Vivian Reed',
+    name: "Vivian Reed",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 6,
         confidence: 94.13414001464844,
       },
     ],
   },
   {
-    name: 'Paul Walsh',
+    name: "Paul Walsh",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00006055.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00006055.pdf",
         page: 6,
         confidence: 78.18508911132812,
       },
     ],
   },
   {
-    name: 'Joan Barry',
+    name: "Joan Barry",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008020.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008020.pdf",
         page: 10,
         confidence: 78.58404541015625,
       },
     ],
   },
   {
-    name: 'Walt Whitman',
+    name: "Walt Whitman",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 99.99871063232422,
       },
     ],
   },
   {
-    name: 'Emily Elizabeth Dickinson',
+    name: "Emily Elizabeth Dickinson",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 99.9985122680664,
       },
     ],
   },
   {
-    name: 'Jacques Languirand',
+    name: "Jacques Languirand",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 83.5234375,
       },
     ],
   },
   {
-    name: 'Li Zhaoxing',
+    name: "Li Zhaoxing",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 97.0763168334961,
       },
     ],
   },
   {
-    name: 'Georg Danzer',
+    name: "Georg Danzer",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 76.61117553710938,
       },
     ],
   },
   {
-    name: 'MrBeast',
+    name: "MrBeast",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 87.4500503540039,
       },
     ],
   },
   {
-    name: 'William Butler Yeats',
+    name: "William Butler Yeats",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 99.99822235107422,
       },
     ],
   },
   {
-    name: 'Sheila Jordan',
+    name: "Sheila Jordan",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 94.77256774902344,
       },
     ],
   },
   {
-    name: 'Matt Rhule',
+    name: "Matt Rhule",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 78.32267761230469,
       },
     ],
   },
   {
-    name: 'Marie Losier',
+    name: "Marie Losier",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 91.87601470947266,
       },
     ],
   },
   {
-    name: 'Robert Frost',
+    name: "Robert Frost",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008015.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008015.pdf",
         page: 2,
         confidence: 98.70985412597656,
       },
     ],
   },
   {
-    name: 'Jean-Marie Robain',
+    name: "Jean-Marie Robain",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008120.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008120.pdf",
         page: 79,
         confidence: 78.41088104248047,
       },
     ],
   },
   {
-    name: 'Patricia Roc',
+    name: "Patricia Roc",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008220.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008220.pdf",
         page: 16,
         confidence: 81.19206237792969,
       },
     ],
   },
   {
-    name: 'Mattiwilda Dobbs',
+    name: "Mattiwilda Dobbs",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008220.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008220.pdf",
         page: 45,
         confidence: 78.3720932006836,
       },
     ],
   },
   {
-    name: 'Joaquín Peiró',
+    name: "Joaquín Peiró",
     count: 1,
     appearances: [
       {
-        file: 'VOL00004/IMAGES/0001/EFTA00008220.pdf',
+        file: "VOL00004/IMAGES/0001/EFTA00008220.pdf",
         page: 53,
         confidence: 82.71813201904297,
       },

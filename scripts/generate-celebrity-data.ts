@@ -7,8 +7,8 @@
  * Output: lib/celebrity-data.ts (TypeScript file with embedded data)
  */
 
-import { readFileSync, writeFileSync } from 'fs'
-import { join } from 'path'
+import { readFileSync, writeFileSync } from "fs"
+import { join } from "path"
 
 interface CelebrityResult {
   file: string
@@ -44,9 +44,9 @@ interface Celebrity {
   appearances: CelebrityAppearance[]
 }
 
-const ROOT_DIR = join(import.meta.dir, '..')
-const INPUT_FILE = join(ROOT_DIR, 'celebrity-results.json')
-const OUTPUT_FILE = join(ROOT_DIR, 'lib', 'celebrity-data.ts')
+const ROOT_DIR = join(import.meta.dir, "..")
+const INPUT_FILE = join(ROOT_DIR, "celebrity-results.json")
+const OUTPUT_FILE = join(ROOT_DIR, "lib", "celebrity-data.ts")
 
 function transformData(input: InputData): Celebrity[] {
   const celebrities: Celebrity[] = []
@@ -156,14 +156,14 @@ export function buildFileToCelebritiesMap(
 }
 
 // Main
-console.log('Reading celebrity results from:', INPUT_FILE)
+console.log("Reading celebrity results from:", INPUT_FILE)
 
 let inputData: InputData
 try {
-  const rawData = readFileSync(INPUT_FILE, 'utf-8')
+  const rawData = readFileSync(INPUT_FILE, "utf-8")
   inputData = JSON.parse(rawData)
 } catch (error) {
-  console.error('Error reading input file:', error)
+  console.error("Error reading input file:", error)
   process.exit(1)
 }
 
@@ -173,7 +173,7 @@ console.log(`Images with celebrities: ${inputData.imagesWithCelebrities}`)
 
 const celebrities = transformData(inputData)
 
-console.log('\nCelebrities by appearance count:')
+console.log("\nCelebrities by appearance count:")
 for (const celeb of celebrities.slice(0, 10)) {
   console.log(`  ${celeb.name}: ${celeb.count} appearances`)
 }
@@ -185,4 +185,4 @@ const tsContent = generateTypeScriptFile(celebrities, inputData.processedAt)
 writeFileSync(OUTPUT_FILE, tsContent)
 
 console.log(`\nGenerated: ${OUTPUT_FILE}`)
-console.log('Done!')
+console.log("Done!")

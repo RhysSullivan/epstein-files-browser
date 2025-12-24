@@ -1,8 +1,8 @@
-import { writeFileSync } from 'fs'
-import { join } from 'path'
+import { writeFileSync } from "fs"
+import { join } from "path"
 
 const WORKER_URL =
-  process.env.WORKER_URL || 'https://epstein-files.rhys-669.workers.dev'
+  process.env.WORKER_URL || "https://epstein-files.rhys-669.workers.dev"
 
 interface FileItem {
   key: string
@@ -37,7 +37,7 @@ async function main() {
     const files = await fetchAllFiles()
 
     // Write to a JSON file that can be imported statically
-    const outputPath = join(process.cwd(), 'lib', 'static-files.json')
+    const outputPath = join(process.cwd(), "lib", "static-files.json")
     writeFileSync(outputPath, JSON.stringify(files, null, 2))
 
     console.log(`✓ Wrote ${files.length} files to ${outputPath}`)
@@ -45,7 +45,7 @@ async function main() {
       `  Total size: ${(JSON.stringify(files).length / 1024 / 1024).toFixed(2)} MB`
     )
   } catch (error) {
-    console.error('Error fetching files:', error)
+    console.error("Error fetching files:", error)
     process.exit(1)
   }
 }

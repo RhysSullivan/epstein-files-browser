@@ -1,10 +1,10 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
-import { FileItem, getPdfManifest, getPdfPages, setPdfPages } from '@/lib/cache'
-import { getCelebritiesForPage, getFileId } from '@/lib/utils'
-import { WORKER_URL } from '@/lib/const'
-import { SharePopover } from './share-popover'
-import { loadPagesFromImages, prefetchPdf } from '@/lib/prefetchPdfs'
-import { CelebrityDisclaimer } from './celebrity-disclaimer'
+import { useState, useRef, useCallback, useEffect } from "react"
+import { FileItem, getPdfManifest, getPdfPages, setPdfPages } from "@/lib/cache"
+import { getCelebritiesForPage, getFileId } from "@/lib/utils"
+import { WORKER_URL } from "@/lib/const"
+import { SharePopover } from "./share-popover"
+import { loadPagesFromImages, prefetchPdf } from "@/lib/prefetchPdfs"
+import { CelebrityDisclaimer } from "./celebrity-disclaimer"
 
 // Modal component for viewing files
 export function FileModal({
@@ -38,11 +38,11 @@ export function FileModal({
   // Keyboard navigation
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         onClose()
-      } else if (e.key === 'ArrowLeft' && hasPrev) {
+      } else if (e.key === "ArrowLeft" && hasPrev) {
         onPrev()
-      } else if (e.key === 'ArrowRight' && hasNext) {
+      } else if (e.key === "ArrowRight" && hasNext) {
         onNext()
       }
     },
@@ -82,15 +82,15 @@ export function FileModal({
   )
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown)
-    window.addEventListener('touchstart', handleTouchStart)
-    window.addEventListener('touchend', handleTouchEnd)
-    document.body.style.overflow = 'hidden'
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("touchstart", handleTouchStart)
+    window.addEventListener("touchend", handleTouchEnd)
+    document.body.style.overflow = "hidden"
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchend', handleTouchEnd)
-      document.body.style.overflow = ''
+      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchend", handleTouchEnd)
+      document.body.style.overflow = ""
     }
   }, [handleKeyDown, handleTouchStart, handleTouchEnd])
 
@@ -135,7 +135,7 @@ export function FileModal({
         }
 
         // Fallback to client-side PDF rendering
-        const pdfjsLib = await import('pdfjs-dist')
+        const pdfjsLib = await import("pdfjs-dist")
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
 
         const loadingTask = pdfjsLib.getDocument(fileUrl)
@@ -152,8 +152,8 @@ export function FileModal({
           const scale = 2
           const viewport = page.getViewport({ scale })
 
-          const canvas = document.createElement('canvas')
-          const context = canvas.getContext('2d')!
+          const canvas = document.createElement("canvas")
+          const context = canvas.getContext("2d")!
           canvas.width = viewport.width
           canvas.height = viewport.height
 
@@ -163,7 +163,7 @@ export function FileModal({
             canvas,
           }).promise
 
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85)
           renderedPages.push(dataUrl)
 
           setPages([...renderedPages])
@@ -174,7 +174,7 @@ export function FileModal({
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : 'Failed to load PDF')
+          setError(err instanceof Error ? err.message : "Failed to load PDF")
         }
       } finally {
         if (!cancelled) {
@@ -191,11 +191,11 @@ export function FileModal({
   }, [fileUrl, filePath])
 
   // Prefetch next PDFs - use file keys as dependency to avoid array reference issues
-  const nextFileKeys = nextFiles.map((f) => f.key).join(',')
+  const nextFileKeys = nextFiles.map((f) => f.key).join(",")
   useEffect(() => {
     if (loading || !nextFileKeys) return
 
-    const keys = nextFileKeys.split(',').filter(Boolean)
+    const keys = nextFileKeys.split(",").filter(Boolean)
     const timeoutIds: ReturnType<typeof setTimeout>[] = []
 
     // Prefetch next 5 files with staggered delays
@@ -324,7 +324,7 @@ export function FileModal({
                       src={dataUrl}
                       alt={`Page ${index + 1}`}
                       className="h-auto w-full md:mx-auto md:max-h-[75vh] md:w-auto"
-                      style={{ maxWidth: '100%' }}
+                      style={{ maxWidth: "100%" }}
                     />
                   </div>
                   {pageCelebrities.length > 0 && (

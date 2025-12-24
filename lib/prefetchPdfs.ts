@@ -1,13 +1,13 @@
-import { getPdfPages, setPdfPages, getPdfManifest } from './cache'
-import { WORKER_URL } from './const'
+import { getPdfPages, setPdfPages, getPdfManifest } from "./cache"
+import { WORKER_URL } from "./const"
 
 // Track in-progress prefetch operations to avoid duplicates
 const prefetchingSet = new Set<string>()
 
 // Get the image URL for a specific PDF page
 function getPageImageUrl(pdfKey: string, pageNum: number) {
-  const basePath = pdfKey.replace('.pdf', '')
-  const pageStr = String(pageNum).padStart(3, '0')
+  const basePath = pdfKey.replace(".pdf", "")
+  const pageStr = String(pageNum).padStart(3, "0")
   return `${WORKER_URL}/pdfs-as-jpegs/${basePath}/page-${pageStr}.jpg`
 }
 
@@ -52,7 +52,7 @@ export async function prefetchPdf(filePath: string) {
 
     // Fallback to client-side PDF rendering if no pre-rendered images
     const fileUrl = `${WORKER_URL}/${filePath}`
-    const pdfjsLib = await import('pdfjs-dist')
+    const pdfjsLib = await import("pdfjs-dist")
     pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
 
     const loadingTask = pdfjsLib.getDocument(fileUrl)
@@ -65,8 +65,8 @@ export async function prefetchPdf(filePath: string) {
       const scale = 2
       const viewport = page.getViewport({ scale })
 
-      const canvas = document.createElement('canvas')
-      const context = canvas.getContext('2d')!
+      const canvas = document.createElement("canvas")
+      const context = canvas.getContext("2d")!
       canvas.width = viewport.width
       canvas.height = viewport.height
 
@@ -76,7 +76,7 @@ export async function prefetchPdf(filePath: string) {
         canvas,
       }).promise
 
-      renderedPages.push(canvas.toDataURL('image/jpeg', 0.85))
+      renderedPages.push(canvas.toDataURL("image/jpeg", 0.85))
     }
 
     if (renderedPages.length > 0) {

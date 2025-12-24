@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import { Check, ChevronsUpDown, User } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import * as React from "react"
+import { Check, ChevronsUpDown, User } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
@@ -11,12 +11,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
+} from "@/components/ui/command"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from "@/components/ui/popover"
 
 interface Celebrity {
   name: string
@@ -49,7 +49,7 @@ export function CelebrityCombobox({
         >
           <div className="flex min-w-0 items-center gap-2">
             <User className="text-muted-foreground h-4 w-4 flex-shrink-0" />
-            {value === 'All' ? (
+            {value === "All" ? (
               <span className="text-sm font-medium">All People</span>
             ) : selectedCelebrity ? (
               <span className="truncate text-sm font-medium">
@@ -84,15 +84,15 @@ export function CelebrityCombobox({
               <CommandItem
                 value="All"
                 onSelect={() => {
-                  onValueChange('All')
+                  onValueChange("All")
                   setOpen(false)
                 }}
                 className="text-foreground hover:bg-accent data-[selected=true]:bg-accent cursor-pointer rounded-lg px-3 py-2.5"
               >
                 <Check
                   className={cn(
-                    'text-primary mr-2.5 h-4 w-4',
-                    value === 'All' ? 'opacity-100' : 'opacity-0'
+                    "text-primary mr-2.5 h-4 w-4",
+                    value === "All" ? "opacity-100" : "opacity-0"
                   )}
                 />
                 <span className="font-medium">All People</span>
@@ -109,8 +109,8 @@ export function CelebrityCombobox({
                 >
                   <Check
                     className={cn(
-                      'text-primary mr-2.5 h-4 w-4',
-                      value === celebrity.name ? 'opacity-100' : 'opacity-0'
+                      "text-primary mr-2.5 h-4 w-4",
+                      value === celebrity.name ? "opacity-100" : "opacity-0"
                     )}
                   />
                   <span className="flex-1 truncate">{celebrity.name}</span>

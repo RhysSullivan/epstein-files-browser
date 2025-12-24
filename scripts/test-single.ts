@@ -1,22 +1,22 @@
 import {
   RekognitionClient,
   RecognizeCelebritiesCommand,
-} from '@aws-sdk/client-rekognition'
-import { execSync } from 'child_process'
-import * as fs from 'fs'
-import * as os from 'os'
-import * as path from 'path'
+} from "@aws-sdk/client-rekognition"
+import { execSync } from "child_process"
+import * as fs from "fs"
+import * as os from "os"
+import * as path from "path"
 
-const pdfPath = process.argv[2] || 'files/VOL00002/IMAGES/0001/EFTA00003182.pdf'
+const pdfPath = process.argv[2] || "files/VOL00002/IMAGES/0001/EFTA00003182.pdf"
 console.log(`Processing: ${pdfPath}`)
 
 // Get page count
-const pdfInfo = execSync(`pdfinfo "${pdfPath}"`, { encoding: 'utf-8' })
+const pdfInfo = execSync(`pdfinfo "${pdfPath}"`, { encoding: "utf-8" })
 const pageMatch = pdfInfo.match(/Pages:\s+(\d+)/)
 const pageCount = pageMatch ? parseInt(pageMatch[1]) : 1
 console.log(`Pages: ${pageCount}`)
 
-const rekognition = new RekognitionClient({ region: 'us-east-1' })
+const rekognition = new RekognitionClient({ region: "us-east-1" })
 const allCelebs = new Map<string, { confidence: number; page: number }>()
 
 for (let page = 1; page <= pageCount; page++) {
@@ -25,8 +25,8 @@ for (let page = 1; page <= pageCount; page++) {
   try {
     // Convert one page at a time with lower resolution for large files
     execSync(
-      `pdftoppm -png -r 100 -f ${page} -l ${page} -singlefile "${pdfPath}" "${tempFile.replace('.png', '')}"`,
-      { stdio: 'pipe' }
+      `pdftoppm -png -r 100 -f ${page} -l ${page} -singlefile "${pdfPath}" "${tempFile.replace(".png", "")}"`,
+      { stdio: "pipe" }
     )
 
     const imageBuffer = fs.readFileSync(tempFile)
@@ -59,7 +59,7 @@ for (let page = 1; page <= pageCount; page++) {
   }
 }
 
-console.log('\n')
+console.log("\n")
 if (allCelebs.size > 0) {
   const sorted = Array.from(allCelebs.entries()).sort(
     (a, b) => b[1].confidence - a[1].confidence
@@ -68,6 +68,6 @@ if (allCelebs.size > 0) {
     console.log(`Found: ${name} (${confidence.toFixed(1)}%) - page ${page}`)
   }
 } else {
-  console.log('No celebrities detected')
+  console.log("No celebrities detected")
 }
 console.log(`\nCost: $${(pageCount * 0.001).toFixed(3)}`)

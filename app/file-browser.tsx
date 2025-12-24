@@ -1,33 +1,33 @@
-'use client'
+"use client"
 
-import { useMemo, useCallback } from 'react'
-import { useQueryState } from 'nuqs'
+import { useMemo, useCallback } from "react"
+import { useQueryState } from "nuqs"
 
 import {
   getCelebritiesAboveConfidence,
   getFilesForCelebrity,
-} from '@/lib/celebrity-data'
-import { CelebrityCombobox } from '@/components/celebrity-combobox'
-import { CelebrityDisclaimer } from '@/components/celebrity-disclaimer'
-import { useFiles } from '@/lib/files-context'
-import { getFileId } from '@/lib/utils'
-import { prefetchPdf } from '@/lib/prefetchPdfs'
-import { FileCard } from '@/components/file-card'
-import { FileModal } from '@/components/file-modal'
+} from "@/lib/celebrity-data"
+import { CelebrityCombobox } from "@/components/celebrity-combobox"
+import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer"
+import { useFiles } from "@/lib/files-context"
+import { getFileId } from "@/lib/utils"
+import { prefetchPdf } from "@/lib/prefetchPdfs"
+import { FileCard } from "@/components/file-card"
+import { FileModal } from "@/components/file-modal"
 
 export function FileBrowser() {
   const { files: initialFiles } = useFiles()
 
-  const [collectionFilter, setCollectionFilter] = useQueryState('collection', {
-    defaultValue: 'All',
+  const [collectionFilter, setCollectionFilter] = useQueryState("collection", {
+    defaultValue: "All",
   })
-  const [celebrityFilter, setCelebrityFilter] = useQueryState('celebrity', {
-    defaultValue: 'All',
+  const [celebrityFilter, setCelebrityFilter] = useQueryState("celebrity", {
+    defaultValue: "All",
   })
-  const [sortBy, setSortBy] = useQueryState('sort', {
-    defaultValue: 'name',
+  const [sortBy, setSortBy] = useQueryState("sort", {
+    defaultValue: "name",
   })
-  const [openFile, setOpenFile] = useQueryState('file')
+  const [openFile, setOpenFile] = useQueryState("file")
 
   // Get celebrities with >99% confidence for the dropdown
   const celebrities = getCelebritiesAboveConfidence(99)
@@ -37,12 +37,12 @@ export function FileBrowser() {
     let files = initialFiles
 
     // Apply collection filter
-    if (collectionFilter !== 'All') {
+    if (collectionFilter !== "All") {
       files = files.filter((f) => f.key.startsWith(collectionFilter))
     }
 
     // Apply celebrity filter
-    if (celebrityFilter !== 'All') {
+    if (celebrityFilter !== "All") {
       const celebrityFileKeys = new Set(
         getFilesForCelebrity(celebrityFilter, 99)
       )
@@ -52,15 +52,15 @@ export function FileBrowser() {
     // Apply sorting
     files = [...files].sort((a, b) => {
       switch (sortBy) {
-        case 'date-desc':
+        case "date-desc":
           return new Date(b.uploaded).getTime() - new Date(a.uploaded).getTime()
-        case 'date-asc':
+        case "date-asc":
           return new Date(a.uploaded).getTime() - new Date(b.uploaded).getTime()
-        case 'size-desc':
+        case "size-desc":
           return b.size - a.size
-        case 'size-asc':
+        case "size-asc":
           return a.size - b.size
-        case 'name':
+        case "name":
         default:
           return getFileId(a.key).localeCompare(getFileId(b.key))
       }
@@ -72,10 +72,10 @@ export function FileBrowser() {
   // Build query string to preserve filters in file links
   const queryString = useMemo(() => {
     const params = new URLSearchParams()
-    if (collectionFilter !== 'All') params.set('collection', collectionFilter)
-    if (celebrityFilter !== 'All') params.set('celebrity', celebrityFilter)
+    if (collectionFilter !== "All") params.set("collection", collectionFilter)
+    if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter)
     const str = params.toString()
-    return str ? `?${str}` : ''
+    return str ? `?${str}` : ""
   }, [collectionFilter, celebrityFilter])
 
   // Modal state - find index from file key
@@ -213,13 +213,13 @@ export function FileBrowser() {
             <div className="bg-secondary/50 flex items-center gap-2 rounded-xl px-3 py-2">
               <span className="text-muted-foreground text-sm font-medium">
                 {filteredFiles.length.toLocaleString()} files
-                {collectionFilter !== 'All' || celebrityFilter !== 'All' ? (
+                {collectionFilter !== "All" || celebrityFilter !== "All" ? (
                   <span className="text-foreground/50">
-                    {' '}
+                    {" "}
                     / {initialFiles.length.toLocaleString()}
                   </span>
                 ) : (
-                  ''
+                  ""
                 )}
               </span>
             </div>
@@ -228,7 +228,7 @@ export function FileBrowser() {
       </header>
 
       {/* Celebrity Detection Disclaimer */}
-      {celebrityFilter !== 'All' && (
+      {celebrityFilter !== "All" && (
         <CelebrityDisclaimer className="text-amber-200/90 [&_a]:text-amber-300 [&_a]:hover:text-amber-100" />
       )}
 

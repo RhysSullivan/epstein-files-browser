@@ -1,11 +1,11 @@
-import { execSync, exec } from 'child_process'
-import * as fs from 'fs'
-import * as path from 'path'
-import sharp from 'sharp'
+import { execSync, exec } from "child_process"
+import * as fs from "fs"
+import * as path from "path"
+import sharp from "sharp"
 
-const FILES_DIR = path.join(process.cwd(), 'files')
-const THUMBNAILS_DIR = path.join(process.cwd(), 'thumbnails')
-const BUCKET_NAME = 'epstein-files'
+const FILES_DIR = path.join(process.cwd(), "files")
+const THUMBNAILS_DIR = path.join(process.cwd(), "thumbnails")
+const BUCKET_NAME = "epstein-files"
 const CONCURRENT_UPLOADS = 10
 
 // Find all PDFs
@@ -18,7 +18,7 @@ function findPdfs(dir: string): string[] {
       const fullPath = path.join(currentDir, entry.name)
       if (entry.isDirectory()) {
         walk(fullPath)
-      } else if (entry.name.toLowerCase().endsWith('.pdf')) {
+      } else if (entry.name.toLowerCase().endsWith(".pdf")) {
         pdfs.push(fullPath)
       }
     }
@@ -33,12 +33,12 @@ async function generateThumbnail(
   outputPath: string
 ): Promise<boolean> {
   try {
-    const tempPrefix = outputPath.replace('.jpg', '-temp')
+    const tempPrefix = outputPath.replace(".jpg", "-temp")
 
     // pdftoppm outputs to {prefix}-{page}.png
     execSync(
       `pdftoppm -png -f 1 -l 1 -scale-to 300 "${pdfPath}" "${tempPrefix}"`,
-      { stdio: 'pipe' }
+      { stdio: "pipe" }
     )
 
     // pdftoppm adds -1 or -01 suffix depending on total pages
@@ -95,9 +95,9 @@ async function uploadBatch(
 }
 
 async function main() {
-  const mode = process.argv[2] || 'all' // "generate", "upload", or "all"
+  const mode = process.argv[2] || "all" // "generate", "upload", or "all"
 
-  console.log('Finding PDFs...')
+  console.log("Finding PDFs...")
   const pdfs = findPdfs(FILES_DIR)
   console.log(`Found ${pdfs.length} PDFs`)
 
@@ -108,8 +108,8 @@ async function main() {
 
   const toUpload: { localPath: string; r2Key: string }[] = []
 
-  if (mode === 'all' || mode === 'generate') {
-    console.log('\n=== Generating thumbnails ===\n')
+  if (mode === "all" || mode === "generate") {
+    console.log("\n=== Generating thumbnails ===\n")
 
     let generated = 0
     let skipped = 0
@@ -119,7 +119,7 @@ async function main() {
       const relativePath = path.relative(FILES_DIR, pdfPath)
       const localThumbnailPath = path.join(
         THUMBNAILS_DIR,
-        relativePath.replace('.pdf', '.jpg')
+        relativePath.replace(".pdf", ".jpg")
       )
 
       // Create subdirectories
@@ -133,7 +133,7 @@ async function main() {
         skipped++
         toUpload.push({
           localPath: localThumbnailPath,
-          r2Key: `thumbnails/${relativePath.replace('.pdf', '.jpg')}`,
+          r2Key: `thumbnails/${relativePath.replace(".pdf", ".jpg")}`,
         })
         continue
       }
@@ -148,7 +148,7 @@ async function main() {
         generated++
         toUpload.push({
           localPath: localThumbnailPath,
-          r2Key: `thumbnails/${relativePath.replace('.pdf', '.jpg')}`,
+          r2Key: `thumbnails/${relativePath.replace(".pdf", ".jpg")}`,
         })
       } else {
         failed++
@@ -164,18 +164,18 @@ async function main() {
       const relativePath = path.relative(FILES_DIR, pdfPath)
       const localThumbnailPath = path.join(
         THUMBNAILS_DIR,
-        relativePath.replace('.pdf', '.jpg')
+        relativePath.replace(".pdf", ".jpg")
       )
       if (fs.existsSync(localThumbnailPath)) {
         toUpload.push({
           localPath: localThumbnailPath,
-          r2Key: `thumbnails/${relativePath.replace('.pdf', '.jpg')}`,
+          r2Key: `thumbnails/${relativePath.replace(".pdf", ".jpg")}`,
         })
       }
     }
   }
 
-  if (mode === 'all' || mode === 'upload') {
+  if (mode === "all" || mode === "upload") {
     console.log(`\n=== Uploading ${toUpload.length} thumbnails to R2 ===\n`)
 
     let uploaded = 0
@@ -196,7 +196,7 @@ async function main() {
     console.log(`\n\nUpload complete: ${uploaded} uploaded, ${failed} failed`)
   }
 
-  console.log('\nDone!')
+  console.log("\nDone!")
 }
 
 main().catch(console.error)

@@ -1,12 +1,12 @@
-import { execSync } from 'child_process'
-import * as fs from 'fs'
-import * as path from 'path'
-import sharp from 'sharp'
+import { execSync } from "child_process"
+import * as fs from "fs"
+import * as path from "path"
+import sharp from "sharp"
 
-const FILES_DIR = path.join(process.cwd(), 'files')
-const OUTPUT_DIR = path.join(process.cwd(), 'pdfs-as-jpegs')
-const BUCKET_NAME = 'epstein-files'
-const R2_REMOTE = 'r2'
+const FILES_DIR = path.join(process.cwd(), "files")
+const OUTPUT_DIR = path.join(process.cwd(), "pdfs-as-jpegs")
+const BUCKET_NAME = "epstein-files"
+const R2_REMOTE = "r2"
 const IMAGE_WIDTH = 1200 // Width in pixels
 const JPEG_QUALITY = 80
 
@@ -26,7 +26,7 @@ function findPdfs(dir: string): string[] {
       const fullPath = path.join(currentDir, entry.name)
       if (entry.isDirectory()) {
         walk(fullPath)
-      } else if (entry.name.toLowerCase().endsWith('.pdf')) {
+      } else if (entry.name.toLowerCase().endsWith(".pdf")) {
         pdfs.push(fullPath)
       }
     }
@@ -43,7 +43,7 @@ function getPdfPageCount(pdfPath: string): number {
     const output = execSync(
       `pdfinfo "${pdfPath}" 2>/dev/null | grep "^Pages:"`,
       {
-        encoding: 'utf-8',
+        encoding: "utf-8",
       }
     )
     const match = output.match(/Pages:\s+(\d+)/)
@@ -65,24 +65,24 @@ async function generatePdfImages(
       fs.mkdirSync(outputDir, { recursive: true })
     }
 
-    const tempPrefix = path.join(outputDir, 'temp')
+    const tempPrefix = path.join(outputDir, "temp")
 
     // Extract all pages as PNG using pdftoppm
     // -scale-to sets the larger dimension (width for portrait pages)
     execSync(
       `pdftoppm -png -scale-to ${IMAGE_WIDTH} "${pdfPath}" "${tempPrefix}"`,
-      { stdio: 'pipe' }
+      { stdio: "pipe" }
     )
 
     // Find all generated temp files and convert to JPEG
     const tempFiles = fs
       .readdirSync(outputDir)
-      .filter((f) => f.startsWith('temp-') && f.endsWith('.png'))
+      .filter((f) => f.startsWith("temp-") && f.endsWith(".png"))
 
     // Sort to ensure correct page order
     tempFiles.sort((a, b) => {
-      const numA = parseInt(a.match(/temp-(\d+)\.png/)?.[1] || '0', 10)
-      const numB = parseInt(b.match(/temp-(\d+)\.png/)?.[1] || '0', 10)
+      const numA = parseInt(a.match(/temp-(\d+)\.png/)?.[1] || "0", 10)
+      const numB = parseInt(b.match(/temp-(\d+)\.png/)?.[1] || "0", 10)
       return numA - numB
     })
 
@@ -90,7 +90,7 @@ async function generatePdfImages(
     for (const tempFile of tempFiles) {
       pageCount++
       const tempPath = path.join(outputDir, tempFile)
-      const pageNum = String(pageCount).padStart(3, '0')
+      const pageNum = String(pageCount).padStart(3, "0")
       const jpegPath = path.join(outputDir, `page-${pageNum}.jpg`)
 
       // Convert to JPEG with sharp
@@ -118,7 +118,7 @@ function checkExistingImages(
 
   const jpegFiles = fs
     .readdirSync(outputDir)
-    .filter((f) => f.startsWith('page-') && f.endsWith('.jpg'))
+    .filter((f) => f.startsWith("page-") && f.endsWith(".jpg"))
 
   if (jpegFiles.length === 0) {
     return { exists: false, pages: 0 }
@@ -137,7 +137,7 @@ function uploadToR2(localDir: string, r2Path: string): boolean {
   try {
     execSync(
       `rclone copy "${localDir}" "${R2_REMOTE}:${BUCKET_NAME}/${r2Path}" --progress`,
-      { stdio: 'inherit' }
+      { stdio: "inherit" }
     )
     return true
   } catch (err) {
@@ -148,25 +148,25 @@ function uploadToR2(localDir: string, r2Path: string): boolean {
 
 // Upload entire output directory to R2
 function uploadAllToR2(): boolean {
-  console.log('\n=== Uploading all images to R2 ===\n')
+  console.log("\n=== Uploading all images to R2 ===\n")
   try {
     execSync(
       `rclone copy "${OUTPUT_DIR}" "${R2_REMOTE}:${BUCKET_NAME}/pdfs-as-jpegs" --progress --transfers=32`,
-      { stdio: 'inherit' }
+      { stdio: "inherit" }
     )
     return true
   } catch (err) {
-    console.error('Failed to upload to R2:', err)
+    console.error("Failed to upload to R2:", err)
     return false
   }
 }
 
 async function main() {
-  const mode = process.argv[2] || 'all' // "generate", "upload", or "all"
+  const mode = process.argv[2] || "all" // "generate", "upload", or "all"
   const limitArg = process.argv[3]
   const limit = limitArg ? parseInt(limitArg, 10) : undefined
 
-  console.log('Finding PDFs...')
+  console.log("Finding PDFs...")
   let pdfs = findPdfs(FILES_DIR)
   console.log(`Found ${pdfs.length} PDFs`)
 
@@ -181,17 +181,17 @@ async function main() {
   }
 
   // Load existing manifest if it exists
-  const manifestPath = path.join(OUTPUT_DIR, 'manifest.json')
+  const manifestPath = path.join(OUTPUT_DIR, "manifest.json")
   let manifest: Manifest = {}
   if (fs.existsSync(manifestPath)) {
-    manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'))
+    manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"))
     console.log(
       `Loaded existing manifest with ${Object.keys(manifest).length} entries`
     )
   }
 
-  if (mode === 'all' || mode === 'generate') {
-    console.log('\n=== Generating PDF images ===\n')
+  if (mode === "all" || mode === "generate") {
+    console.log("\n=== Generating PDF images ===\n")
 
     let generated = 0
     let skipped = 0
@@ -201,7 +201,7 @@ async function main() {
       const pdfPath = pdfs[i]
       const relativePath = path.relative(FILES_DIR, pdfPath)
       const pdfKey = relativePath // e.g., "VOL00001/IMAGES/0001/EFTA00000515.pdf"
-      const outputSubdir = relativePath.replace('.pdf', '') // e.g., "VOL00001/IMAGES/0001/EFTA00000515"
+      const outputSubdir = relativePath.replace(".pdf", "") // e.g., "VOL00001/IMAGES/0001/EFTA00000515"
       const localOutputDir = path.join(OUTPUT_DIR, outputSubdir)
 
       // Check if already processed
@@ -245,12 +245,12 @@ async function main() {
     console.log(`Manifest saved with ${Object.keys(manifest).length} entries`)
   }
 
-  if (mode === 'all' || mode === 'upload') {
+  if (mode === "all" || mode === "upload") {
     uploadAllToR2()
-    console.log('\nUpload complete!')
+    console.log("\nUpload complete!")
   }
 
-  console.log('\nDone!')
+  console.log("\nDone!")
 }
 
 main().catch(console.error)

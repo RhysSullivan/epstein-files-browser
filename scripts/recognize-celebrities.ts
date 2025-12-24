@@ -1,20 +1,20 @@
 import {
   RekognitionClient,
   RecognizeCelebritiesCommand,
-} from '@aws-sdk/client-rekognition'
-import * as fs from 'fs'
-import * as path from 'path'
-import { execSync, exec } from 'child_process'
-import { promisify } from 'util'
+} from "@aws-sdk/client-rekognition"
+import * as fs from "fs"
+import * as path from "path"
+import { execSync, exec } from "child_process"
+import { promisify } from "util"
 
 const execAsync = promisify(exec)
 
 // Configurable concurrency - AWS Rekognition default limit is 5 TPS
-const CONCURRENCY = parseInt(process.env.CONCURRENCY || '10')
+const CONCURRENCY = parseInt(process.env.CONCURRENCY || "10")
 
 // Initialize Rekognition client
 const rekognition = new RekognitionClient({
-  region: process.env.AWS_REGION || 'us-east-1',
+  region: process.env.AWS_REGION || "us-east-1",
 })
 
 interface CelebrityMatch {
@@ -51,7 +51,7 @@ interface PageTask {
 
 function getPageCount(pdfPath: string): number {
   try {
-    const pdfInfo = execSync(`pdfinfo "${pdfPath}"`, { encoding: 'utf-8' })
+    const pdfInfo = execSync(`pdfinfo "${pdfPath}"`, { encoding: "utf-8" })
     const match = pdfInfo.match(/Pages:\s+(\d+)/)
     return match ? parseInt(match[1]) : 1
   } catch {
@@ -87,8 +87,8 @@ async function recognizeCelebrities(
   } catch (error) {
     const errName = (error as Error).name
     if (
-      (errName === 'ThrottlingException' ||
-        errName === 'ProvisionedThroughputExceededException') &&
+      (errName === "ThrottlingException" ||
+        errName === "ProvisionedThroughputExceededException") &&
       retries > 0
     ) {
       await new Promise((resolve) =>
@@ -114,7 +114,7 @@ async function processPage(task: PageTask): Promise<PageResult> {
   try {
     // Use 72 DPI - faster and still good enough for face detection
     await execAsync(
-      `pdftoppm -png -r 72 -f ${page} -l ${page} -singlefile "${pdfPath}" "${tempFile.replace('.png', '')}"`
+      `pdftoppm -png -r 72 -f ${page} -l ${page} -singlefile "${pdfPath}" "${tempFile.replace(".png", "")}"`
     )
 
     const imageBuffer = fs.readFileSync(tempFile)
@@ -140,7 +140,7 @@ async function findPdfFiles(dir: string): Promise<string[]> {
       const fullPath = path.join(currentPath, entry.name)
       if (entry.isDirectory()) {
         walkDir(fullPath)
-      } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.pdf')) {
+      } else if (entry.isFile() && entry.name.toLowerCase().endsWith(".pdf")) {
         pdfFiles.push(fullPath)
       }
     }
@@ -221,24 +221,24 @@ function saveResults(outputPath: string, results: PageResult[]) {
 }
 
 async function main() {
-  const filesDir = path.join(process.cwd(), 'files')
-  const limit = parseInt(process.argv[2] || '0') || Infinity
+  const filesDir = path.join(process.cwd(), "files")
+  const limit = parseInt(process.argv[2] || "0") || Infinity
 
   try {
-    execSync('which pdftoppm', { stdio: 'pipe' })
+    execSync("which pdftoppm", { stdio: "pipe" })
   } catch {
     console.error(
-      'Error: pdftoppm not found. Install with: brew install poppler'
+      "Error: pdftoppm not found. Install with: brew install poppler"
     )
     process.exit(1)
   }
 
   console.log(`Concurrency: ${CONCURRENCY} parallel tasks`)
-  console.log('Finding PDF files...')
+  console.log("Finding PDF files...")
   const pdfFiles = await findPdfFiles(filesDir)
   console.log(`Found ${pdfFiles.length} PDF files\n`)
 
-  const outputPath = path.join(process.cwd(), 'celebrity-results.json')
+  const outputPath = path.join(process.cwd(), "celebrity-results.json")
 
   // Load existing results for resume capability
   let processedKeys = new Set<string>()
@@ -247,7 +247,7 @@ async function main() {
   if (fs.existsSync(outputPath)) {
     try {
       const existing = JSON.parse(
-        fs.readFileSync(outputPath, 'utf-8')
+        fs.readFileSync(outputPath, "utf-8")
       ) as ProcessingResults
       existingResults = existing.results
       processedKeys = new Set(
@@ -257,7 +257,7 @@ async function main() {
         `Resuming (${existingResults.length} pages already processed)\n`
       )
     } catch {
-      console.log('Starting fresh...\n')
+      console.log("Starting fresh...\n")
     }
   }
 
@@ -289,7 +289,7 @@ async function main() {
   )
 
   if (tasks.length === 0) {
-    console.log('Nothing to process!')
+    console.log("Nothing to process!")
     return
   }
 
@@ -310,7 +310,7 @@ async function main() {
       if (result.celebrities.length > 0) {
         celebsFound++
         console.log(
-          `[${completed}/${total}] ${path.basename(result.file)} p${result.page}: ${result.celebrities.map((c) => `${c.name} (${c.confidence.toFixed(1)}%)`).join(', ')}`
+          `[${completed}/${total}] ${path.basename(result.file)} p${result.page}: ${result.celebrities.map((c) => `${c.name} (${c.confidence.toFixed(1)}%)`).join(", ")}`
         )
       } else if (completed % 50 === 0 || completed === total) {
         const elapsed = (Date.now() - startTime) / 1000
@@ -341,7 +341,7 @@ async function main() {
   }
 
   const elapsed = (Date.now() - startTime) / 1000
-  console.log('\n========== SUMMARY ==========')
+  console.log("\n========== SUMMARY ==========")
   console.log(`Total time: ${(elapsed / 60).toFixed(1)} minutes`)
   console.log(`Total images processed: ${results.length}`)
   console.log(

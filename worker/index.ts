@@ -4,7 +4,7 @@ interface Env {
 
 function getFileId(key: string): string {
   const match = key.match(/EFTA\d+/)
-  return match ? match[0] : key.split('/').pop() || key
+  return match ? match[0] : key.split("/").pop() || key
 }
 
 function generateOgHtml(
@@ -59,33 +59,33 @@ export default {
     const path = url.pathname.slice(1) // Remove leading slash
 
     const cacheHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Cache-Control': 'public, max-age=31536000, immutable',
+      "Access-Control-Allow-Origin": "*",
+      "Cache-Control": "public, max-age=31536000, immutable",
     }
 
     // Handle CORS preflight
-    if (request.method === 'OPTIONS') {
+    if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: {
           ...cacheHeaders,
-          'Access-Control-Allow-Methods': 'GET, HEAD, POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
         },
       })
     }
 
     // Serve PDF images manifest
-    if (path === 'api/pdf-manifest') {
+    if (path === "api/pdf-manifest") {
       const manifestObject = await env.R2_BUCKET.get(
-        'pdfs-as-jpegs/manifest.json'
+        "pdfs-as-jpegs/manifest.json"
       )
 
       if (!manifestObject) {
-        return new Response(JSON.stringify({ error: 'Manifest not found' }), {
+        return new Response(JSON.stringify({ error: "Manifest not found" }), {
           status: 404,
           headers: {
             ...cacheHeaders,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         })
       }
@@ -93,38 +93,38 @@ export default {
       return new Response(manifestObject.body, {
         headers: {
           ...cacheHeaders,
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       })
     }
 
     // Handle OG metadata endpoint for social media bots
-    if (path === 'og' || path === 'api/og') {
-      const filePath = url.searchParams.get('file')
+    if (path === "og" || path === "api/og") {
+      const filePath = url.searchParams.get("file")
 
       if (!filePath) {
-        return new Response('Missing file parameter', { status: 400 })
+        return new Response("Missing file parameter", { status: 400 })
       }
 
       // Construct thumbnail URL - thumbnails are stored as .jpg versions of the PDF
-      const thumbnailKey = `thumbnails/${filePath.replace('.pdf', '.jpg')}`
+      const thumbnailKey = `thumbnails/${filePath.replace(".pdf", ".jpg")}`
       const thumbnailUrl = `${url.origin}/${thumbnailKey}`
 
       // Use the main site URL for the page link
-      const siteUrl = 'https://epstein-files-browser.vercel.app'
+      const siteUrl = "https://epstein-files-browser.vercel.app"
 
       const html = generateOgHtml(filePath, thumbnailUrl, siteUrl)
 
       return new Response(html, {
         headers: {
-          'Content-Type': 'text/html; charset=utf-8',
-          'Cache-Control': 'public, max-age=86400', // Cache for 1 day
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "public, max-age=86400", // Cache for 1 day
         },
       })
     }
 
     // Get files by keys endpoint (POST with array of keys)
-    if (path === 'api/files-by-keys' && request.method === 'POST') {
+    if (path === "api/files-by-keys" && request.method === "POST") {
       const body = (await request.json()) as { keys: string[] }
       const keys = body.keys || []
 
@@ -155,14 +155,14 @@ export default {
         {
           headers: {
             ...cacheHeaders,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       )
     }
 
     // List all files endpoint (returns everything)
-    if (path === 'api/all-files') {
+    if (path === "api/all-files") {
       const files: { key: string; size: number; uploaded: string }[] = []
       let hasMoreInBucket = true
       let bucketCursor: string | undefined = undefined
@@ -179,7 +179,7 @@ export default {
         const listed = await env.R2_BUCKET.list(listOptions)
 
         for (const obj of listed.objects) {
-          if (obj.key.toLowerCase().endsWith('.pdf')) {
+          if (obj.key.toLowerCase().endsWith(".pdf")) {
             files.push({
               key: obj.key,
               size: obj.size,
@@ -200,20 +200,20 @@ export default {
         {
           headers: {
             ...cacheHeaders,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       )
     }
 
     // List files endpoint (paginated)
-    if (path === 'api/files' || path === 'files') {
-      const startAfter = url.searchParams.get('cursor') || undefined
+    if (path === "api/files" || path === "files") {
+      const startAfter = url.searchParams.get("cursor") || undefined
       const limit = Math.min(
-        parseInt(url.searchParams.get('limit') || '100'),
+        parseInt(url.searchParams.get("limit") || "100"),
         1000
       )
-      const prefix = url.searchParams.get('prefix') || ''
+      const prefix = url.searchParams.get("prefix") || ""
 
       // We need to fetch more than requested since we filter out non-PDFs
       const files: { key: string; size: number; uploaded: string }[] = []
@@ -237,7 +237,7 @@ export default {
         const listed = await env.R2_BUCKET.list(listOptions)
 
         for (const obj of listed.objects) {
-          if (obj.key.toLowerCase().endsWith('.pdf')) {
+          if (obj.key.toLowerCase().endsWith(".pdf")) {
             files.push({
               key: obj.key,
               size: obj.size,
@@ -270,7 +270,7 @@ export default {
         {
           headers: {
             ...cacheHeaders,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       )
@@ -280,7 +280,7 @@ export default {
     const object = await env.R2_BUCKET.get(path)
 
     if (!object) {
-      return new Response('Not Found', {
+      return new Response("Not Found", {
         status: 404,
         headers: cacheHeaders,
       })
@@ -288,13 +288,13 @@ export default {
 
     const headers = new Headers(cacheHeaders)
     headers.set(
-      'Content-Type',
-      object.httpMetadata?.contentType || 'application/pdf'
+      "Content-Type",
+      object.httpMetadata?.contentType || "application/pdf"
     )
-    headers.set('Content-Length', object.size.toString())
+    headers.set("Content-Length", object.size.toString())
     headers.set(
-      'Content-Disposition',
-      `inline; filename="${path.split('/').pop()}"`
+      "Content-Disposition",
+      `inline; filename="${path.split("/").pop()}"`
     )
 
     return new Response(object.body, { headers })

@@ -1,17 +1,17 @@
-'use client'
+"use client"
 
-import { use, useEffect, useState, useRef, useCallback, useMemo } from 'react'
-import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { getPdfPages, setPdfPages } from '@/lib/cache'
-import { useFiles } from '@/lib/files-context'
-import { CELEBRITY_DATA } from '@/lib/celebrity-data'
-import { CelebrityDisclaimer } from '@/components/celebrity-disclaimer'
+import { use, useEffect, useState, useRef, useCallback, useMemo } from "react"
+import Link from "next/link"
+import { useRouter, useSearchParams } from "next/navigation"
+import { getPdfPages, setPdfPages } from "@/lib/cache"
+import { useFiles } from "@/lib/files-context"
+import { CELEBRITY_DATA } from "@/lib/celebrity-data"
+import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer"
 
 const WORKER_URL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:8787'
-    : 'https://epstein-files.rhys-669.workers.dev'
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:8787"
+    : "https://epstein-files.rhys-669.workers.dev"
 
 // Track in-progress prefetch operations to avoid duplicates
 const prefetchingSet = new Set<string>()
@@ -26,7 +26,7 @@ async function prefetchPdf(filePath: string): Promise<void> {
 
   try {
     const fileUrl = `${WORKER_URL}/${filePath}`
-    const pdfjsLib = await import('pdfjs-dist')
+    const pdfjsLib = await import("pdfjs-dist")
     pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
 
     const loadingTask = pdfjsLib.getDocument(fileUrl)
@@ -39,8 +39,8 @@ async function prefetchPdf(filePath: string): Promise<void> {
       const scale = 2
       const viewport = page.getViewport({ scale })
 
-      const canvas = document.createElement('canvas')
-      const context = canvas.getContext('2d')!
+      const canvas = document.createElement("canvas")
+      const context = canvas.getContext("2d")!
       canvas.width = viewport.width
       canvas.height = viewport.height
 
@@ -50,7 +50,7 @@ async function prefetchPdf(filePath: string): Promise<void> {
         canvas,
       }).promise
 
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.85)
       renderedPages.push(dataUrl)
     }
 
@@ -122,7 +122,7 @@ function PageWithCelebrities({
           src={dataUrl}
           alt={`Page ${pageNumber}`}
           className="h-auto w-full md:mx-auto md:max-h-[75vh] md:w-auto"
-          style={{ maxWidth: '100%' }}
+          style={{ maxWidth: "100%" }}
         />
       </div>
       {celebrities.length > 0 && (
@@ -175,7 +175,7 @@ export default function FilePage({
   params: Promise<{ path: string[] }>
 }) {
   const { path } = use(params)
-  const filePath = decodeURIComponent(path.join('/'))
+  const filePath = decodeURIComponent(path.join("/"))
   const fileId = getFileId(filePath)
 
   const router = useRouter()
@@ -183,8 +183,8 @@ export default function FilePage({
   const { getAdjacentFile } = useFiles()
 
   // Get filter params for navigation
-  const collectionFilter = searchParams.get('collection') ?? 'All'
-  const celebrityFilter = searchParams.get('celebrity') ?? 'All'
+  const collectionFilter = searchParams.get("collection") ?? "All"
+  const celebrityFilter = searchParams.get("celebrity") ?? "All"
   const filters = useMemo(
     () => ({
       collection: collectionFilter,
@@ -210,10 +210,10 @@ export default function FilePage({
   // Build query string to preserve filters in navigation
   const queryString = useMemo(() => {
     const params = new URLSearchParams()
-    if (collectionFilter !== 'All') params.set('collection', collectionFilter)
-    if (celebrityFilter !== 'All') params.set('celebrity', celebrityFilter)
+    if (collectionFilter !== "All") params.set("collection", collectionFilter)
+    if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter)
     const str = params.toString()
-    return str ? `?${str}` : ''
+    return str ? `?${str}` : ""
   }, [collectionFilter, celebrityFilter])
 
   const fileUrl = `${WORKER_URL}/${filePath}`
@@ -247,9 +247,9 @@ export default function FilePage({
         return
       }
 
-      if (e.key === 'ArrowLeft') {
+      if (e.key === "ArrowLeft") {
         navigatePrev()
-      } else if (e.key === 'ArrowRight') {
+      } else if (e.key === "ArrowRight") {
         navigateNext()
       }
     },
@@ -289,13 +289,13 @@ export default function FilePage({
   )
 
   useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown)
-    window.addEventListener('touchstart', handleTouchStart)
-    window.addEventListener('touchend', handleTouchEnd)
+    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("touchstart", handleTouchStart)
+    window.addEventListener("touchend", handleTouchEnd)
     return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchend', handleTouchEnd)
+      window.removeEventListener("keydown", handleKeyDown)
+      window.removeEventListener("touchstart", handleTouchStart)
+      window.removeEventListener("touchend", handleTouchEnd)
     }
   }, [handleKeyDown, handleTouchStart, handleTouchEnd])
 
@@ -331,7 +331,7 @@ export default function FilePage({
 
     async function loadPdf() {
       try {
-        const pdfjsLib = await import('pdfjs-dist')
+        const pdfjsLib = await import("pdfjs-dist")
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
 
         const loadingTask = pdfjsLib.getDocument(fileUrl)
@@ -350,8 +350,8 @@ export default function FilePage({
           const scale = 2
           const viewport = page.getViewport({ scale })
 
-          const canvas = document.createElement('canvas')
-          const context = canvas.getContext('2d')!
+          const canvas = document.createElement("canvas")
+          const context = canvas.getContext("2d")!
           canvas.width = viewport.width
           canvas.height = viewport.height
 
@@ -361,7 +361,7 @@ export default function FilePage({
             canvas,
           }).promise
 
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85)
           renderedPages.push(dataUrl)
 
           // Update state progressively
@@ -374,7 +374,7 @@ export default function FilePage({
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : 'Failed to load PDF')
+          setError(err instanceof Error ? err.message : "Failed to load PDF")
         }
       } finally {
         if (!cancelled) {
@@ -391,11 +391,11 @@ export default function FilePage({
   }, [fileUrl, filePath])
 
   // Prefetch next PDFs after current one is loaded
-  const nextPathsKey = nextPaths.join(',')
+  const nextPathsKey = nextPaths.join(",")
   useEffect(() => {
     if (loading || !nextPathsKey) return
 
-    const paths = nextPathsKey.split(',').filter(Boolean)
+    const paths = nextPathsKey.split(",").filter(Boolean)
     const timeoutIds: ReturnType<typeof setTimeout>[] = []
 
     // Prefetch next 5 files with staggered delays
@@ -584,7 +584,7 @@ export default function FilePage({
             <p className="text-foreground font-medium">
               {pages.length > 0
                 ? `Rendering page ${pages.length + 1} of ${totalPages}`
-                : 'Loading PDF...'}
+                : "Loading PDF..."}
             </p>
           </div>
         )}
