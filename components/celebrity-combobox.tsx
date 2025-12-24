@@ -45,29 +45,36 @@ export function CelebrityCombobox({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[220px] sm:w-[260px] justify-between bg-secondary border-border text-foreground hover:bg-accent hover:text-foreground rounded-xl h-auto py-2.5 px-4 transition-all duration-200"
+          className="bg-secondary border-border text-foreground hover:bg-accent hover:text-foreground h-auto w-[220px] justify-between rounded-xl px-4 py-2.5 transition-all duration-200 sm:w-[260px]"
         >
-          <div className="flex items-center gap-2 min-w-0">
-            <User className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+          <div className="flex min-w-0 items-center gap-2">
+            <User className="text-muted-foreground h-4 w-4 flex-shrink-0" />
             {value === "All" ? (
               <span className="text-sm font-medium">All People</span>
             ) : selectedCelebrity ? (
               <span className="truncate text-sm font-medium">
                 {selectedCelebrity.name}
-                <span className="text-muted-foreground ml-1">({selectedCelebrity.count})</span>
+                <span className="text-muted-foreground ml-1">
+                  ({selectedCelebrity.count})
+                </span>
               </span>
             ) : (
-              <span className="text-sm text-muted-foreground">Select person...</span>
+              <span className="text-muted-foreground text-sm">
+                Select person...
+              </span>
             )}
           </div>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 text-muted-foreground" />
+          <ChevronsUpDown className="text-muted-foreground ml-2 h-4 w-4 shrink-0" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[280px] p-0 bg-card border-border rounded-xl shadow-xl" align="start">
+      <PopoverContent
+        className="bg-card border-border w-[280px] rounded-xl p-0 shadow-xl"
+        align="start"
+      >
         <Command className="bg-transparent">
           <CommandInput
             placeholder="Search people..."
-            className="text-foreground placeholder:text-muted-foreground border-b border-border"
+            className="text-foreground placeholder:text-muted-foreground border-border border-b"
           />
           <CommandList className="max-h-[300px]">
             <CommandEmpty className="text-muted-foreground py-6 text-center text-sm">
@@ -80,11 +87,11 @@ export function CelebrityCombobox({
                   onValueChange("All");
                   setOpen(false);
                 }}
-                className="text-foreground hover:bg-accent data-[selected=true]:bg-accent rounded-lg px-3 py-2.5 cursor-pointer"
+                className="text-foreground hover:bg-accent data-[selected=true]:bg-accent cursor-pointer rounded-lg px-3 py-2.5"
               >
                 <Check
                   className={cn(
-                    "mr-2.5 h-4 w-4 text-primary",
+                    "text-primary mr-2.5 h-4 w-4",
                     value === "All" ? "opacity-100" : "opacity-0"
                   )}
                 />
@@ -98,16 +105,16 @@ export function CelebrityCombobox({
                     onValueChange(celebrity.name);
                     setOpen(false);
                   }}
-                  className="text-foreground hover:bg-accent data-[selected=true]:bg-accent rounded-lg px-3 py-2.5 cursor-pointer"
+                  className="text-foreground hover:bg-accent data-[selected=true]:bg-accent cursor-pointer rounded-lg px-3 py-2.5"
                 >
                   <Check
                     className={cn(
-                      "mr-2.5 h-4 w-4 text-primary",
+                      "text-primary mr-2.5 h-4 w-4",
                       value === celebrity.name ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  <span className="truncate flex-1">{celebrity.name}</span>
-                  <span className="text-muted-foreground text-xs ml-2 bg-secondary px-2 py-0.5 rounded-md">
+                  <span className="flex-1 truncate">{celebrity.name}</span>
+                  <span className="text-muted-foreground bg-secondary ml-2 rounded-md px-2 py-0.5 text-xs">
                     {celebrity.count}
                   </span>
                 </CommandItem>

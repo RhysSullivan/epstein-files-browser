@@ -25,11 +25,15 @@ export function setFilesCache(data: FilesCache): void {
   filesCache = data;
 }
 
-export function appendToFilesCache(newFiles: FileItem[], cursor: string | null, hasMore: boolean): void {
+export function appendToFilesCache(
+  newFiles: FileItem[],
+  cursor: string | null,
+  hasMore: boolean
+): void {
   // Dedupe by key
-  const existingKeys = new Set(filesCache.files.map(f => f.key));
-  const uniqueNewFiles = newFiles.filter(f => !existingKeys.has(f.key));
-  
+  const existingKeys = new Set(filesCache.files.map((f) => f.key));
+  const uniqueNewFiles = newFiles.filter((f) => !existingKeys.has(f.key));
+
   filesCache = {
     files: [...filesCache.files, ...uniqueNewFiles],
     cursor,
@@ -76,7 +80,7 @@ export function setPdfPages(key: string, pages: string[]): void {
   if (pdfPagesCache.has(key)) {
     pdfPagesCache.delete(key);
   }
-  
+
   // Evict oldest entries if at capacity
   while (pdfPagesCache.size >= PDF_CACHE_MAX_SIZE) {
     const oldestKey = pdfPagesCache.keys().next().value;
@@ -84,7 +88,7 @@ export function setPdfPages(key: string, pages: string[]): void {
       pdfPagesCache.delete(oldestKey);
     }
   }
-  
+
   pdfPagesCache.set(key, pages);
 }
 

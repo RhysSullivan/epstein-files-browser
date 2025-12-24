@@ -1,22 +1,28 @@
 "use client";
 
-import { createContext, useContext, ReactNode, useMemo, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useMemo,
+  useEffect,
+} from "react";
 import { FileItem, PdfManifest, setPdfManifest } from "./cache";
 import { getFilesForCelebrity } from "./celebrity-data";
+import { getFileId } from "./utils";
 
 interface FilesContextValue {
   files: FileItem[];
   pdfManifest: PdfManifest;
   getFilePath: (fileId: string) => string | null;
-  getAdjacentFile: (currentPath: string, offset: number, filters?: { collection?: string; celebrity?: string }) => string | null;
+  getAdjacentFile: (
+    currentPath: string,
+    offset: number,
+    filters?: { collection?: string; celebrity?: string }
+  ) => string | null;
 }
 
 const FilesContext = createContext<FilesContextValue | null>(null);
-
-function getFileId(key: string): string {
-  const match = key.match(/EFTA\d+/);
-  return match ? match[0] : key;
-}
 
 // Helper to get filtered file keys based on filters
 function getFilteredFileKeys(
@@ -24,7 +30,7 @@ function getFilteredFileKeys(
   filters: { collection?: string; celebrity?: string }
 ): string[] {
   const { collection, celebrity } = filters;
-  
+
   // Celebrity filter takes precedence
   if (celebrity && celebrity !== "All") {
     const celebrityFileKeys = getFilesForCelebrity(celebrity, 99);
@@ -34,12 +40,14 @@ function getFilteredFileKeys(
     }
     return celebrityFileKeys;
   }
-  
+
   // Collection filter only
   if (collection && collection !== "All") {
-    return allFiles.filter((f) => f.key.startsWith(collection)).map((f) => f.key);
+    return allFiles
+      .filter((f) => f.key.startsWith(collection))
+      .map((f) => f.key);
   }
-  
+
   // No filters - return all files
   return allFiles.map((f) => f.key);
 }
@@ -58,12 +66,13 @@ export function FilesProvider({
     setPdfManifest(pdfManifest);
   }, [pdfManifest]);
   // Create a sorted list of file paths for navigation
-  const sortedFiles = useMemo(() => 
-    [...files].sort((a, b) => {
-      const idA = getFileId(a.key);
-      const idB = getFileId(b.key);
-      return idA.localeCompare(idB);
-    }),
+  const sortedFiles = useMemo(
+    () =>
+      [...files].sort((a, b) => {
+        const idA = getFileId(a.key);
+        const idB = getFileId(b.key);
+        return idA.localeCompare(idB);
+      }),
     [files]
   );
 
@@ -84,13 +93,16 @@ export function FilesProvider({
 
   // Get adjacent file path (prev/next) with optional filters
   const getAdjacentFile = (
-    currentPath: string, 
+    currentPath: string,
     offset: number,
     filters?: { collection?: string; celebrity?: string }
   ): string | null => {
     // Get the appropriate file list based on filters
     let fileKeys: string[];
-    if (filters && (filters.collection !== "All" || filters.celebrity !== "All")) {
+    if (
+      filters &&
+      (filters.collection !== "All" || filters.celebrity !== "All")
+    ) {
       fileKeys = getFilteredFileKeys(sortedFiles, filters);
       // Sort the filtered keys by file ID
       fileKeys.sort((a, b) => {
@@ -101,7 +113,7 @@ export function FilesProvider({
     } else {
       fileKeys = sortedFiles.map((f) => f.key);
     }
-    
+
     const currentIndex = fileKeys.findIndex((key) => key === currentPath);
     if (currentIndex === -1) return null;
 
@@ -112,7 +124,9 @@ export function FilesProvider({
   };
 
   return (
-    <FilesContext.Provider value={{ files: sortedFiles, pdfManifest, getFilePath, getAdjacentFile }}>
+    <FilesContext.Provider
+      value={{ files: sortedFiles, pdfManifest, getFilePath, getAdjacentFile }}
+    >
       {children}
     </FilesContext.Provider>
   );

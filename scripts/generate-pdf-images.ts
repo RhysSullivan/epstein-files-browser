@@ -40,9 +40,12 @@ function findPdfs(dir: string): string[] {
 function getPdfPageCount(pdfPath: string): number {
   try {
     // Use pdfinfo to get page count (faster than pdftoppm)
-    const output = execSync(`pdfinfo "${pdfPath}" 2>/dev/null | grep "^Pages:"`, {
-      encoding: "utf-8",
-    });
+    const output = execSync(
+      `pdfinfo "${pdfPath}" 2>/dev/null | grep "^Pages:"`,
+      {
+        encoding: "utf-8",
+      }
+    );
     const match = output.match(/Pages:\s+(\d+)/);
     return match ? parseInt(match[1], 10) : 0;
   } catch {
@@ -72,8 +75,10 @@ async function generatePdfImages(
     );
 
     // Find all generated temp files and convert to JPEG
-    const tempFiles = fs.readdirSync(outputDir).filter((f) => f.startsWith("temp-") && f.endsWith(".png"));
-    
+    const tempFiles = fs
+      .readdirSync(outputDir)
+      .filter((f) => f.startsWith("temp-") && f.endsWith(".png"));
+
     // Sort to ensure correct page order
     tempFiles.sort((a, b) => {
       const numA = parseInt(a.match(/temp-(\d+)\.png/)?.[1] || "0", 10);
@@ -103,13 +108,18 @@ async function generatePdfImages(
 }
 
 // Check if PDF images already exist and are complete
-function checkExistingImages(outputDir: string, expectedPages?: number): { exists: boolean; pages: number } {
+function checkExistingImages(
+  outputDir: string,
+  expectedPages?: number
+): { exists: boolean; pages: number } {
   if (!fs.existsSync(outputDir)) {
     return { exists: false, pages: 0 };
   }
 
-  const jpegFiles = fs.readdirSync(outputDir).filter((f) => f.startsWith("page-") && f.endsWith(".jpg"));
-  
+  const jpegFiles = fs
+    .readdirSync(outputDir)
+    .filter((f) => f.startsWith("page-") && f.endsWith(".jpg"));
+
   if (jpegFiles.length === 0) {
     return { exists: false, pages: 0 };
   }
@@ -175,7 +185,9 @@ async function main() {
   let manifest: Manifest = {};
   if (fs.existsSync(manifestPath)) {
     manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
-    console.log(`Loaded existing manifest with ${Object.keys(manifest).length} entries`);
+    console.log(
+      `Loaded existing manifest with ${Object.keys(manifest).length} entries`
+    );
   }
 
   if (mode === "all" || mode === "generate") {
@@ -195,7 +207,10 @@ async function main() {
       // Check if already processed
       const existingEntry = manifest[pdfKey];
       if (existingEntry) {
-        const { exists, pages } = checkExistingImages(localOutputDir, existingEntry.pages);
+        const { exists, pages } = checkExistingImages(
+          localOutputDir,
+          existingEntry.pages
+        );
         if (exists && pages === existingEntry.pages) {
           skipped++;
           continue;
@@ -207,7 +222,7 @@ async function main() {
       );
 
       const pageCount = await generatePdfImages(pdfPath, localOutputDir);
-      
+
       if (pageCount > 0) {
         manifest[pdfKey] = { pages: pageCount };
         generated++;

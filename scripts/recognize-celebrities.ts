@@ -36,7 +36,10 @@ interface ProcessingResults {
   totalImages: number;
   imagesWithCelebrities: number;
   uniqueCelebrities: string[];
-  celebrityAppearances: Record<string, { file: string; page: number; confidence: number }[]>;
+  celebrityAppearances: Record<
+    string,
+    { file: string; page: number; confidence: number }[]
+  >;
   results: PageResult[];
 }
 
@@ -83,8 +86,14 @@ async function recognizeCelebrities(
     return celebrities;
   } catch (error) {
     const errName = (error as Error).name;
-    if ((errName === "ThrottlingException" || errName === "ProvisionedThroughputExceededException") && retries > 0) {
-      await new Promise((resolve) => setTimeout(resolve, 1000 + Math.random() * 2000));
+    if (
+      (errName === "ThrottlingException" ||
+        errName === "ProvisionedThroughputExceededException") &&
+      retries > 0
+    ) {
+      await new Promise((resolve) =>
+        setTimeout(resolve, 1000 + Math.random() * 2000)
+      );
       return recognizeCelebrities(imageBuffer, retries - 1);
     }
     throw error;
@@ -175,7 +184,10 @@ async function processWithConcurrency<T, R>(
 
 function saveResults(outputPath: string, results: PageResult[]) {
   const uniqueCelebrities = new Set<string>();
-  const celebrityAppearances: Record<string, { file: string; page: number; confidence: number }[]> = {};
+  const celebrityAppearances: Record<
+    string,
+    { file: string; page: number; confidence: number }[]
+  > = {};
 
   for (const r of results) {
     for (const c of r.celebrities) {
@@ -198,7 +210,8 @@ function saveResults(outputPath: string, results: PageResult[]) {
   const output: ProcessingResults = {
     processedAt: new Date().toISOString(),
     totalImages: results.length,
-    imagesWithCelebrities: results.filter((r) => r.celebrities.length > 0).length,
+    imagesWithCelebrities: results.filter((r) => r.celebrities.length > 0)
+      .length,
     uniqueCelebrities: Array.from(uniqueCelebrities).sort(),
     celebrityAppearances,
     results,
@@ -214,7 +227,9 @@ async function main() {
   try {
     execSync("which pdftoppm", { stdio: "pipe" });
   } catch {
-    console.error("Error: pdftoppm not found. Install with: brew install poppler");
+    console.error(
+      "Error: pdftoppm not found. Install with: brew install poppler"
+    );
     process.exit(1);
   }
 
@@ -231,10 +246,16 @@ async function main() {
 
   if (fs.existsSync(outputPath)) {
     try {
-      const existing = JSON.parse(fs.readFileSync(outputPath, "utf-8")) as ProcessingResults;
+      const existing = JSON.parse(
+        fs.readFileSync(outputPath, "utf-8")
+      ) as ProcessingResults;
       existingResults = existing.results;
-      processedKeys = new Set(existing.results.map((r) => `${r.file}:${r.page}`));
-      console.log(`Resuming (${existingResults.length} pages already processed)\n`);
+      processedKeys = new Set(
+        existing.results.map((r) => `${r.file}:${r.page}`)
+      );
+      console.log(
+        `Resuming (${existingResults.length} pages already processed)\n`
+      );
     } catch {
       console.log("Starting fresh...\n");
     }
@@ -263,7 +284,9 @@ async function main() {
     }
   }
 
-  console.log(`Tasks to process: ${tasks.length} pages from ${filesConsidered} files\n`);
+  console.log(
+    `Tasks to process: ${tasks.length} pages from ${filesConsidered} files\n`
+  );
 
   if (tasks.length === 0) {
     console.log("Nothing to process!");
@@ -321,7 +344,9 @@ async function main() {
   console.log("\n========== SUMMARY ==========");
   console.log(`Total time: ${(elapsed / 60).toFixed(1)} minutes`);
   console.log(`Total images processed: ${results.length}`);
-  console.log(`Images with celebrities: ${results.filter((r) => r.celebrities.length > 0).length}`);
+  console.log(
+    `Images with celebrities: ${results.filter((r) => r.celebrities.length > 0).length}`
+  );
   console.log(`Unique celebrities: ${uniqueCelebs.size}`);
   console.log(`\nResults saved to: celebrity-results.json`);
   console.log(`Estimated cost: $${(results.length * 0.001).toFixed(2)}`);
