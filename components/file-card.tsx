@@ -1,15 +1,15 @@
-import { FileItem } from "@/lib/cache"
-import { Thumbnail } from "./thumbnail"
-import { formatFileSize, getFileId } from "@/lib/utils"
+import { FileItem } from "@/lib/cache";
+import { Thumbnail } from "./thumbnail";
+import { formatFileSize, getFileId } from "@/lib/utils";
 
 export function FileCard({
   file,
   onClick,
   onMouseEnter,
 }: {
-  file: FileItem
-  onClick: () => void
-  onMouseEnter?: () => void
+  file: FileItem;
+  onClick: () => void;
+  onMouseEnter?: () => void;
 }) {
   return (
     <button
@@ -67,5 +67,5 @@ export function FileCard({
         </h3>
       </div>
     </button>
-  )
+  );
 }

@@ -1,114 +1,118 @@
-"use client"
+"use client";
 
-import { useMemo, useCallback } from "react"
-import { useQueryState } from "nuqs"
+import { useMemo, useCallback } from "react";
+import { useQueryState } from "nuqs";
 
 import {
   getCelebritiesAboveConfidence,
   getFilesForCelebrity,
-} from "@/lib/celebrity-data"
-import { CelebrityCombobox } from "@/components/celebrity-combobox"
-import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer"
-import { useFiles } from "@/lib/files-context"
-import { getFileId } from "@/lib/utils"
-import { prefetchPdf } from "@/lib/prefetchPdfs"
-import { FileCard } from "@/components/file-card"
-import { FileModal } from "@/components/file-modal"
+} from "@/lib/celebrity-data";
+import { CelebrityCombobox } from "@/components/celebrity-combobox";
+import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
+import { useFiles } from "@/lib/files-context";
+import { getFileId } from "@/lib/utils";
+import { prefetchPdf } from "@/lib/prefetchPdfs";
+import { FileCard } from "@/components/file-card";
+import { FileModal } from "@/components/file-modal";
 
 export function FileBrowser() {
-  const { files: initialFiles } = useFiles()
+  const { files: initialFiles } = useFiles();
 
   const [collectionFilter, setCollectionFilter] = useQueryState("collection", {
     defaultValue: "All",
-  })
+  });
   const [celebrityFilter, setCelebrityFilter] = useQueryState("celebrity", {
     defaultValue: "All",
-  })
+  });
   const [sortBy, setSortBy] = useQueryState("sort", {
     defaultValue: "name",
-  })
-  const [openFile, setOpenFile] = useQueryState("file")
+  });
+  const [openFile, setOpenFile] = useQueryState("file");
 
   // Get celebrities with >99% confidence for the dropdown
-  const celebrities = getCelebritiesAboveConfidence(99)
+  const celebrities = getCelebritiesAboveConfidence(99);
 
   // Derive filtered and sorted files from initialFiles + filters
   const filteredFiles = useMemo(() => {
-    let files = initialFiles
+    let files = initialFiles;
 
     // Apply collection filter
     if (collectionFilter !== "All") {
-      files = files.filter((f) => f.key.startsWith(collectionFilter))
+      files = files.filter((f) => f.key.startsWith(collectionFilter));
     }
 
     // Apply celebrity filter
     if (celebrityFilter !== "All") {
       const celebrityFileKeys = new Set(
         getFilesForCelebrity(celebrityFilter, 99)
-      )
-      files = files.filter((f) => celebrityFileKeys.has(f.key))
+      );
+      files = files.filter((f) => celebrityFileKeys.has(f.key));
     }
 
     // Apply sorting
     files = [...files].sort((a, b) => {
       switch (sortBy) {
         case "date-desc":
-          return new Date(b.uploaded).getTime() - new Date(a.uploaded).getTime()
+          return (
+            new Date(b.uploaded).getTime() - new Date(a.uploaded).getTime()
+          );
         case "date-asc":
-          return new Date(a.uploaded).getTime() - new Date(b.uploaded).getTime()
+          return (
+            new Date(a.uploaded).getTime() - new Date(b.uploaded).getTime()
+          );
         case "size-desc":
-          return b.size - a.size
+          return b.size - a.size;
         case "size-asc":
-          return a.size - b.size
+          return a.size - b.size;
         case "name":
         default:
-          return getFileId(a.key).localeCompare(getFileId(b.key))
+          return getFileId(a.key).localeCompare(getFileId(b.key));
       }
-    })
+    });
 
-    return files
-  }, [initialFiles, collectionFilter, celebrityFilter, sortBy])
+    return files;
+  }, [initialFiles, collectionFilter, celebrityFilter, sortBy]);
 
   // Build query string to preserve filters in file links
   const queryString = useMemo(() => {
-    const params = new URLSearchParams()
-    if (collectionFilter !== "All") params.set("collection", collectionFilter)
-    if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter)
-    const str = params.toString()
-    return str ? `?${str}` : ""
-  }, [collectionFilter, celebrityFilter])
+    const params = new URLSearchParams();
+    if (collectionFilter !== "All") params.set("collection", collectionFilter);
+    if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter);
+    const str = params.toString();
+    return str ? `?${str}` : "";
+  }, [collectionFilter, celebrityFilter]);
 
   // Modal state - find index from file key
   const selectedFileIndex = useMemo(() => {
-    if (!openFile) return null
-    const index = filteredFiles.findIndex((f) => f.key === openFile)
-    return index >= 0 ? index : null
-  }, [openFile, filteredFiles])
+    if (!openFile) return null;
+    const index = filteredFiles.findIndex((f) => f.key === openFile);
+    return index >= 0 ? index : null;
+  }, [openFile, filteredFiles]);
 
   const selectedFile =
-    selectedFileIndex !== null ? filteredFiles[selectedFileIndex] : null
-  const hasPrev = selectedFileIndex !== null && selectedFileIndex > 0
+    selectedFileIndex !== null ? filteredFiles[selectedFileIndex] : null;
+  const hasPrev = selectedFileIndex !== null && selectedFileIndex > 0;
   const hasNext =
-    selectedFileIndex !== null && selectedFileIndex < filteredFiles.length - 1
+    selectedFileIndex !== null && selectedFileIndex < filteredFiles.length - 1;
 
   const handlePrev = useCallback(() => {
     if (selectedFileIndex !== null && selectedFileIndex > 0) {
-      setOpenFile(filteredFiles[selectedFileIndex - 1].key)
+      setOpenFile(filteredFiles[selectedFileIndex - 1].key);
     }
-  }, [selectedFileIndex, filteredFiles, setOpenFile])
+  }, [selectedFileIndex, filteredFiles, setOpenFile]);
 
   const handleNext = useCallback(() => {
     if (
       selectedFileIndex !== null &&
       selectedFileIndex < filteredFiles.length - 1
     ) {
-      setOpenFile(filteredFiles[selectedFileIndex + 1].key)
+      setOpenFile(filteredFiles[selectedFileIndex + 1].key);
     }
-  }, [selectedFileIndex, filteredFiles, setOpenFile])
+  }, [selectedFileIndex, filteredFiles, setOpenFile]);
 
   const handleClose = useCallback(() => {
-    setOpenFile(null)
-  }, [setOpenFile])
+    setOpenFile(null);
+  }, [setOpenFile]);
 
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
@@ -294,5 +298,5 @@ export function FileBrowser() {
         />
       )}
     </div>
-  )
+  );
 }

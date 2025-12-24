@@ -7,49 +7,49 @@
  * Output: lib/celebrity-data.ts (TypeScript file with embedded data)
  */
 
-import { readFileSync, writeFileSync } from "fs"
-import { join } from "path"
+import { readFileSync, writeFileSync } from "fs";
+import { join } from "path";
 
 interface CelebrityResult {
-  file: string
-  page: number
-  totalPages: number
+  file: string;
+  page: number;
+  totalPages: number;
   celebrities: {
-    name: string
-    confidence: number
-  }[]
+    name: string;
+    confidence: number;
+  }[];
 }
 
 interface InputData {
-  processedAt: string
-  totalImages: number
-  imagesWithCelebrities: number
-  uniqueCelebrities: string[]
+  processedAt: string;
+  totalImages: number;
+  imagesWithCelebrities: number;
+  uniqueCelebrities: string[];
   celebrityAppearances: Record<
     string,
     { file: string; page: number; confidence: number }[]
-  >
-  results: CelebrityResult[]
+  >;
+  results: CelebrityResult[];
 }
 
 interface CelebrityAppearance {
-  file: string
-  page: number
-  confidence: number
+  file: string;
+  page: number;
+  confidence: number;
 }
 
 interface Celebrity {
-  name: string
-  count: number
-  appearances: CelebrityAppearance[]
+  name: string;
+  count: number;
+  appearances: CelebrityAppearance[];
 }
 
-const ROOT_DIR = join(import.meta.dir, "..")
-const INPUT_FILE = join(ROOT_DIR, "celebrity-results.json")
-const OUTPUT_FILE = join(ROOT_DIR, "lib", "celebrity-data.ts")
+const ROOT_DIR = join(import.meta.dir, "..");
+const INPUT_FILE = join(ROOT_DIR, "celebrity-results.json");
+const OUTPUT_FILE = join(ROOT_DIR, "lib", "celebrity-data.ts");
 
 function transformData(input: InputData): Celebrity[] {
-  const celebrities: Celebrity[] = []
+  const celebrities: Celebrity[] = [];
 
   for (const [name, appearances] of Object.entries(
     input.celebrityAppearances
@@ -60,28 +60,28 @@ function transformData(input: InputData): Celebrity[] {
     const transformedAppearances: CelebrityAppearance[] = appearances.map(
       (app) => {
         // Extract the relative path starting with VOL
-        const match = app.file.match(/(VOL\d+\/.*)/)
-        const relativePath = match ? match[1] : app.file
+        const match = app.file.match(/(VOL\d+\/.*)/);
+        const relativePath = match ? match[1] : app.file;
 
         return {
           file: relativePath,
           page: app.page,
           confidence: app.confidence,
-        }
+        };
       }
-    )
+    );
 
     celebrities.push({
       name,
       count: transformedAppearances.length,
       appearances: transformedAppearances,
-    })
+    });
   }
 
   // Sort by count descending (most appearances first)
-  celebrities.sort((a, b) => b.count - a.count)
+  celebrities.sort((a, b) => b.count - a.count);
 
-  return celebrities
+  return celebrities;
 }
 
 function generateTypeScriptFile(
@@ -152,37 +152,37 @@ export function buildFileToCelebritiesMap(
 
   return map;
 }
-`
+`;
 }
 
 // Main
-console.log("Reading celebrity results from:", INPUT_FILE)
+console.log("Reading celebrity results from:", INPUT_FILE);
 
-let inputData: InputData
+let inputData: InputData;
 try {
-  const rawData = readFileSync(INPUT_FILE, "utf-8")
-  inputData = JSON.parse(rawData)
+  const rawData = readFileSync(INPUT_FILE, "utf-8");
+  inputData = JSON.parse(rawData);
 } catch (error) {
-  console.error("Error reading input file:", error)
-  process.exit(1)
+  console.error("Error reading input file:", error);
+  process.exit(1);
 }
 
-console.log(`Found ${inputData.uniqueCelebrities.length} unique celebrities`)
-console.log(`Total images processed: ${inputData.totalImages}`)
-console.log(`Images with celebrities: ${inputData.imagesWithCelebrities}`)
+console.log(`Found ${inputData.uniqueCelebrities.length} unique celebrities`);
+console.log(`Total images processed: ${inputData.totalImages}`);
+console.log(`Images with celebrities: ${inputData.imagesWithCelebrities}`);
 
-const celebrities = transformData(inputData)
+const celebrities = transformData(inputData);
 
-console.log("\nCelebrities by appearance count:")
+console.log("\nCelebrities by appearance count:");
 for (const celeb of celebrities.slice(0, 10)) {
-  console.log(`  ${celeb.name}: ${celeb.count} appearances`)
+  console.log(`  ${celeb.name}: ${celeb.count} appearances`);
 }
 if (celebrities.length > 10) {
-  console.log(`  ... and ${celebrities.length - 10} more`)
+  console.log(`  ... and ${celebrities.length - 10} more`);
 }
 
-const tsContent = generateTypeScriptFile(celebrities, inputData.processedAt)
-writeFileSync(OUTPUT_FILE, tsContent)
+const tsContent = generateTypeScriptFile(celebrities, inputData.processedAt);
+writeFileSync(OUTPUT_FILE, tsContent);
 
-console.log(`\nGenerated: ${OUTPUT_FILE}`)
-console.log("Done!")
+console.log(`\nGenerated: ${OUTPUT_FILE}`);
+console.log("Done!");

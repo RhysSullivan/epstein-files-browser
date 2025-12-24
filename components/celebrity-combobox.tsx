@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Check, ChevronsUpDown, User } from "lucide-react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import * as React from "react";
+import { Check, ChevronsUpDown, User } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -11,22 +11,22 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command"
+} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 
 interface Celebrity {
-  name: string
-  count: number
+  name: string;
+  count: number;
 }
 
 interface CelebrityComboboxProps {
-  celebrities: Celebrity[]
-  value: string
-  onValueChange: (value: string) => void
+  celebrities: Celebrity[];
+  value: string;
+  onValueChange: (value: string) => void;
 }
 
 export function CelebrityCombobox({
@@ -34,9 +34,9 @@ export function CelebrityCombobox({
   value,
   onValueChange,
 }: CelebrityComboboxProps) {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(false);
 
-  const selectedCelebrity = celebrities.find((c) => c.name === value)
+  const selectedCelebrity = celebrities.find((c) => c.name === value);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -84,8 +84,8 @@ export function CelebrityCombobox({
               <CommandItem
                 value="All"
                 onSelect={() => {
-                  onValueChange("All")
-                  setOpen(false)
+                  onValueChange("All");
+                  setOpen(false);
                 }}
                 className="text-foreground hover:bg-accent data-[selected=true]:bg-accent cursor-pointer rounded-lg px-3 py-2.5"
               >
@@ -102,8 +102,8 @@ export function CelebrityCombobox({
                   key={celebrity.name}
                   value={celebrity.name}
                   onSelect={() => {
-                    onValueChange(celebrity.name)
-                    setOpen(false)
+                    onValueChange(celebrity.name);
+                    setOpen(false);
                   }}
                   className="text-foreground hover:bg-accent data-[selected=true]:bg-accent cursor-pointer rounded-lg px-3 py-2.5"
                 >
@@ -124,5 +124,5 @@ export function CelebrityCombobox({
         </Command>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

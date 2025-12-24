@@ -1,13 +1,13 @@
-import { cn } from "@/lib/utils"
-import { XCircleIcon, XIcon } from "lucide-react"
-import { useState } from "react"
+import { cn } from "@/lib/utils";
+import { XCircleIcon, XIcon } from "lucide-react";
+import { useState } from "react";
 
 export function CelebrityDisclaimer({
   className = "",
 }: {
-  className?: string
+  className?: string;
 }) {
-  const [isDismissed, setIsDismissed] = useState(false)
+  const [isDismissed, setIsDismissed] = useState(false);
 
   return (
     <div
@@ -73,5 +73,5 @@ export function CelebrityDisclaimer({
         </div>
       </div>
     </div>
-  )
+  );
 }

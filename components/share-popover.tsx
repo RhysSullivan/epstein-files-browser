@@ -1,45 +1,45 @@
-import { useState } from "react"
+import { useState } from "react";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "@/components/ui/popover"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 // Share popover component
 export function SharePopover({
   filePath,
   queryString,
 }: {
-  filePath: string
-  queryString: string
+  filePath: string;
+  queryString: string;
 }) {
-  const [copied, setCopied] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
+  const [copied, setCopied] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const shareUrl =
     typeof window !== "undefined"
       ? `${window.location.origin}/file/${encodeURIComponent(
           filePath
         )}${queryString}`
-      : `/file/${encodeURIComponent(filePath)}${queryString}`
+      : `/file/${encodeURIComponent(filePath)}${queryString}`;
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(shareUrl)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback for older browsers
-      const textArea = document.createElement("textarea")
-      textArea.value = shareUrl
-      document.body.appendChild(textArea)
-      textArea.select()
-      document.execCommand("copy")
-      document.body.removeChild(textArea)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      const textArea = document.createElement("textarea");
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  }
+  };
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -136,5 +136,5 @@ export function SharePopover({
         </div>
       </PopoverContent>
     </Popover>
-  )
+  );
 }

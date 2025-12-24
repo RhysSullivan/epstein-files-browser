@@ -1,72 +1,72 @@
-"use client"
+"use client";
 
-import { use, useEffect, useState, useRef, useCallback, useMemo } from "react"
-import Link from "next/link"
-import { useRouter, useSearchParams } from "next/navigation"
-import { getPdfPages, setPdfPages } from "@/lib/cache"
-import { useFiles } from "@/lib/files-context"
-import { CELEBRITY_DATA } from "@/lib/celebrity-data"
-import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer"
+import { use, useEffect, useState, useRef, useCallback, useMemo } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getPdfPages, setPdfPages } from "@/lib/cache";
+import { useFiles } from "@/lib/files-context";
+import { CELEBRITY_DATA } from "@/lib/celebrity-data";
+import { CelebrityDisclaimer } from "@/components/celebrity-disclaimer";
 
 const WORKER_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8787"
-    : "https://epstein-files.rhys-669.workers.dev"
+    : "https://epstein-files.rhys-669.workers.dev";
 
 // Track in-progress prefetch operations to avoid duplicates
-const prefetchingSet = new Set<string>()
+const prefetchingSet = new Set<string>();
 
 async function prefetchPdf(filePath: string): Promise<void> {
   // Skip if already cached or already prefetching
   if (getPdfPages(filePath) || prefetchingSet.has(filePath)) {
-    return
+    return;
   }
 
-  prefetchingSet.add(filePath)
+  prefetchingSet.add(filePath);
 
   try {
-    const fileUrl = `${WORKER_URL}/${filePath}`
-    const pdfjsLib = await import("pdfjs-dist")
-    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
+    const fileUrl = `${WORKER_URL}/${filePath}`;
+    const pdfjsLib = await import("pdfjs-dist");
+    pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
-    const loadingTask = pdfjsLib.getDocument(fileUrl)
-    const pdf = await loadingTask.promise
+    const loadingTask = pdfjsLib.getDocument(fileUrl);
+    const pdf = await loadingTask.promise;
 
-    const renderedPages: string[] = []
+    const renderedPages: string[] = [];
 
     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum)
-      const scale = 2
-      const viewport = page.getViewport({ scale })
+      const page = await pdf.getPage(pageNum);
+      const scale = 2;
+      const viewport = page.getViewport({ scale });
 
-      const canvas = document.createElement("canvas")
-      const context = canvas.getContext("2d")!
-      canvas.width = viewport.width
-      canvas.height = viewport.height
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d")!;
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
 
       await page.render({
         canvasContext: context,
         viewport,
         canvas,
-      }).promise
+      }).promise;
 
-      const dataUrl = canvas.toDataURL("image/jpeg", 0.85)
-      renderedPages.push(dataUrl)
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+      renderedPages.push(dataUrl);
     }
 
     if (renderedPages.length > 0) {
-      setPdfPages(filePath, renderedPages)
+      setPdfPages(filePath, renderedPages);
     }
   } catch {
     // Silently fail prefetch - it's just an optimization
   } finally {
-    prefetchingSet.delete(filePath)
+    prefetchingSet.delete(filePath);
   }
 }
 
 function getFileId(key: string): string {
-  const match = key.match(/EFTA\d+/)
-  return match ? match[0] : key
+  const match = key.match(/EFTA\d+/);
+  return match ? match[0] : key;
 }
 
 // Get celebrities for a specific file and page
@@ -74,7 +74,7 @@ function getCelebritiesForPage(
   filePath: string,
   pageNumber: number
 ): { name: string; confidence: number }[] {
-  const celebrities: { name: string; confidence: number }[] = []
+  const celebrities: { name: string; confidence: number }[] = [];
 
   for (const celebrity of CELEBRITY_DATA) {
     for (const appearance of celebrity.appearances) {
@@ -84,7 +84,7 @@ function getCelebritiesForPage(
         celebrities.push({
           name: celebrity.name,
           confidence: appearance.confidence,
-        })
+        });
       }
     }
   }
@@ -92,7 +92,7 @@ function getCelebritiesForPage(
   // Sort by confidence (highest first)
   return celebrities
     .sort((a, b) => b.confidence - a.confidence)
-    .filter((celeb) => celeb.confidence > 99)
+    .filter((celeb) => celeb.confidence > 99);
 }
 
 // Component to display a page with its celebrity info
@@ -101,14 +101,14 @@ function PageWithCelebrities({
   pageNumber,
   filePath,
 }: {
-  dataUrl: string
-  pageNumber: number
-  filePath: string
+  dataUrl: string;
+  pageNumber: number;
+  filePath: string;
 }) {
   const celebrities = useMemo(
     () => getCelebritiesForPage(filePath, pageNumber),
     [filePath, pageNumber]
-  )
+  );
 
   return (
     <div className="bg-card border-border overflow-hidden rounded-2xl border shadow-xl">
@@ -166,75 +166,75 @@ function PageWithCelebrities({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default function FilePage({
   params,
 }: {
-  params: Promise<{ path: string[] }>
+  params: Promise<{ path: string[] }>;
 }) {
-  const { path } = use(params)
-  const filePath = decodeURIComponent(path.join("/"))
-  const fileId = getFileId(filePath)
+  const { path } = use(params);
+  const filePath = decodeURIComponent(path.join("/"));
+  const fileId = getFileId(filePath);
 
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const { getAdjacentFile } = useFiles()
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { getAdjacentFile } = useFiles();
 
   // Get filter params for navigation
-  const collectionFilter = searchParams.get("collection") ?? "All"
-  const celebrityFilter = searchParams.get("celebrity") ?? "All"
+  const collectionFilter = searchParams.get("collection") ?? "All";
+  const celebrityFilter = searchParams.get("celebrity") ?? "All";
   const filters = useMemo(
     () => ({
       collection: collectionFilter,
       celebrity: celebrityFilter,
     }),
     [collectionFilter, celebrityFilter]
-  )
+  );
 
   // Get adjacent file paths from context, respecting filters
-  const prevPath = getAdjacentFile(filePath, -1, filters)
-  const nextPath = getAdjacentFile(filePath, 1, filters)
+  const prevPath = getAdjacentFile(filePath, -1, filters);
+  const nextPath = getAdjacentFile(filePath, 1, filters);
 
   // Get next 5 files for prefetching
   const nextPaths = useMemo(() => {
-    const paths: string[] = []
+    const paths: string[] = [];
     for (let i = 1; i <= 5; i++) {
-      const path = getAdjacentFile(filePath, i, filters)
-      if (path) paths.push(path)
+      const path = getAdjacentFile(filePath, i, filters);
+      if (path) paths.push(path);
     }
-    return paths
-  }, [filePath, filters, getAdjacentFile])
+    return paths;
+  }, [filePath, filters, getAdjacentFile]);
 
   // Build query string to preserve filters in navigation
   const queryString = useMemo(() => {
-    const params = new URLSearchParams()
-    if (collectionFilter !== "All") params.set("collection", collectionFilter)
-    if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter)
-    const str = params.toString()
-    return str ? `?${str}` : ""
-  }, [collectionFilter, celebrityFilter])
+    const params = new URLSearchParams();
+    if (collectionFilter !== "All") params.set("collection", collectionFilter);
+    if (celebrityFilter !== "All") params.set("celebrity", celebrityFilter);
+    const str = params.toString();
+    return str ? `?${str}` : "";
+  }, [collectionFilter, celebrityFilter]);
 
-  const fileUrl = `${WORKER_URL}/${filePath}`
-  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const fileUrl = `${WORKER_URL}/${filePath}`;
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   // Navigation URLs - reused by Links, keyboard, and swipe handlers
   const prevUrl = prevPath
     ? `/file/${encodeURIComponent(prevPath)}${queryString}`
-    : null
+    : null;
   const nextUrl = nextPath
     ? `/file/${encodeURIComponent(nextPath)}${queryString}`
-    : null
+    : null;
 
   // Navigation callbacks - reused by keyboard and swipe handlers
   const navigatePrev = useCallback(() => {
-    if (prevUrl) router.push(prevUrl)
-  }, [prevUrl, router])
+    if (prevUrl) router.push(prevUrl);
+  }, [prevUrl, router]);
 
   const navigateNext = useCallback(() => {
-    if (nextUrl) router.push(nextUrl)
-  }, [nextUrl, router])
+    if (nextUrl) router.push(nextUrl);
+  }, [nextUrl, router]);
 
   // Keyboard navigation
   const handleKeyDown = useCallback(
@@ -244,32 +244,32 @@ export default function FilePage({
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement
       ) {
-        return
+        return;
       }
 
       if (e.key === "ArrowLeft") {
-        navigatePrev()
+        navigatePrev();
       } else if (e.key === "ArrowRight") {
-        navigateNext()
+        navigateNext();
       }
     },
     [navigatePrev, navigateNext]
-  )
+  );
 
   // Touch/swipe navigation for mobile
   const handleTouchStart = useCallback((e: TouchEvent) => {
-    const touch = e.touches[0]
-    touchStartRef.current = { x: touch.clientX, y: touch.clientY }
-  }, [])
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  }, []);
 
   const handleTouchEnd = useCallback(
     (e: TouchEvent) => {
-      if (!touchStartRef.current) return
+      if (!touchStartRef.current) return;
 
-      const touch = e.changedTouches[0]
-      const deltaX = touch.clientX - touchStartRef.current.x
-      const deltaY = touch.clientY - touchStartRef.current.y
-      const swipeThreshold = 50
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - touchStartRef.current.x;
+      const deltaY = touch.clientY - touchStartRef.current.y;
+      const swipeThreshold = 50;
 
       // Only trigger if horizontal swipe is dominant and exceeds threshold
       if (
@@ -277,145 +277,145 @@ export default function FilePage({
         Math.abs(deltaX) > swipeThreshold
       ) {
         if (deltaX > 0) {
-          navigatePrev()
+          navigatePrev();
         } else if (deltaX < 0) {
-          navigateNext()
+          navigateNext();
         }
       }
 
-      touchStartRef.current = null
+      touchStartRef.current = null;
     },
     [navigatePrev, navigateNext]
-  )
+  );
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown)
-    window.addEventListener("touchstart", handleTouchStart)
-    window.addEventListener("touchend", handleTouchEnd)
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
     return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-      window.removeEventListener("touchstart", handleTouchStart)
-      window.removeEventListener("touchend", handleTouchEnd)
-    }
-  }, [handleKeyDown, handleTouchStart, handleTouchEnd])
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [handleKeyDown, handleTouchStart, handleTouchEnd]);
 
   // Check cache immediately to avoid loading flash for prefetched PDFs
-  const cachedPages = getPdfPages(filePath)
-  const [pages, setPages] = useState<string[]>(cachedPages ?? [])
-  const [loading, setLoading] = useState(!cachedPages)
-  const [error, setError] = useState<string | null>(null)
-  const [totalPages, setTotalPages] = useState(cachedPages?.length ?? 0)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const cachedPages = getPdfPages(filePath);
+  const [pages, setPages] = useState<string[]>(cachedPages ?? []);
+  const [loading, setLoading] = useState(!cachedPages);
+  const [error, setError] = useState<string | null>(null);
+  const [totalPages, setTotalPages] = useState(cachedPages?.length ?? 0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Always reset error state immediately when file changes
-    setError(null)
+    setError(null);
 
     // Check cache for pre-rendered pages
-    const cached = getPdfPages(filePath)
+    const cached = getPdfPages(filePath);
 
     // Already have cached pages
     if (cached && cached.length > 0) {
-      setPages(cached)
-      setTotalPages(cached.length)
-      setLoading(false)
-      return
+      setPages(cached);
+      setTotalPages(cached.length);
+      setLoading(false);
+      return;
     }
 
     // Reset state for new file - clear immediately to avoid showing stale content
-    setPages([])
-    setLoading(true)
-    setTotalPages(0)
+    setPages([]);
+    setLoading(true);
+    setTotalPages(0);
 
-    let cancelled = false
+    let cancelled = false;
 
     async function loadPdf() {
       try {
-        const pdfjsLib = await import("pdfjs-dist")
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
+        const pdfjsLib = await import("pdfjs-dist");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
-        const loadingTask = pdfjsLib.getDocument(fileUrl)
-        const pdf = await loadingTask.promise
+        const loadingTask = pdfjsLib.getDocument(fileUrl);
+        const pdf = await loadingTask.promise;
 
-        if (cancelled) return
+        if (cancelled) return;
 
-        setTotalPages(pdf.numPages)
+        setTotalPages(pdf.numPages);
 
-        const renderedPages: string[] = []
+        const renderedPages: string[] = [];
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          if (cancelled) return
+          if (cancelled) return;
 
-          const page = await pdf.getPage(pageNum)
-          const scale = 2
-          const viewport = page.getViewport({ scale })
+          const page = await pdf.getPage(pageNum);
+          const scale = 2;
+          const viewport = page.getViewport({ scale });
 
-          const canvas = document.createElement("canvas")
-          const context = canvas.getContext("2d")!
-          canvas.width = viewport.width
-          canvas.height = viewport.height
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d")!;
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
 
           await page.render({
             canvasContext: context,
             viewport,
             canvas,
-          }).promise
+          }).promise;
 
-          const dataUrl = canvas.toDataURL("image/jpeg", 0.85)
-          renderedPages.push(dataUrl)
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+          renderedPages.push(dataUrl);
 
           // Update state progressively
-          setPages([...renderedPages])
+          setPages([...renderedPages]);
         }
 
         // Cache all pages when done
         if (!cancelled && renderedPages.length > 0) {
-          setPdfPages(filePath, renderedPages)
+          setPdfPages(filePath, renderedPages);
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to load PDF")
+          setError(err instanceof Error ? err.message : "Failed to load PDF");
         }
       } finally {
         if (!cancelled) {
-          setLoading(false)
+          setLoading(false);
         }
       }
     }
 
-    loadPdf()
+    loadPdf();
 
     return () => {
-      cancelled = true
-    }
-  }, [fileUrl, filePath])
+      cancelled = true;
+    };
+  }, [fileUrl, filePath]);
 
   // Prefetch next PDFs after current one is loaded
-  const nextPathsKey = nextPaths.join(",")
+  const nextPathsKey = nextPaths.join(",");
   useEffect(() => {
-    if (loading || !nextPathsKey) return
+    if (loading || !nextPathsKey) return;
 
-    const paths = nextPathsKey.split(",").filter(Boolean)
-    const timeoutIds: ReturnType<typeof setTimeout>[] = []
+    const paths = nextPathsKey.split(",").filter(Boolean);
+    const timeoutIds: ReturnType<typeof setTimeout>[] = [];
 
     // Prefetch next 5 files with staggered delays
     paths.forEach((path, index) => {
       const timeoutId = setTimeout(() => {
-        prefetchPdf(path)
-      }, index * 100)
-      timeoutIds.push(timeoutId)
-    })
+        prefetchPdf(path);
+      }, index * 100);
+      timeoutIds.push(timeoutId);
+    });
 
     // Also prefetch previous
     if (prevPath) {
-      const prevTimeoutId = setTimeout(() => prefetchPdf(prevPath), 600)
-      timeoutIds.push(prevTimeoutId)
+      const prevTimeoutId = setTimeout(() => prefetchPdf(prevPath), 600);
+      timeoutIds.push(prevTimeoutId);
     }
 
     return () => {
-      timeoutIds.forEach(clearTimeout)
-    }
-  }, [loading, nextPathsKey, prevPath])
+      timeoutIds.forEach(clearTimeout);
+    };
+  }, [loading, nextPathsKey, prevPath]);
 
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
@@ -633,5 +633,5 @@ export default function FilePage({
         )}
       </div>
     </div>
-  )
+  );
 }

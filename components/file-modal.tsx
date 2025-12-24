@@ -1,10 +1,15 @@
-import { useState, useRef, useCallback, useEffect } from "react"
-import { FileItem, getPdfManifest, getPdfPages, setPdfPages } from "@/lib/cache"
-import { getCelebritiesForPage, getFileId } from "@/lib/utils"
-import { WORKER_URL } from "@/lib/const"
-import { SharePopover } from "./share-popover"
-import { loadPagesFromImages, prefetchPdf } from "@/lib/prefetchPdfs"
-import { CelebrityDisclaimer } from "./celebrity-disclaimer"
+import { useState, useRef, useCallback, useEffect } from "react";
+import {
+  FileItem,
+  getPdfManifest,
+  getPdfPages,
+  setPdfPages,
+} from "@/lib/cache";
+import { getCelebritiesForPage, getFileId } from "@/lib/utils";
+import { WORKER_URL } from "@/lib/const";
+import { SharePopover } from "./share-popover";
+import { loadPagesFromImages, prefetchPdf } from "@/lib/prefetchPdfs";
+import { CelebrityDisclaimer } from "./celebrity-disclaimer";
 
 // Modal component for viewing files
 export function FileModal({
@@ -17,52 +22,52 @@ export function FileModal({
   queryString,
   nextFiles,
 }: {
-  file: FileItem
-  onClose: () => void
-  onPrev: () => void
-  onNext: () => void
-  hasPrev: boolean
-  hasNext: boolean
-  queryString: string
-  nextFiles: FileItem[]
+  file: FileItem;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+  hasPrev: boolean;
+  hasNext: boolean;
+  queryString: string;
+  nextFiles: FileItem[];
 }) {
-  const [pages, setPages] = useState<string[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const touchStartRef = useRef<{ x: number; y: number } | null>(null)
+  const [pages, setPages] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
-  const filePath = file.key
-  const fileId = getFileId(filePath)
-  const fileUrl = `${WORKER_URL}/${filePath}`
+  const filePath = file.key;
+  const fileId = getFileId(filePath);
+  const fileUrl = `${WORKER_URL}/${filePath}`;
 
   // Keyboard navigation
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        onClose()
+        onClose();
       } else if (e.key === "ArrowLeft" && hasPrev) {
-        onPrev()
+        onPrev();
       } else if (e.key === "ArrowRight" && hasNext) {
-        onNext()
+        onNext();
       }
     },
     [onClose, onPrev, onNext, hasPrev, hasNext]
-  )
+  );
 
   // Touch/swipe navigation for mobile
   const handleTouchStart = useCallback((e: TouchEvent) => {
-    const touch = e.touches[0]
-    touchStartRef.current = { x: touch.clientX, y: touch.clientY }
-  }, [])
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  }, []);
 
   const handleTouchEnd = useCallback(
     (e: TouchEvent) => {
-      if (!touchStartRef.current) return
+      if (!touchStartRef.current) return;
 
-      const touch = e.changedTouches[0]
-      const deltaX = touch.clientX - touchStartRef.current.x
-      const deltaY = touch.clientY - touchStartRef.current.y
-      const swipeThreshold = 50
+      const touch = e.changedTouches[0];
+      const deltaX = touch.clientX - touchStartRef.current.x;
+      const deltaY = touch.clientY - touchStartRef.current.y;
+      const swipeThreshold = 50;
 
       // Only trigger if horizontal swipe is dominant and exceeds threshold
       if (
@@ -70,146 +75,146 @@ export function FileModal({
         Math.abs(deltaX) > swipeThreshold
       ) {
         if (deltaX > 0 && hasPrev) {
-          onPrev()
+          onPrev();
         } else if (deltaX < 0 && hasNext) {
-          onNext()
+          onNext();
         }
       }
 
-      touchStartRef.current = null
+      touchStartRef.current = null;
     },
     [hasPrev, hasNext, onPrev, onNext]
-  )
+  );
 
   useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown)
-    window.addEventListener("touchstart", handleTouchStart)
-    window.addEventListener("touchend", handleTouchEnd)
-    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
+    document.body.style.overflow = "hidden";
     return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-      window.removeEventListener("touchstart", handleTouchStart)
-      window.removeEventListener("touchend", handleTouchEnd)
-      document.body.style.overflow = ""
-    }
-  }, [handleKeyDown, handleTouchStart, handleTouchEnd])
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+      document.body.style.overflow = "";
+    };
+  }, [handleKeyDown, handleTouchStart, handleTouchEnd]);
 
   // Load PDF pages (uses pre-rendered images if available, falls back to PDF rendering)
   useEffect(() => {
     // Always reset state immediately when file changes
-    setError(null)
+    setError(null);
 
-    const cached = getPdfPages(filePath)
+    const cached = getPdfPages(filePath);
 
     if (cached && cached.length > 0) {
-      setPages(cached)
-      setLoading(false)
-      return
+      setPages(cached);
+      setLoading(false);
+      return;
     }
 
     // Clear old pages immediately and show loading
-    setPages([])
-    setLoading(true)
+    setPages([]);
+    setLoading(true);
 
-    let cancelled = false
+    let cancelled = false;
 
     async function loadPages() {
       try {
-        const manifest = getPdfManifest()
-        const manifestEntry = manifest?.[filePath]
+        const manifest = getPdfManifest();
+        const manifestEntry = manifest?.[filePath];
 
         // If we have pre-rendered images in the manifest, use those
         if (manifestEntry && manifestEntry.pages > 0) {
           const imageUrls = await loadPagesFromImages(
             filePath,
             manifestEntry.pages
-          )
+          );
 
-          if (cancelled) return
+          if (cancelled) return;
 
           // Set URLs directly - browser will load them
-          setPages(imageUrls)
-          setPdfPages(filePath, imageUrls)
-          setLoading(false)
-          return
+          setPages(imageUrls);
+          setPdfPages(filePath, imageUrls);
+          setLoading(false);
+          return;
         }
 
         // Fallback to client-side PDF rendering
-        const pdfjsLib = await import("pdfjs-dist")
-        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`
+        const pdfjsLib = await import("pdfjs-dist");
+        pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
-        const loadingTask = pdfjsLib.getDocument(fileUrl)
-        const pdf = await loadingTask.promise
+        const loadingTask = pdfjsLib.getDocument(fileUrl);
+        const pdf = await loadingTask.promise;
 
-        if (cancelled) return
+        if (cancelled) return;
 
-        const renderedPages: string[] = []
+        const renderedPages: string[] = [];
 
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-          if (cancelled) return
+          if (cancelled) return;
 
-          const page = await pdf.getPage(pageNum)
-          const scale = 2
-          const viewport = page.getViewport({ scale })
+          const page = await pdf.getPage(pageNum);
+          const scale = 2;
+          const viewport = page.getViewport({ scale });
 
-          const canvas = document.createElement("canvas")
-          const context = canvas.getContext("2d")!
-          canvas.width = viewport.width
-          canvas.height = viewport.height
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d")!;
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
 
           await page.render({
             canvasContext: context,
             viewport,
             canvas,
-          }).promise
+          }).promise;
 
-          const dataUrl = canvas.toDataURL("image/jpeg", 0.85)
-          renderedPages.push(dataUrl)
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
+          renderedPages.push(dataUrl);
 
-          setPages([...renderedPages])
+          setPages([...renderedPages]);
         }
 
         if (!cancelled && renderedPages.length > 0) {
-          setPdfPages(filePath, renderedPages)
+          setPdfPages(filePath, renderedPages);
         }
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : "Failed to load PDF")
+          setError(err instanceof Error ? err.message : "Failed to load PDF");
         }
       } finally {
         if (!cancelled) {
-          setLoading(false)
+          setLoading(false);
         }
       }
     }
 
-    loadPages()
+    loadPages();
 
     return () => {
-      cancelled = true
-    }
-  }, [fileUrl, filePath])
+      cancelled = true;
+    };
+  }, [fileUrl, filePath]);
 
   // Prefetch next PDFs - use file keys as dependency to avoid array reference issues
-  const nextFileKeys = nextFiles.map((f) => f.key).join(",")
+  const nextFileKeys = nextFiles.map((f) => f.key).join(",");
   useEffect(() => {
-    if (loading || !nextFileKeys) return
+    if (loading || !nextFileKeys) return;
 
-    const keys = nextFileKeys.split(",").filter(Boolean)
-    const timeoutIds: ReturnType<typeof setTimeout>[] = []
+    const keys = nextFileKeys.split(",").filter(Boolean);
+    const timeoutIds: ReturnType<typeof setTimeout>[] = [];
 
     // Prefetch next 5 files with staggered delays
     keys.forEach((key, index) => {
       const timeoutId = setTimeout(() => {
-        prefetchPdf(key)
-      }, index * 100)
-      timeoutIds.push(timeoutId)
-    })
+        prefetchPdf(key);
+      }, index * 100);
+      timeoutIds.push(timeoutId);
+    });
 
     return () => {
-      timeoutIds.forEach(clearTimeout)
-    }
-  }, [loading, nextFileKeys])
+      timeoutIds.forEach(clearTimeout);
+    };
+  }, [loading, nextFileKeys]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -306,7 +311,10 @@ export function FileModal({
 
           <div className="mx-auto max-w-4xl space-y-6">
             {pages.map((dataUrl, index) => {
-              const pageCelebrities = getCelebritiesForPage(filePath, index + 1)
+              const pageCelebrities = getCelebritiesForPage(
+                filePath,
+                index + 1
+              );
               return (
                 <div
                   key={`${filePath}-${index}`}
@@ -367,7 +375,7 @@ export function FileModal({
                     </div>
                   )}
                 </div>
-              )
+              );
             })}
           </div>
 
@@ -424,5 +432,5 @@ export function FileModal({
         </div>
       </div>
     </div>
-  )
+  );
 }
