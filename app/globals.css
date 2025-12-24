@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -64,7 +64,7 @@
   --accent-foreground: oklch(0.95 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.25 0.01 260);
-  --input: oklch(0.20 0.01 260);
+  --input: oklch(0.2 0.01 260);
   --ring: oklch(0.65 0.2 250);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -98,7 +98,7 @@
   --accent-foreground: oklch(0.95 0 0);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(0.25 0.01 260);
-  --input: oklch(0.20 0.01 260);
+  --input: oklch(0.2 0.01 260);
   --ring: oklch(0.65 0.2 250);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
