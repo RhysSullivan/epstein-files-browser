@@ -76,6 +76,7 @@
     "David Portnoy",
     "David Schwimmer",
     "David Speers",
+    "Donald Trump",
     "David Sullivan",
     "DeMarlo Hale",
     "Dean Kamen",
@@ -389,6 +390,13 @@
     "Želimir Žilnik"
   ],
   "celebrityAppearances": {
+    "Donald Trump": [
+      {
+        "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000468.pdf",
+        "page": 1,
+        "confidence": 100
+      }
+    ],
     "Edgar Faure": [
       {
         "file": "/Users/rhyssullivan/src/epstein-files-browser/files/VOL00001/IMAGES/0001/EFTA00000032.pdf",
