@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Analytics } from "@vercel/analytics/next";
 import { FilesProvider } from "@/lib/files-context";
+import { FileItem } from "@/lib/cache";
+import { Header } from "@/components/header";
 import { FileItem, PdfManifest } from "@/lib/cache";
 import "./globals.css";
 
@@ -74,6 +76,8 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <FilesProvider files={files}>
+          <Header />
         <FilesProvider files={files} pdfManifest={pdfManifest}>
           <NuqsAdapter>{children}</NuqsAdapter>
         </FilesProvider>
