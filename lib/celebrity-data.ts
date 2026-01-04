@@ -4555,6 +4555,17 @@ export const CELEBRITY_DATA: Celebrity[] = [
     ]
   },
   {
+    "name": "Donald Trump",
+    "count": 1,
+    "appearances": [
+      {
+        "file": "VOL00001/IMAGES/0001/EFTA00000468.pdf",
+        "page": 1,
+        "confidence": 100
+      }
+    ]
+  },
+  {
     "name": "Edgar Faure",
     "count": 1,
     "appearances": [

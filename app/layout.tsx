@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Analytics } from "@vercel/analytics/next";
 import { FilesProvider } from "@/lib/files-context";
-import { FileItem } from "@/lib/cache";
+import { FileItem, PdfManifest } from "@/lib/cache";
 import staticFiles from "@/lib/static-files.json";
 import "./globals.css";
 
@@ -25,6 +25,10 @@ export const metadata: Metadata = {
 // Type the imported JSON data
 const files: FileItem[] = staticFiles as FileItem[];
 
+// For SSG, we don't fetch PDF manifest at build time
+// It will be fetched by the worker if needed
+const pdfManifest: PdfManifest = {};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,7 +39,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <FilesProvider files={files}>
+        <FilesProvider files={files} pdfManifest={pdfManifest}>
           <NuqsAdapter>{children}</NuqsAdapter>
         </FilesProvider>
         <Analytics />

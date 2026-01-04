@@ -51,7 +51,7 @@ async function prefetchPdf(filePath: string): Promise<void> {
         canvas,
       }).promise;
 
-      const dataUrl = canvas.toDataURL("image/png");
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
       renderedPages.push(dataUrl);
     }
 
@@ -172,6 +172,16 @@ export default function FilePageClient({
   const prevPath = getAdjacentFile(filePath, -1, filters);
   const nextPath = getAdjacentFile(filePath, 1, filters);
   
+  // Get next 5 files for prefetching
+  const nextPaths = useMemo(() => {
+    const paths: string[] = [];
+    for (let i = 1; i <= 5; i++) {
+      const path = getAdjacentFile(filePath, i, filters);
+      if (path) paths.push(path);
+    }
+    return paths;
+  }, [filePath, filters, getAdjacentFile]);
+  
   // Build query string to preserve filters in navigation
   const queryString = useMemo(() => {
     const params = new URLSearchParams();
@@ -182,6 +192,20 @@ export default function FilePageClient({
   }, [collectionFilter, celebrityFilter]);
 
   const fileUrl = `${WORKER_URL}/${filePath}`;
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+
+  // Navigation URLs - reused by Links, keyboard, and swipe handlers
+  const prevUrl = prevPath ? `/file/${encodeURIComponent(prevPath)}${queryString}` : null;
+  const nextUrl = nextPath ? `/file/${encodeURIComponent(nextPath)}${queryString}` : null;
+
+  // Navigation callbacks - reused by keyboard and swipe handlers
+  const navigatePrev = useCallback(() => {
+    if (prevUrl) router.push(prevUrl);
+  }, [prevUrl, router]);
+
+  const navigateNext = useCallback(() => {
+    if (nextUrl) router.push(nextUrl);
+  }, [nextUrl, router]);
 
   // Keyboard navigation
   const handleKeyDown = useCallback(
@@ -194,19 +218,51 @@ export default function FilePageClient({
         return;
       }
 
-      if (e.key === "ArrowLeft" && prevPath) {
-        router.push(`/file/${encodeURIComponent(prevPath)}${queryString}`);
-      } else if (e.key === "ArrowRight" && nextPath) {
-        router.push(`/file/${encodeURIComponent(nextPath)}${queryString}`);
+      if (e.key === "ArrowLeft") {
+        navigatePrev();
+      } else if (e.key === "ArrowRight") {
+        navigateNext();
       }
     },
-    [prevPath, nextPath, router, queryString]
+    [navigatePrev, navigateNext]
   );
+
+  // Touch/swipe navigation for mobile
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  }, []);
+
+  const handleTouchEnd = useCallback((e: TouchEvent) => {
+    if (!touchStartRef.current) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+    const swipeThreshold = 50;
+    
+    // Only trigger if horizontal swipe is dominant and exceeds threshold
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+      if (deltaX > 0) {
+        navigatePrev();
+      } else if (deltaX < 0) {
+        navigateNext();
+      }
+    }
+    
+    touchStartRef.current = null;
+  }, [navigatePrev, navigateNext]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [handleKeyDown, handleTouchStart, handleTouchEnd]);
 
   // Check cache immediately to avoid loading flash for prefetched PDFs
   const cachedPages = getPdfPages(filePath);
@@ -217,6 +273,9 @@ export default function FilePageClient({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Always reset error state immediately when file changes
+    setError(null);
+    
     // Check cache for pre-rendered pages
     const cached = getPdfPages(filePath);
     
@@ -228,9 +287,8 @@ export default function FilePageClient({
       return;
     }
 
-    // Reset state for new file (only if not cached)
+    // Reset state for new file - clear immediately to avoid showing stale content
     setPages([]);
-    setError(null);
     setLoading(true);
     setTotalPages(0);
 
@@ -269,7 +327,7 @@ export default function FilePageClient({
             canvas,
           }).promise;
 
-          const dataUrl = canvas.toDataURL("image/png");
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
           renderedPages.push(dataUrl);
 
           // Update state progressively
@@ -298,32 +356,32 @@ export default function FilePageClient({
     };
   }, [fileUrl, filePath]);
 
-  // Prefetch adjacent PDFs after current one is loaded
+  // Prefetch next PDFs after current one is loaded
+  const nextPathsKey = nextPaths.join(',');
   useEffect(() => {
-    if (loading) return;
+    if (loading || !nextPathsKey) return;
 
+    const paths = nextPathsKey.split(',').filter(Boolean);
     const timeoutIds: ReturnType<typeof setTimeout>[] = [];
 
-    // Small delay to let the UI settle, then start prefetching
-    const prefetchTimeout = setTimeout(() => {
-      // Prefetch next first (more likely to be navigated to)
-      if (nextPath) {
-        prefetchPdf(nextPath);
-      }
+    // Prefetch next 5 files with staggered delays
+    paths.forEach((path, index) => {
+      const timeoutId = setTimeout(() => {
+        prefetchPdf(path);
+      }, index * 100);
+      timeoutIds.push(timeoutId);
+    });
 
-      // Then prefetch previous
-      if (prevPath) {
-        // Slight delay so next gets priority
-        timeoutIds.push(setTimeout(() => prefetchPdf(prevPath), 500));
-      }
-    }, 100);
-
-    timeoutIds.push(prefetchTimeout);
+    // Also prefetch previous
+    if (prevPath) {
+      const prevTimeoutId = setTimeout(() => prefetchPdf(prevPath), 600);
+      timeoutIds.push(prevTimeoutId);
+    }
 
     return () => {
       timeoutIds.forEach(clearTimeout);
     };
-  }, [loading, nextPath, prevPath]);
+  }, [loading, nextPathsKey, prevPath]);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -371,10 +429,10 @@ export default function FilePageClient({
 
           {/* Navigation */}
           <div className="flex items-center gap-2 flex-shrink-0">
-            {prevPath && (
+            {prevUrl && (
               <Link
                 prefetch={false}
-                href={`/file/${encodeURIComponent(prevPath)}${queryString}`}
+                href={prevUrl}
                 className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2"
                 aria-label="Previous file"
               >
@@ -394,10 +452,10 @@ export default function FilePageClient({
                 <span className="hidden sm:inline">Prev</span>
               </Link>
             )}
-            {nextPath && (
+            {nextUrl && (
               <Link
                 prefetch={false}
-                href={`/file/${encodeURIComponent(nextPath)}${queryString}`}
+                href={nextUrl}
                 className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2"
                 aria-label="Next file"
               >
@@ -485,10 +543,10 @@ export default function FilePageClient({
 
       {/* Navigation bar */}
       <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-2 py-2 bg-card/90 backdrop-blur-sm border border-border rounded-full shadow-lg">
-        {prevPath ? (
+        {prevUrl ? (
           <Link
             prefetch={false}
-            href={`/file/${encodeURIComponent(prevPath)}${queryString}`}
+            href={prevUrl}
             className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
           >
             <kbd className="px-2 py-0.5 bg-secondary rounded-md font-mono text-xs text-foreground">←</kbd>
@@ -501,10 +559,10 @@ export default function FilePageClient({
           </div>
         )}
         <div className="w-px h-4 bg-border"></div>
-        {nextPath ? (
+        {nextUrl ? (
           <Link
             prefetch={false}
-            href={`/file/${encodeURIComponent(nextPath)}${queryString}`}
+            href={nextUrl}
             className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-full transition-colors"
           >
             <span>Next</span>

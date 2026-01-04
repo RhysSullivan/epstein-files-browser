@@ -1,9 +1,14 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import { useQueryState } from "nuqs";
-import Link from "next/link";
-import { FileItem, getPdfPages, setPdfPages } from "@/lib/cache";
+import { FileItem, getPdfPages, setPdfPages, getPdfManifest } from "@/lib/cache";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import {
   getCelebritiesAboveConfidence,
   getFilesForCelebrity,
@@ -27,6 +32,26 @@ function formatFileSize(bytes: number): string {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
 }
 
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function formatDateTime(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
 function getFileId(key: string): string {
   const match = key.match(/EFTA\d+/);
   return match ? match[0] : key;
@@ -48,34 +73,41 @@ function Thumbnail({ fileKey }: { fileKey: string }) {
 }
 
 // File card component
-function FileCard({ file, onClick }: { file: FileItem; onClick: () => void }) {
+function FileCard({ file, onClick, onMouseEnter }: { file: FileItem; onClick: () => void; onMouseEnter?: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="group relative bg-card border border-border rounded-2xl p-3 hover:border-primary/50 hover:bg-accent/50 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 text-left w-full"
-      style={{ contentVisibility: 'auto', containIntrinsicSize: '0 280px' }}
+      onMouseEnter={onMouseEnter}
+      className="group relative hover:-translate-y-1 text-left w-full transition-all duration-200"
     >
-      <div className="mb-3 overflow-hidden rounded-xl group-hover:ring-2 group-hover:ring-primary/20">
+      <div className="relative mb-2 overflow-hidden rounded-xl">
         <Thumbnail fileKey={file.key} />
+        {/* Hover overlay with metadata */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end p-3">
+          <p className="text-xs text-white/90 flex items-center gap-1.5">
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            {formatFileSize(file.size)}
+          </p>
+        </div>
+        {/* Hover indicator */}
+        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="w-7 h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+            <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
       </div>
 
-      <div className="space-y-1.5">
+      <div className="space-y-1">
         <h3
           className="font-mono text-sm font-medium text-foreground truncate group-hover:text-primary"
           title={getFileId(file.key)}
         >
           {getFileId(file.key)}
         </h3>
-        <p className="text-xs text-muted-foreground">{formatFileSize(file.size)}</p>
-      </div>
-      
-      {/* Hover indicator */}
-      <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100">
-        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-          <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </div>
       </div>
     </button>
   );
@@ -99,11 +131,56 @@ function getCelebritiesForPage(filePath: string, pageNumber: number): { name: st
   return celebrities.sort((a, b) => b.confidence - a.confidence).filter(celeb => celeb.confidence > 99);
 }
 
-// Prefetch a PDF in the background
+// Track in-progress prefetch operations to avoid duplicates
+const prefetchingSet = new Set<string>();
+
+// Get the image URL for a specific PDF page
+function getPageImageUrl(pdfKey: string, pageNum: number): string {
+  const basePath = pdfKey.replace(".pdf", "");
+  const pageStr = String(pageNum).padStart(3, "0");
+  return `${WORKER_URL}/pdfs-as-jpegs/${basePath}/page-${pageStr}.jpg`;
+}
+
+// Load pages from pre-rendered images
+async function loadPagesFromImages(filePath: string, pageCount: number): Promise<string[]> {
+  const urls: string[] = [];
+  for (let i = 1; i <= pageCount; i++) {
+    urls.push(getPageImageUrl(filePath, i));
+  }
+  return urls;
+}
+
+// Prefetch PDF pages in the background (uses pre-rendered images if available)
 async function prefetchPdf(filePath: string): Promise<void> {
-  if (getPdfPages(filePath)) return;
+  if (getPdfPages(filePath) || prefetchingSet.has(filePath)) return;
+  
+  prefetchingSet.add(filePath);
   
   try {
+    const manifest = getPdfManifest();
+    const manifestEntry = manifest?.[filePath];
+    
+    // If we have pre-rendered images in the manifest, use those
+    if (manifestEntry && manifestEntry.pages > 0) {
+      const imageUrls = await loadPagesFromImages(filePath, manifestEntry.pages);
+      
+      // Prefetch the images by creating Image objects
+      await Promise.all(
+        imageUrls.map((url) => {
+          return new Promise<void>((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve(); // Still resolve on error
+            img.src = url;
+          });
+        })
+      );
+      
+      setPdfPages(filePath, imageUrls);
+      return;
+    }
+    
+    // Fallback to client-side PDF rendering if no pre-rendered images
     const fileUrl = `${WORKER_URL}/${filePath}`;
     const pdfjsLib = await import("pdfjs-dist");
     pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
@@ -129,7 +206,7 @@ async function prefetchPdf(filePath: string): Promise<void> {
         canvas,
       }).promise;
 
-      renderedPages.push(canvas.toDataURL("image/png"));
+      renderedPages.push(canvas.toDataURL("image/jpeg", 0.85));
     }
 
     if (renderedPages.length > 0) {
@@ -137,7 +214,94 @@ async function prefetchPdf(filePath: string): Promise<void> {
     }
   } catch {
     // Silently fail prefetch
+  } finally {
+    prefetchingSet.delete(filePath);
   }
+}
+
+// Share popover component
+function SharePopover({ filePath, queryString }: { filePath: string; queryString: string }) {
+  const [copied, setCopied] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const shareUrl = typeof window !== "undefined" 
+    ? `${window.location.origin}/file/${encodeURIComponent(filePath)}${queryString}`
+    : `/file/${encodeURIComponent(filePath)}${queryString}`;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <button className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          <span className="hidden sm:inline">Share</span>
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="w-80 p-3" align="end">
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+            </svg>
+            <span className="text-sm font-medium">Share this document</span>
+          </div>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={shareUrl}
+              readOnly
+              className="flex-1 px-3 py-2 text-xs bg-secondary border border-border rounded-lg text-foreground truncate"
+              onClick={(e) => e.currentTarget.select()}
+            />
+            <button
+              onClick={handleCopy}
+              className={cn(
+                "px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors",
+                copied 
+                  ? "bg-green-500/20 text-green-400 border border-green-500/30" 
+                  : "bg-primary hover:bg-primary/90 text-primary-foreground"
+              )}
+            >
+              {copied ? (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Copied</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 // Modal component for viewing files
@@ -149,7 +313,7 @@ function FileModal({
   hasPrev,
   hasNext,
   queryString,
-  nextFile
+  nextFiles
 }: { 
   file: FileItem; 
   onClose: () => void;
@@ -158,11 +322,12 @@ function FileModal({
   hasPrev: boolean;
   hasNext: boolean;
   queryString: string;
-  nextFile: FileItem | null;
+  nextFiles: FileItem[];
 }) {
   const [pages, setPages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
   
   const filePath = file.key;
   const fileId = getFileId(filePath);
@@ -182,17 +347,50 @@ function FileModal({
     [onClose, onPrev, onNext, hasPrev, hasNext]
   );
 
+  // Touch/swipe navigation for mobile
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    const touch = e.touches[0];
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+  }, []);
+
+  const handleTouchEnd = useCallback((e: TouchEvent) => {
+    if (!touchStartRef.current) return;
+    
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartRef.current.x;
+    const deltaY = touch.clientY - touchStartRef.current.y;
+    const swipeThreshold = 50;
+    
+    // Only trigger if horizontal swipe is dominant and exceeds threshold
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+      if (deltaX > 0 && hasPrev) {
+        onPrev();
+      } else if (deltaX < 0 && hasNext) {
+        onNext();
+      }
+    }
+    
+    touchStartRef.current = null;
+  }, [hasPrev, hasNext, onPrev, onNext]);
+
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
       document.body.style.overflow = "";
     };
-  }, [handleKeyDown]);
+  }, [handleKeyDown, handleTouchStart, handleTouchEnd]);
 
-  // Load PDF
+  // Load PDF pages (uses pre-rendered images if available, falls back to PDF rendering)
   useEffect(() => {
+    // Always reset state immediately when file changes
+    setError(null);
+    
     const cached = getPdfPages(filePath);
     
     if (cached && cached.length > 0) {
@@ -201,14 +399,31 @@ function FileModal({
       return;
     }
 
+    // Clear old pages immediately and show loading
     setPages([]);
-    setError(null);
     setLoading(true);
 
     let cancelled = false;
 
-    async function loadPdf() {
+    async function loadPages() {
       try {
+        const manifest = getPdfManifest();
+        const manifestEntry = manifest?.[filePath];
+        
+        // If we have pre-rendered images in the manifest, use those
+        if (manifestEntry && manifestEntry.pages > 0) {
+          const imageUrls = await loadPagesFromImages(filePath, manifestEntry.pages);
+          
+          if (cancelled) return;
+          
+          // Set URLs directly - browser will load them
+          setPages(imageUrls);
+          setPdfPages(filePath, imageUrls);
+          setLoading(false);
+          return;
+        }
+        
+        // Fallback to client-side PDF rendering
         const pdfjsLib = await import("pdfjs-dist");
         pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
@@ -237,7 +452,7 @@ function FileModal({
             canvas,
           }).promise;
 
-          const dataUrl = canvas.toDataURL("image/png");
+          const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
           renderedPages.push(dataUrl);
 
           setPages([...renderedPages]);
@@ -257,19 +472,33 @@ function FileModal({
       }
     }
 
-    loadPdf();
+    loadPages();
 
     return () => {
       cancelled = true;
     };
   }, [fileUrl, filePath]);
   
-  // Prefetch next PDF
+  // Prefetch next PDFs - use file keys as dependency to avoid array reference issues
+  const nextFileKeys = nextFiles.map(f => f.key).join(',');
   useEffect(() => {
-    if (!loading && nextFile) {
-      prefetchPdf(nextFile.key);
-    }
-  }, [loading, nextFile]);
+    if (loading || !nextFileKeys) return;
+    
+    const keys = nextFileKeys.split(',').filter(Boolean);
+    const timeoutIds: ReturnType<typeof setTimeout>[] = [];
+    
+    // Prefetch next 5 files with staggered delays
+    keys.forEach((key, index) => {
+      const timeoutId = setTimeout(() => {
+        prefetchPdf(key);
+      }, index * 100);
+      timeoutIds.push(timeoutId);
+    });
+    
+    return () => {
+      timeoutIds.forEach(clearTimeout);
+    };
+  }, [loading, nextFileKeys]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -299,15 +528,7 @@ function FileModal({
 
             {/* Actions */}
             <div className="flex items-center gap-2 flex-shrink-0">
-              <Link
-                href={`/file/${encodeURIComponent(filePath)}${queryString}`}
-                className="p-2 sm:px-4 sm:py-2 bg-secondary hover:bg-accent rounded-xl text-sm font-medium flex items-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                <span className="hidden sm:inline">Open</span>
-              </Link>
+              <SharePopover filePath={filePath} queryString={queryString} />
               <a
                 href={fileUrl}
                 download
@@ -322,8 +543,8 @@ function FileModal({
           </div>
         </header>
 
-        {/* Content */}
-        <div className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24">
+        {/* Content - key forces remount on file change for clean transition */}
+        <div key={filePath} className="flex-1 overflow-auto p-4 sm:p-6 lg:p-8 pb-24" onClick={onClose}>
           {error && (
             <div className="max-w-3xl mx-auto bg-destructive/10 border border-destructive/20 text-destructive px-5 py-4 rounded-2xl mb-6 flex items-start gap-3">
               <svg className="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -340,7 +561,7 @@ function FileModal({
             {pages.map((dataUrl, index) => {
               const pageCelebrities = getCelebritiesForPage(filePath, index + 1);
               return (
-                <div key={index} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border">
+                <div key={`${filePath}-${index}`} className="bg-card rounded-2xl shadow-xl overflow-hidden border border-border" onClick={(e) => e.stopPropagation()}>
                   <div className="relative">
                     {pages.length > 1 && (
                       <div className="absolute top-3 left-3 px-2.5 py-1 bg-background/80 backdrop-blur-sm rounded-lg text-xs font-medium text-muted-foreground border border-border">
@@ -441,12 +662,15 @@ export function FileBrowser() {
   const [celebrityFilter, setCelebrityFilter] = useQueryState("celebrity", {
     defaultValue: "All",
   });
+  const [sortBy, setSortBy] = useQueryState("sort", {
+    defaultValue: "name",
+  });
   const [openFile, setOpenFile] = useQueryState("file");
 
   // Get celebrities with >99% confidence for the dropdown
   const celebrities = getCelebritiesAboveConfidence(99);
 
-  // Derive filtered files from initialFiles + filters
+  // Derive filtered and sorted files from initialFiles + filters
   const filteredFiles = useMemo(() => {
     let files = initialFiles;
 
@@ -461,8 +685,25 @@ export function FileBrowser() {
       files = files.filter((f) => celebrityFileKeys.has(f.key));
     }
 
+    // Apply sorting
+    files = [...files].sort((a, b) => {
+      switch (sortBy) {
+        case "date-desc":
+          return new Date(b.uploaded).getTime() - new Date(a.uploaded).getTime();
+        case "date-asc":
+          return new Date(a.uploaded).getTime() - new Date(b.uploaded).getTime();
+        case "size-desc":
+          return b.size - a.size;
+        case "size-asc":
+          return a.size - b.size;
+        case "name":
+        default:
+          return getFileId(a.key).localeCompare(getFileId(b.key));
+      }
+    });
+
     return files;
-  }, [initialFiles, collectionFilter, celebrityFilter]);
+  }, [initialFiles, collectionFilter, celebrityFilter, sortBy]);
 
   // Build query string to preserve filters in file links
   const queryString = useMemo(() => {
@@ -547,6 +788,9 @@ export function FileBrowser() {
                 <option value="VOL00002">Volume 2</option>
                 <option value="VOL00003">Volume 3</option>
                 <option value="VOL00004">Volume 4</option>
+                <option value="VOL00005">Volume 5</option>
+                <option value="VOL00006">Volume 6</option>
+                <option value="VOL00007">Volume 7</option>
               </select>
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                 <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -559,6 +803,23 @@ export function FileBrowser() {
               value={celebrityFilter}
               onValueChange={(value) => setCelebrityFilter(value)}
             />
+
+            <div className="relative">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="appearance-none px-4 py-2.5 pr-10 bg-secondary border border-border rounded-xl text-foreground text-sm font-medium focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all cursor-pointer hover:bg-accent"
+              >
+                <option value="name">Sort by Name</option>
+                <option value="size-desc">Largest First</option>
+                <option value="size-asc">Smallest First</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
 
             <div className="flex items-center gap-2 px-3 py-2 bg-secondary/50 rounded-xl">
               <span className="text-sm font-medium text-muted-foreground">
@@ -597,7 +858,12 @@ export function FileBrowser() {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
           {filteredFiles.map((file) => (
-            <FileCard key={file.key} file={file} onClick={() => setOpenFile(file.key)} />
+            <FileCard 
+              key={file.key} 
+              file={file} 
+              onClick={() => setOpenFile(file.key)} 
+              onMouseEnter={() => prefetchPdf(file.key)}
+            />
           ))}
         </div>
 
@@ -625,7 +891,7 @@ export function FileBrowser() {
           hasPrev={hasPrev}
           hasNext={hasNext}
           queryString={queryString}
-          nextFile={hasNext && selectedFileIndex !== null ? filteredFiles[selectedFileIndex + 1] : null}
+          nextFiles={selectedFileIndex !== null ? filteredFiles.slice(selectedFileIndex + 1, selectedFileIndex + 6) : []}
         />
       )}
     </div>
